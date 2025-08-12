@@ -53,6 +53,12 @@
   opacity: 1;
 }
 
+.category-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .category-card {
   background: white;
   border-radius: 16px;

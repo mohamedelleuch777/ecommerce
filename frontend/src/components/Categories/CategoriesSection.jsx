@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -8,6 +9,7 @@ import 'swiper/css/pagination';
 import './CategoriesSection.css';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { getTranslation } from '../../utils/translations';
+import { getStandardizedCategorySlug } from '../../utils/slugs';
 import ApiService from '../../services/api';
 
 const CategoriesSection = () => {
@@ -15,6 +17,7 @@ const CategoriesSection = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -96,26 +99,31 @@ const CategoriesSection = () => {
           }}
           className="categories-swiper"
         >
-          {categories.map((category) => (
-            <SwiperSlide key={category.id}>
-              <div className="category-card">
-                <div className="category-image">
-                  <img src={category.image} alt={category.name} />
-                </div>
-                
-                <div className="category-content">
-                  <h3 className="category-name">{category.name}</h3>
-                  <p className="category-description">{category.description}</p>
-                  <p className="category-count">{category.productCount} {getTranslation('productsCount', language)}</p>
-                  
-                  <button className="category-button">
-                    <span>{getTranslation('viewAll', language)}</span>
-                    <ChevronRight size={16} />
-                  </button>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
+          {categories.map((category) => {
+            const categorySlug = getStandardizedCategorySlug(category.name);
+            return (
+              <SwiperSlide key={category.id}>
+                <Link to={`/category/${categorySlug}`} className="category-card-link">
+                  <div className="category-card">
+                    <div className="category-image">
+                      <img src={category.image} alt={category.name} />
+                    </div>
+                    
+                    <div className="category-content">
+                      <h3 className="category-name">{category.name}</h3>
+                      <p className="category-description">{category.description}</p>
+                      <p className="category-count">{category.productCount} {getTranslation('productsCount', language)}</p>
+                      
+                      <div className="category-button">
+                        <span>{getTranslation('viewAll', language)}</span>
+                        <ChevronRight size={16} />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
 
         <div className="categories-banner">

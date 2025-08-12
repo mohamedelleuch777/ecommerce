@@ -54,6 +54,11 @@ class ApiService {
     return this.fetchData('/categories', { lang: language });
   }
 
+  // Active categories (for footer)
+  async getActiveCategories(language = 'en', limit = 6) {
+    return this.fetchData('/categories/active', { lang: language, limit });
+  }
+
   // Featured products
   async getFeaturedProducts(language = 'en') {
     return this.fetchData('/products/featured', { lang: language });

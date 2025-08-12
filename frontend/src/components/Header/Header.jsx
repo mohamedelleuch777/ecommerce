@@ -4,6 +4,7 @@ import { Search, ShoppingCart, User, MapPin, Phone, Heart, TrendingUp, Clock, Gl
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../context/AuthContext';
 import { getTranslation } from '../../utils/translations';
+import { getStandardizedCategorySlug } from '../../utils/slugs';
 import ApiService from '../../services/api';
 import LoginModal from '../Auth/LoginModal';
 import './Header.css';
@@ -308,7 +309,7 @@ const Header = () => {
         <div className="container">
           <ul className="nav-menu">
             {categories.map((category, index) => {
-              const categorySlug = category.name.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+              const categorySlug = getStandardizedCategorySlug(category.name);
               return (
                 <li key={index}>
                   <Link to={`/category/${categorySlug}`}>

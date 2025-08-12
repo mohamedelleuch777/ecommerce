@@ -18,7 +18,7 @@ const CategoryPage = () => {
     const fetchCategoryProducts = async () => {
       try {
         setLoading(true);
-        const data = await ApiService.getProductsByCategory(category);
+        const data = await ApiService.getProductsByCategory(category, language);
         setProducts(data.products);
         setCategoryName(data.categoryName || capitalizeCategory(category));
       } catch (err) {
@@ -31,7 +31,7 @@ const CategoryPage = () => {
     };
 
     fetchCategoryProducts();
-  }, [category]);
+  }, [category, language]);
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-US', {

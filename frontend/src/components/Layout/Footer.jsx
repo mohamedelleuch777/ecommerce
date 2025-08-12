@@ -1,11 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin, CreditCard, Truck, RotateCcw, Shield } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { getTranslation } from '../../utils/translations';
+import { getStandardizedCategorySlug } from '../../utils/slugs';
+import ApiService from '../../services/api';
 import './Footer.css';
 
 const Footer = () => {
   const { language } = useLanguage();
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        // Fetch the 6 most active categories directly from the API
+        const data = await ApiService.getActiveCategories(language, 6);
+        setCategories(data);
+      } catch (err) {
+        console.error('Failed to fetch categories:', err);
+        // Fallback to static categories if API fails
+        setCategories([
+          { id: 'fallback1', name: getTranslation('electronics', language), productCount: 156 },
+          { id: 'fallback2', name: getTranslation('fashion', language), productCount: 89 },
+          { id: 'fallback3', name: getTranslation('homeGarden', language), productCount: 67 },
+          { id: 'fallback4', name: getTranslation('sportsOutdoors', language), productCount: 45 },
+          { id: 'fallback5', name: getTranslation('healthBeauty', language), productCount: 78 },
+          { id: 'fallback6', name: getTranslation('booksMedia', language), productCount: 23 }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, [language]);
 
   return (
     <footer className="footer">
@@ -72,12 +103,20 @@ const Footer = () => {
             <div className="footer-section">
               <h3>{getTranslation('categories', language)}</h3>
               <ul>
-                <li><a href="#telefon">{getTranslation('phoneTablet', language)}</a></li>
-                <li><a href="#bilgisayar">{getTranslation('computerLaptop', language)}</a></li>
-                <li><a href="#tv">{getTranslation('tvAudioSystems', language)}</a></li>
-                <li><a href="#beyaz-esya">{getTranslation('whiteGoods', language)}</a></li>
-                <li><a href="#gaming">{getTranslation('gaming', language)}</a></li>
-                <li><a href="#spor">{getTranslation('sportsOutdoor', language)}</a></li>
+                {loading ? (
+                  <li><span>{getTranslation('loading', language)}...</span></li>
+                ) : (
+                  categories.map((category) => {
+                    const categorySlug = getStandardizedCategorySlug(category.name);
+                    return (
+                      <li key={category.id}>
+                        <Link to={`/category/${categorySlug}`}>
+                          {category.name} ({category.productCount})
+                        </Link>
+                      </li>
+                    );
+                  })
+                )}
               </ul>
             </div>
 
@@ -151,7 +190,9 @@ const Footer = () => {
         <div className="container">
           <div className="footer-bottom-content">
             <div className="copyright">
-              <p>&copy; 2024 {getTranslation('brandName', language)}. {getTranslation('allRightsReserved', language)}</p>
+              <p>&copy; {new Date().getFullYear()}
+              <a target='_blank' href="https://www.xilyor.com"> Xilyor</a>.&nbsp;
+              {getTranslation('allRightsReserved', language)}</p>
             </div>
             
             <div className="footer-links">

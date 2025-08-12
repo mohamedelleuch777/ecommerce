@@ -98,126 +98,308 @@ router.get('/hero', async (req, res) => {
   }
 });
 
+// Most active categories (for footer)
+router.get('/categories/active', async (req, res) => {
+  try {
+    const lang = req.query.lang || 'en';
+    const limit = parseInt(req.query.limit) || 6;
+    
+    // Get all categories and sort by product count for most active
+    const categoriesData = await getCategoriesData(lang);
+    const activeCategories = categoriesData
+      .sort((a, b) => b.productCount - a.productCount)
+      .slice(0, limit);
+    
+    res.json(activeCategories);
+  } catch (error) {
+    console.error('Error fetching active categories:', error);
+    res.status(500).json({ error: 'Failed to fetch active categories' });
+  }
+});
+
+// Helper function to get categories data
+const getCategoriesData = (lang) => {
+  // Multilingual categories content
+  const categoriesContent = {
+    en: {
+      electronics: {
+        name: "Electronics",
+        description: "Latest gadgets and electronic devices"
+      },
+      fashion: {
+        name: "Fashion",
+        description: "Trendy clothing and accessories"
+      },
+      homeGarden: {
+        name: "Home & Garden",
+        description: "Everything for your home and garden"
+      },
+      sportsOutdoors: {
+        name: "Sports & Outdoors",
+        description: "Sports equipment and outdoor gear"
+      },
+      healthBeauty: {
+        name: "Health & Beauty",
+        description: "Health and beauty products"
+      },
+      booksMedia: {
+        name: "Books & Media",
+        description: "Books, movies, and entertainment"
+      }
+    },
+    fr: {
+      electronics: {
+        name: "Électronique",
+        description: "Derniers gadgets et appareils électroniques"
+      },
+      fashion: {
+        name: "Mode",
+        description: "Vêtements tendance et accessoires"
+      },
+      homeGarden: {
+        name: "Maison et Jardin",
+        description: "Tout pour votre maison et jardin"
+      },
+      sportsOutdoors: {
+        name: "Sports et Plein Air",
+        description: "Équipements de sport et matériel de plein air"
+      },
+      healthBeauty: {
+        name: "Santé et Beauté",
+        description: "Produits de santé et de beauté"
+      },
+      booksMedia: {
+        name: "Livres et Médias",
+        description: "Livres, films et divertissement"
+      }
+    }
+  };
+  
+  const content = categoriesContent[lang] || categoriesContent.en;
+  
+  return [
+    {
+      id: "cat1",
+      name: content.electronics.name,
+      description: content.electronics.description,
+      image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&q=80",
+      productCount: 156,
+      slug: "electronics",
+      featured: true
+    },
+    {
+      id: "cat2", 
+      name: content.fashion.name,
+      description: content.fashion.description,
+      image: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&q=80",
+      productCount: 89,
+      slug: "fashion",
+      featured: true
+    },
+    {
+      id: "cat3",
+      name: content.homeGarden.name,
+      description: content.homeGarden.description,
+      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80",
+      productCount: 67,
+      slug: "home-garden",
+      featured: true
+    },
+    {
+      id: "cat4",
+      name: content.sportsOutdoors.name,
+      description: content.sportsOutdoors.description,
+      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80",
+      productCount: 45,
+      slug: "sports-outdoors", 
+      featured: true
+    },
+    {
+      id: "cat5",
+      name: content.healthBeauty.name,
+      description: content.healthBeauty.description,
+      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80",
+      productCount: 78,
+      slug: "health-beauty",
+      featured: true
+    },
+    {
+      id: "cat6",
+      name: content.booksMedia.name,
+      description: content.booksMedia.description,
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
+      productCount: 23,
+      slug: "books-media",
+      featured: true
+    }
+  ];
+};
+
+// Helper function to get products data  
+const getProductsData = (lang) => {
+  // Multilingual products content
+  const productsContent = {
+    en: {
+      "prod1": {
+        name: "Premium Wireless Headphones",
+        description: "High-quality noise-canceling headphones with premium audio",
+        category: "Electronics"
+      },
+      "prod2": {
+        name: "Smart Fitness Watch",
+        description: "Advanced fitness tracking with heart rate monitoring",
+        category: "Electronics" 
+      },
+      "prod3": {
+        name: "4K Ultra HD Smart TV",
+        description: "75-inch 4K Smart TV with HDR and streaming apps",
+        category: "Electronics"
+      },
+      "prod4": {
+        name: "Gaming Laptop Pro",
+        description: "High-performance laptop for gaming and productivity",
+        category: "Electronics"
+      },
+      "prod5": {
+        name: "Designer Running Shoes",
+        description: "Comfortable and stylish running shoes for athletes",
+        category: "Fashion"
+      },
+      "prod6": {
+        name: "Wireless Bluetooth Speaker",
+        description: "Portable speaker with exceptional sound quality",
+        category: "Electronics"
+      }
+    },
+    fr: {
+      "prod1": {
+        name: "Casque Sans Fil Premium",
+        description: "Casque haute qualité avec réduction de bruit et audio premium",
+        category: "Électronique"
+      },
+      "prod2": {
+        name: "Montre Fitness Intelligente",
+        description: "Suivi fitness avancé avec surveillance du rythme cardiaque",
+        category: "Électronique"
+      },
+      "prod3": {
+        name: "Téléviseur Intelligent 4K Ultra HD",
+        description: "Téléviseur intelligent 4K 75 pouces avec HDR et applications de streaming",
+        category: "Électronique"
+      },
+      "prod4": {
+        name: "Ordinateur Portable Gaming Pro",
+        description: "Ordinateur portable haute performance pour jeux et productivité",
+        category: "Électronique"
+      },
+      "prod5": {
+        name: "Chaussures de Course Design",
+        description: "Chaussures de course confortables et élégantes pour athlètes",
+        category: "Mode"
+      },
+      "prod6": {
+        name: "Haut-parleur Bluetooth Sans Fil",
+        description: "Haut-parleur portable avec qualité sonore exceptionnelle",
+        category: "Électronique"
+      }
+    }
+  };
+  
+  const content = productsContent[lang] || productsContent.en;
+  
+  return [
+    {
+      id: "prod1",
+      name: content.prod1.name,
+      description: content.prod1.description,
+      price: 199.99,
+      originalPrice: 249.99,
+      discount: 20,
+      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80",
+      category: content.prod1.category,
+      rating: 4.5,
+      reviews: 128,
+      inStock: true,
+      featured: true
+    },
+    {
+      id: "prod2", 
+      name: content.prod2.name,
+      description: content.prod2.description,
+      price: 299.99,
+      originalPrice: 349.99,
+      discount: 14,
+      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80",
+      category: content.prod2.category,
+      rating: 4.3,
+      reviews: 89,
+      inStock: true,
+      featured: true
+    },
+    {
+      id: "prod3",
+      name: content.prod3.name,
+      description: content.prod3.description,
+      price: 899.99,
+      originalPrice: 1099.99,
+      discount: 18,
+      image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&q=80",
+      category: content.prod3.category,
+      rating: 4.7,
+      reviews: 203,
+      inStock: true,
+      featured: true
+    },
+    {
+      id: "prod4",
+      name: content.prod4.name,
+      description: content.prod4.description,
+      price: 1299.99,
+      originalPrice: 1499.99,
+      discount: 13,
+      image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&q=80",
+      category: content.prod4.category,
+      rating: 4.6,
+      reviews: 156,
+      inStock: true,
+      featured: true
+    },
+    {
+      id: "prod5",
+      name: content.prod5.name,
+      description: content.prod5.description,
+      price: 129.99,
+      originalPrice: 159.99,
+      discount: 19,
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80",
+      category: content.prod5.category,
+      rating: 4.4,
+      reviews: 167,
+      inStock: true,
+      featured: true
+    },
+    {
+      id: "prod6",
+      name: content.prod6.name,
+      description: content.prod6.description,
+      price: 89.99,
+      originalPrice: 119.99,
+      discount: 25,
+      image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80",
+      category: content.prod6.category,
+      rating: 4.2,
+      reviews: 94,
+      inStock: true,
+      featured: true
+    }
+  ];
+};
+
 // Categories data
 router.get('/categories', async (req, res) => {
   try {
     const lang = req.query.lang || 'en';
-    
-    // Multilingual categories content
-    const categoriesContent = {
-      en: {
-        electronics: {
-          name: "Electronics",
-          description: "Latest gadgets and electronic devices"
-        },
-        fashion: {
-          name: "Fashion",
-          description: "Trendy clothing and accessories"
-        },
-        homeGarden: {
-          name: "Home & Garden",
-          description: "Everything for your home and garden"
-        },
-        sportsOutdoors: {
-          name: "Sports & Outdoors",
-          description: "Sports equipment and outdoor gear"
-        },
-        healthBeauty: {
-          name: "Health & Beauty",
-          description: "Health and beauty products"
-        },
-        booksMedia: {
-          name: "Books & Media",
-          description: "Books, movies, and entertainment"
-        }
-      },
-      fr: {
-        electronics: {
-          name: "Électronique",
-          description: "Derniers gadgets et appareils électroniques"
-        },
-        fashion: {
-          name: "Mode",
-          description: "Vêtements tendance et accessoires"
-        },
-        homeGarden: {
-          name: "Maison et Jardin",
-          description: "Tout pour votre maison et jardin"
-        },
-        sportsOutdoors: {
-          name: "Sports et Plein Air",
-          description: "Équipements de sport et matériel de plein air"
-        },
-        healthBeauty: {
-          name: "Santé et Beauté",
-          description: "Produits de santé et de beauté"
-        },
-        booksMedia: {
-          name: "Livres et Médias",
-          description: "Livres, films et divertissement"
-        }
-      }
-    };
-    
-    const content = categoriesContent[lang] || categoriesContent.en;
-    
-    const categoriesData = [
-      {
-        id: "cat1",
-        name: content.electronics.name,
-        description: content.electronics.description,
-        image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&q=80",
-        productCount: 156,
-        slug: "electronics",
-        featured: true
-      },
-      {
-        id: "cat2", 
-        name: content.fashion.name,
-        description: content.fashion.description,
-        image: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&q=80",
-        productCount: 89,
-        slug: "fashion",
-        featured: true
-      },
-      {
-        id: "cat3",
-        name: content.homeGarden.name,
-        description: content.homeGarden.description,
-        image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80",
-        productCount: 67,
-        slug: "home-garden",
-        featured: true
-      },
-      {
-        id: "cat4",
-        name: content.sportsOutdoors.name,
-        description: content.sportsOutdoors.description,
-        image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80",
-        productCount: 45,
-        slug: "sports-outdoors", 
-        featured: true
-      },
-      {
-        id: "cat5",
-        name: content.healthBeauty.name,
-        description: content.healthBeauty.description,
-        image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80",
-        productCount: 78,
-        slug: "health-beauty",
-        featured: true
-      },
-      {
-        id: "cat6",
-        name: content.booksMedia.name,
-        description: content.booksMedia.description,
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
-        productCount: 23,
-        slug: "books-media",
-        featured: true
-      }
-    ];
-    
+    const categoriesData = getCategoriesData(lang);
     res.json(categoriesData);
   } catch (error) {
     console.error('Error fetching categories:', error);
@@ -229,164 +411,7 @@ router.get('/categories', async (req, res) => {
 router.get('/products/featured', async (req, res) => {
   try {
     const lang = req.query.lang || 'en';
-    
-    // Multilingual products content
-    const productsContent = {
-      en: {
-        "prod1": {
-          name: "Premium Wireless Headphones",
-          description: "High-quality noise-canceling headphones with premium audio",
-          category: "Electronics"
-        },
-        "prod2": {
-          name: "Smart Fitness Watch",
-          description: "Advanced fitness tracking with heart rate monitoring",
-          category: "Electronics" 
-        },
-        "prod3": {
-          name: "4K Ultra HD Smart TV",
-          description: "75-inch 4K Smart TV with HDR and streaming apps",
-          category: "Electronics"
-        },
-        "prod4": {
-          name: "Gaming Laptop Pro",
-          description: "High-performance laptop for gaming and productivity",
-          category: "Electronics"
-        },
-        "prod5": {
-          name: "Designer Running Shoes",
-          description: "Comfortable and stylish running shoes for athletes",
-          category: "Fashion"
-        },
-        "prod6": {
-          name: "Wireless Bluetooth Speaker",
-          description: "Portable speaker with exceptional sound quality",
-          category: "Electronics"
-        }
-      },
-      fr: {
-        "prod1": {
-          name: "Casque Sans Fil Premium",
-          description: "Casque haute qualité avec réduction de bruit et audio premium",
-          category: "Électronique"
-        },
-        "prod2": {
-          name: "Montre Fitness Intelligente",
-          description: "Suivi fitness avancé avec surveillance du rythme cardiaque",
-          category: "Électronique"
-        },
-        "prod3": {
-          name: "Téléviseur Intelligent 4K Ultra HD",
-          description: "Téléviseur intelligent 4K 75 pouces avec HDR et applications de streaming",
-          category: "Électronique"
-        },
-        "prod4": {
-          name: "Ordinateur Portable Gaming Pro",
-          description: "Ordinateur portable haute performance pour jeux et productivité",
-          category: "Électronique"
-        },
-        "prod5": {
-          name: "Chaussures de Course Design",
-          description: "Chaussures de course confortables et élégantes pour athlètes",
-          category: "Mode"
-        },
-        "prod6": {
-          name: "Haut-parleur Bluetooth Sans Fil",
-          description: "Haut-parleur portable avec qualité sonore exceptionnelle",
-          category: "Électronique"
-        }
-      }
-    };
-    
-    const content = productsContent[lang] || productsContent.en;
-    
-    const productsData = [
-      {
-        id: "prod1",
-        name: content.prod1.name,
-        description: content.prod1.description,
-        price: 199.99,
-        originalPrice: 249.99,
-        discount: 20,
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80",
-        category: content.prod1.category,
-        rating: 4.5,
-        reviews: 128,
-        inStock: true,
-        featured: true
-      },
-      {
-        id: "prod2", 
-        name: content.prod2.name,
-        description: content.prod2.description,
-        price: 299.99,
-        originalPrice: 349.99,
-        discount: 14,
-        image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80",
-        category: content.prod2.category,
-        rating: 4.3,
-        reviews: 89,
-        inStock: true,
-        featured: true
-      },
-      {
-        id: "prod3",
-        name: content.prod3.name,
-        description: content.prod3.description,
-        price: 899.99,
-        originalPrice: 1099.99,
-        discount: 18,
-        image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&q=80",
-        category: content.prod3.category,
-        rating: 4.7,
-        reviews: 203,
-        inStock: true,
-        featured: true
-      },
-      {
-        id: "prod4",
-        name: content.prod4.name,
-        description: content.prod4.description,
-        price: 1299.99,
-        originalPrice: 1499.99,
-        discount: 13,
-        image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&q=80",
-        category: content.prod4.category,
-        rating: 4.6,
-        reviews: 156,
-        inStock: true,
-        featured: true
-      },
-      {
-        id: "prod5",
-        name: content.prod5.name,
-        description: content.prod5.description,
-        price: 129.99,
-        originalPrice: 159.99,
-        discount: 19,
-        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80",
-        category: content.prod5.category,
-        rating: 4.4,
-        reviews: 167,
-        inStock: true,
-        featured: true
-      },
-      {
-        id: "prod6",
-        name: content.prod6.name,
-        description: content.prod6.description,
-        price: 89.99,
-        originalPrice: 119.99,
-        discount: 25,
-        image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80",
-        category: content.prod6.category,
-        rating: 4.2,
-        reviews: 94,
-        inStock: true,
-        featured: true
-      }
-    ];
-    
+    const productsData = getProductsData(lang);
     res.json(productsData);
   } catch (error) {
     console.error('Error fetching featured products:', error);
@@ -398,36 +423,36 @@ router.get('/products/featured', async (req, res) => {
 router.get('/categories/:category/products', async (req, res) => {
   try {
     const categorySlug = req.params.category.toLowerCase();
+    const lang = req.query.lang || 'en';
     
-    // Find category by slug
-    const category = await Category.findOne({ slug: categorySlug });
-    if (!category) {
+    // Map slugs to category names for both languages
+    const slugToCategoryMap = {
+      'electronics': { en: 'Electronics', fr: 'Électronique' },
+      'fashion': { en: 'Fashion', fr: 'Mode' },
+      'home-garden': { en: 'Home & Garden', fr: 'Maison et Jardin' },
+      'sports-outdoors': { en: 'Sports & Outdoors', fr: 'Sports et Plein Air' },
+      'health-beauty': { en: 'Health & Beauty', fr: 'Santé et Beauté' },
+      'books-media': { en: 'Books & Media', fr: 'Livres et Médias' }
+    };
+    
+    const categoryInfo = slugToCategoryMap[categorySlug];
+    if (!categoryInfo) {
       return res.status(404).json({ error: 'Category not found' });
     }
     
-    // Find products in this category
-    const products = await Product.find({ category: category.name });
+    const categoryName = categoryInfo[lang] || categoryInfo.en;
     
-    const productsData = products.map(product => ({
-      id: product._id,
-      name: product.name,
-      description: product.description,
-      price: product.price,
-      originalPrice: product.originalPrice,
-      discount: product.discount,
-      image: product.image,
-      category: product.category,
-      rating: product.rating,
-      reviews: product.reviews,
-      inStock: product.inStock,
-      featured: product.featured
-    }));
+    // Get all featured products and filter by category
+    const allProducts = await getProductsData(lang);
+    const categoryProducts = allProducts.filter(product => 
+      product.category === categoryName
+    );
     
     res.json({
       category: categorySlug,
-      categoryName: category.name,
-      products: productsData,
-      total: productsData.length
+      categoryName: categoryName,
+      products: categoryProducts,
+      total: categoryProducts.length
     });
   } catch (error) {
     console.error('Error fetching category products:', error);
