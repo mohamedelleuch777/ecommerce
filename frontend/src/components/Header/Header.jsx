@@ -91,7 +91,7 @@ const Header = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const data = await ApiService.getCategories();
+        const data = await ApiService.getCategories(language);
         setCategories(data);
       } catch (err) {
         console.error('Failed to fetch categories:', err);
@@ -107,7 +107,7 @@ const Header = () => {
     };
 
     fetchCategories();
-  }, []);
+  }, [language]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

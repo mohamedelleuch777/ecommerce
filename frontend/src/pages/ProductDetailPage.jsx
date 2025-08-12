@@ -22,7 +22,7 @@ const ProductDetailPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const data = await ApiService.getProductById(id);
+        const data = await ApiService.getProductById(id, language);
         setProduct(data);
       } catch (err) {
         console.error('Failed to fetch product:', err);
@@ -33,7 +33,7 @@ const ProductDetailPage = () => {
     };
 
     fetchProduct();
-  }, [id]);
+  }, [id, language]);
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-US', {

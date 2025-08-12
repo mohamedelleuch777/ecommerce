@@ -1,9 +1,18 @@
 const API_BASE_URL = 'http://localhost:5000/api';
 
 class ApiService {
-  async fetchData(endpoint) {
+  async fetchData(endpoint, params = {}) {
     try {
-      const response = await fetch(`${API_BASE_URL}${endpoint}`);
+      const url = new URL(`${API_BASE_URL}${endpoint}`);
+      
+      // Add language parameter and other query parameters
+      Object.keys(params).forEach(key => {
+        if (params[key] !== undefined && params[key] !== null) {
+          url.searchParams.append(key, params[key]);
+        }
+      });
+      
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -36,33 +45,33 @@ class ApiService {
   }
 
   // Hero section data
-  async getHeroData() {
-    return this.fetchData('/hero');
+  async getHeroData(language = 'en') {
+    return this.fetchData('/hero', { lang: language });
   }
 
   // Categories data
-  async getCategories() {
-    return this.fetchData('/categories');
+  async getCategories(language = 'en') {
+    return this.fetchData('/categories', { lang: language });
   }
 
   // Featured products
-  async getFeaturedProducts() {
-    return this.fetchData('/products/featured');
+  async getFeaturedProducts(language = 'en') {
+    return this.fetchData('/products/featured', { lang: language });
   }
 
   // Single product by ID
-  async getProductById(id) {
-    return this.fetchData(`/products/${id}`);
+  async getProductById(id, language = 'en') {
+    return this.fetchData(`/products/${id}`, { lang: language });
   }
 
   // Products by category
-  async getProductsByCategory(category) {
-    return this.fetchData(`/categories/${category}/products`);
+  async getProductsByCategory(category, language = 'en') {
+    return this.fetchData(`/categories/${category}/products`, { lang: language });
   }
 
   // Testimonials
-  async getTestimonials() {
-    return this.fetchData('/testimonials');
+  async getTestimonials(language = 'en') {
+    return this.fetchData('/testimonials', { lang: language });
   }
 
   // Newsletter signup

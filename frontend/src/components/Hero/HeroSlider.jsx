@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { useLanguage } from '../../contexts/LanguageContext';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -8,6 +9,7 @@ import './HeroSlider.css';
 import ApiService from '../../services/api';
 
 const HeroSlider = () => {
+  const { language } = useLanguage();
   const [heroData, setHeroData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,7 +17,7 @@ const HeroSlider = () => {
   useEffect(() => {
     const fetchHeroData = async () => {
       try {
-        const data = await ApiService.getHeroData();
+        const data = await ApiService.getHeroData(language);
         setHeroData(data);
       } catch (err) {
         console.error('Failed to fetch hero data:', err);
@@ -38,7 +40,7 @@ const HeroSlider = () => {
     };
 
     fetchHeroData();
-  }, []);
+  }, [language]);
 
   if (loading) {
     return (

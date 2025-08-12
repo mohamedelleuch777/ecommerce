@@ -186,6 +186,18 @@ export const LanguageProvider = ({ children }) => {
     moreItems: { en: 'more items', fr: 'autres articles' },
     tracking: { en: 'Tracking', fr: 'Suivi' },
     
+    // Product Details
+    description: { en: 'Description', fr: 'Description' },
+    specifications: { en: 'Specifications', fr: 'Spécifications' },
+    noSpecifications: { en: 'No specifications available', fr: 'Aucune spécification disponible' },
+    reviewsComingSoon: { en: 'Reviews coming soon...', fr: 'Avis disponibles bientôt...' },
+    backToHome: { en: 'Back to Home', fr: 'Retour à l\'accueil' },
+    off: { en: 'off', fr: 'de réduction' },
+    save: { en: 'Save', fr: 'Économisez' },
+    freeShippingTitle: { en: 'Free Shipping', fr: 'Livraison Gratuite' },
+    yearWarranty: { en: '1 Year Warranty', fr: 'Garantie 1 An' },
+    easyReturnTitle: { en: '30-Day Returns', fr: 'Retours 30 Jours' },
+    
     // Confirmations
     confirmCancelOrder: { en: 'Are you sure you want to cancel this order?', fr: 'Êtes-vous sûr de vouloir annuler cette commande ?' },
     confirmDeleteAddress: { en: 'Are you sure you want to delete this address?', fr: 'Êtes-vous sûr de vouloir supprimer cette adresse ?' },

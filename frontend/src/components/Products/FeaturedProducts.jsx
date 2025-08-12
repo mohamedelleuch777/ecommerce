@@ -20,7 +20,7 @@ const FeaturedProducts = () => {
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
       try {
-        const data = await ApiService.getFeaturedProducts();
+        const data = await ApiService.getFeaturedProducts(language);
         setFeaturedProducts(data);
       } catch (err) {
         console.error('Failed to fetch featured products:', err);
@@ -48,7 +48,7 @@ const FeaturedProducts = () => {
     };
 
     fetchFeaturedProducts();
-  }, []);
+  }, [language]);
 
   if (loading) {
     return (
