@@ -141,11 +141,6 @@ const FeaturedProducts = () => {
             {featuredProducts.map((product) => (
               <SwiperSlide key={product.id}>
                 <div className="product-card">
-                  {!product.inStock && (
-                    <div className="product-badge" style={{ backgroundColor: '#dc3545' }}>
-                      {getTranslation('outOfStock', language)}
-                    </div>
-                  )}
                   
                   <div className="product-actions">
                     <button className="action-btn favorite" style={{ padding: 0, margin: 0 }}>
@@ -207,6 +202,13 @@ const FeaturedProducts = () => {
                           </>
                         )}
                       </div>
+                      {!product.inStock && (
+                        <div className="out-of-stock-row">
+                          <span className="out-of-stock-badge">
+                            {getTranslation('outOfStock', language)}
+                          </span>
+                        </div>
+                      )}
                     </div>
 
                     <div className="product-benefits">

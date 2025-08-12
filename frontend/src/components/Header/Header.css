@@ -247,8 +247,9 @@
 .product-price {
   display: block;
   font-size: 12px;
-  color: #007bff;
-  font-weight: 600;
+  color: #000 !important;
+  font-weight: 700;
+  font-family: 'Arial', 'Helvetica', sans-serif;
 }
 
 .header-actions {

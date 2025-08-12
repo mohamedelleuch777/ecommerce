@@ -15,6 +15,9 @@ const ProductDetailPage = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
+  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedDetails, setSelectedDetails] = useState('');
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -112,11 +115,6 @@ const ProductDetailPage = () => {
                   </button>
                 </>
               )}
-              {!product.inStock && (
-                <div className="product-badge out-of-stock">
-                  {getTranslation('outOfStock', language)}
-                </div>
-              )}
               {product.discount > 0 && (
                 <div className="product-badge discount">
                   {product.discount}% {getTranslation('off', language)}
@@ -176,6 +174,13 @@ const ProductDetailPage = () => {
                   </>
                 )}
               </div>
+              {!product.inStock && (
+                <div className="stock-status">
+                  <span className="out-of-stock-badge">
+                    {getTranslation('outOfStock', language)}
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className="product-description">
@@ -198,6 +203,69 @@ const ProductDetailPage = () => {
             </div>
 
             <div className="product-actions">
+              {/* Color Selector */}
+              <div className="option-selector color-selector">
+                <label>Color:</label>
+                <div className="color-options">
+                  <button 
+                    className={`color-option black ${selectedColor === 'black' ? 'selected' : ''}`}
+                    onClick={() => setSelectedColor('black')}
+                    style={{ backgroundColor: '#000' }}
+                  >
+                  </button>
+                  <button 
+                    className={`color-option white ${selectedColor === 'white' ? 'selected' : ''}`}
+                    onClick={() => setSelectedColor('white')}
+                    style={{ backgroundColor: '#fff', border: '2px solid #ddd' }}
+                  >
+                  </button>
+                  <button 
+                    className={`color-option blue ${selectedColor === 'blue' ? 'selected' : ''}`}
+                    onClick={() => setSelectedColor('blue')}
+                    style={{ backgroundColor: '#2563eb' }}
+                  >
+                  </button>
+                  <button 
+                    className={`color-option red ${selectedColor === 'red' ? 'selected' : ''}`}
+                    onClick={() => setSelectedColor('red')}
+                    style={{ backgroundColor: '#dc2626' }}
+                  >
+                  </button>
+                </div>
+              </div>
+
+              {/* Size Selector */}
+              <div className="option-selector size-selector">
+                <label>Size:</label>
+                <div className="size-options">
+                  {['S', 'M', 'L', 'XL', 'XXL'].map(size => (
+                    <button 
+                      key={size}
+                      className={`size-option ${selectedSize === size ? 'selected' : ''}`}
+                      onClick={() => setSelectedSize(size)}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Details Selector */}
+              <div className="option-selector details-selector">
+                <label>Memory/Storage:</label>
+                <div className="details-options">
+                  {['128GB', '256GB', '512GB', '1TB'].map(detail => (
+                    <button 
+                      key={detail}
+                      className={`details-option ${selectedDetails === detail ? 'selected' : ''}`}
+                      onClick={() => setSelectedDetails(detail)}
+                    >
+                      {detail}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <div className="quantity-selector">
                 <label>{getTranslation('quantity', language)}:</label>
                 <div className="quantity-controls">

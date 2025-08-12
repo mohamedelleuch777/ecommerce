@@ -101,6 +101,9 @@
   transition: all 0.3s ease;
   position: relative;
   border: 1px solid #f0f0f0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-card:hover {
@@ -114,12 +117,12 @@
   left: 10px;
   color: white;
   padding: 2px 6px;
-  border-radius: 8px;
-  font-size: 9px;
-  font-weight: bold;
+  border-radius: 4px;
+  font-size: 8px;
+  font-weight: 600;
   z-index: 2;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.2px;
 }
 
 .product-actions {
@@ -194,12 +197,13 @@
 }
 
 .product-image {
-  height: 250px;
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #f8f9fa;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .product-image img {
@@ -214,7 +218,11 @@
 }
 
 .product-info {
-  padding: 20px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
 }
 
 .product-brand {
@@ -241,9 +249,9 @@
   font-size: 16px;
   font-weight: 600;
   color: #333;
-  margin: 0 0 10px 0;
-  line-height: 1.4;
-  height: 44px;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+  height: 40px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -259,7 +267,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .stars {
@@ -289,7 +297,7 @@
 }
 
 .product-pricing {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .price-row {
@@ -300,9 +308,11 @@
 }
 
 .current-price {
-  font-size: 20px;
-  font-weight: bold;
-  color: #e53e3e;
+  font-size: 24px;
+  font-weight: 900;
+  color: #000 !important;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  letter-spacing: -0.5px;
 }
 
 .old-price {
@@ -321,10 +331,25 @@
   text-transform: uppercase;
 }
 
+.out-of-stock-row {
+  margin-top: 8px;
+}
+
+.out-of-stock-badge {
+  background: #e53e3e;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
 .product-benefits {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .benefit {
@@ -341,7 +366,7 @@
   background: #e53e3e;
   color: white;
   border: none;
-  padding: 12px;
+  padding: 10px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
@@ -351,6 +376,7 @@
   justify-content: center;
   gap: 8px;
   transition: all 0.3s ease;
+  margin-top: auto;
 }
 
 .add-to-cart-btn:hover {
@@ -392,10 +418,15 @@
 }
 
 .product-description {
-  font-size: 14px;
+  font-size: 13px;
   color: #666;
-  margin: 0 0 10px 0;
-  line-height: 1.4;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+  height: 34px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .product-category {
