@@ -1,5 +1,9 @@
 import express from 'express';
 import cors from 'cors';
+import connectDB from './config/database.js';
+
+// Connect to MongoDB
+connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
