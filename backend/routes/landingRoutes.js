@@ -186,6 +186,210 @@ router.get('/products/featured', (req, res) => {
   res.json(featuredProducts);
 });
 
+// Single product by ID
+router.get('/products/:id', (req, res) => {
+  const productId = parseInt(req.params.id);
+  
+  // Extended product data with additional details for PDP
+  const productsWithDetails = [
+    {
+      id: 1,
+      name: "Wireless Headphones",
+      description: "Premium noise-canceling headphones",
+      detailedDescription: "Experience superior sound quality with these premium wireless headphones. Featuring advanced noise-canceling technology, 30-hour battery life, and crystal-clear audio reproduction. Perfect for music lovers, professionals, and travelers.",
+      price: 199.99,
+      originalPrice: 249.99,
+      discount: 20,
+      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80",
+      images: [
+        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80",
+        "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=600&q=80",
+        "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80",
+        "https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?w=600&q=80"
+      ],
+      category: "Electronics",
+      rating: 4.8,
+      reviews: 124,
+      inStock: true,
+      featured: true,
+      specifications: {
+        "Brand": "TechAudio",
+        "Model": "WH-1000XM5",
+        "Color": "Black",
+        "Connectivity": "Bluetooth 5.2, USB-C",
+        "Battery Life": "30 hours",
+        "Weight": "250g",
+        "Noise Canceling": "Advanced ANC",
+        "Driver Size": "40mm",
+        "Warranty": "2 years"
+      }
+    },
+    {
+      id: 2,
+      name: "Smart Watch",
+      description: "Fitness tracking and notifications",
+      detailedDescription: "Stay connected and track your health with this advanced smart watch. Features heart rate monitoring, GPS tracking, water resistance, and seamless smartphone integration.",
+      price: 299.99,
+      originalPrice: 349.99,
+      discount: 14,
+      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80",
+      images: [
+        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80",
+        "https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=600&q=80",
+        "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600&q=80"
+      ],
+      category: "Electronics",
+      rating: 4.6,
+      reviews: 89,
+      inStock: true,
+      featured: true,
+      specifications: {
+        "Brand": "SmartTech",
+        "Model": "SW-Pro 7",
+        "Display": "1.9 inch AMOLED",
+        "Battery Life": "7 days",
+        "Water Resistance": "IP68",
+        "Sensors": "Heart rate, GPS, Gyroscope",
+        "Compatibility": "iOS & Android",
+        "Storage": "32GB",
+        "Warranty": "1 year"
+      }
+    },
+    {
+      id: 3,
+      name: "Designer Jacket",
+      description: "Stylish winter jacket",
+      detailedDescription: "Premium designer winter jacket crafted from high-quality materials. Features water-resistant fabric, thermal insulation, and modern design perfect for urban environments.",
+      price: 159.99,
+      originalPrice: 199.99,
+      discount: 20,
+      image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&q=80",
+      images: [
+        "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80",
+        "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=600&q=80",
+        "https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=600&q=80"
+      ],
+      category: "Fashion",
+      rating: 4.5,
+      reviews: 67,
+      inStock: true,
+      featured: true,
+      specifications: {
+        "Brand": "UrbanStyle",
+        "Material": "Polyester blend",
+        "Sizes": "S, M, L, XL, XXL",
+        "Color": "Black, Navy, Gray",
+        "Features": "Water-resistant, Thermal lining",
+        "Care": "Machine washable",
+        "Season": "Fall/Winter",
+        "Fit": "Regular fit",
+        "Warranty": "6 months"
+      }
+    },
+    {
+      id: 4,
+      name: "Coffee Maker",
+      description: "Automatic drip coffee maker",
+      detailedDescription: "Professional-grade automatic coffee maker with programmable settings. Brews perfect coffee every time with temperature control, timer function, and easy maintenance.",
+      price: 89.99,
+      originalPrice: 119.99,
+      discount: 25,
+      image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80",
+      images: [
+        "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80",
+        "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80",
+        "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80"
+      ],
+      category: "Home & Garden",
+      rating: 4.7,
+      reviews: 203,
+      inStock: false,
+      featured: true,
+      specifications: {
+        "Brand": "BrewMaster",
+        "Capacity": "12 cups",
+        "Power": "1200W",
+        "Features": "Programmable, Auto shut-off",
+        "Material": "Stainless steel",
+        "Filter": "Permanent filter included",
+        "Dimensions": "14 x 10 x 12 inches",
+        "Weight": "4.5 lbs",
+        "Warranty": "2 years"
+      }
+    },
+    {
+      id: 5,
+      name: "Running Shoes",
+      description: "Comfortable athletic shoes",
+      detailedDescription: "High-performance running shoes designed for comfort and durability. Features responsive cushioning, breathable mesh upper, and superior grip for all terrains.",
+      price: 129.99,
+      originalPrice: 159.99,
+      discount: 19,
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80",
+      images: [
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80",
+        "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=600&q=80",
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&q=80"
+      ],
+      category: "Sports & Outdoors",
+      rating: 4.4,
+      reviews: 156,
+      inStock: true,
+      featured: true,
+      specifications: {
+        "Brand": "RunFast",
+        "Model": "Sprint Pro 2024",
+        "Sizes": "US 6-13",
+        "Width": "Regular, Wide",
+        "Color": "Black/White, Blue/Gray",
+        "Upper Material": "Breathable mesh",
+        "Sole": "Rubber with grip pattern",
+        "Weight": "10 oz",
+        "Warranty": "1 year"
+      }
+    },
+    {
+      id: 6,
+      name: "Skincare Set",
+      description: "Complete skincare routine",
+      detailedDescription: "Professional skincare set with cleanser, toner, serum, and moisturizer. Formulated with natural ingredients for all skin types. Achieve healthy, glowing skin.",
+      price: 79.99,
+      originalPrice: 99.99,
+      discount: 20,
+      image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&q=80",
+      images: [
+        "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&q=80",
+        "https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=600&q=80",
+        "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&q=80"
+      ],
+      category: "Health & Beauty",
+      rating: 4.9,
+      reviews: 78,
+      inStock: true,
+      featured: true,
+      specifications: {
+        "Brand": "PureSkin",
+        "Set Includes": "Cleanser, Toner, Serum, Moisturizer",
+        "Skin Type": "All skin types",
+        "Key Ingredients": "Vitamin C, Hyaluronic Acid, Niacinamide",
+        "Volume": "150ml each",
+        "Packaging": "Eco-friendly",
+        "Cruelty Free": "Yes",
+        "Expiry": "24 months",
+        "Warranty": "Satisfaction guarantee"
+      }
+    }
+  ];
+
+  const product = productsWithDetails.find(p => p.id === productId);
+  
+  if (!product) {
+    return res.status(404).json({ error: 'Product not found' });
+  }
+  
+  res.json(product);
+});
+
 // Testimonials
 router.get('/testimonials', (req, res) => {
   const testimonialsData = [

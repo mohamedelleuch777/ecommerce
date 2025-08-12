@@ -1,26 +1,27 @@
 import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { LanguageProvider } from './contexts/LanguageContext'
 import Header from './components/Header/Header'
-import HeroSlider from './components/Hero/HeroSlider'
-import CategoriesSection from './components/Categories/CategoriesSection'
-import FeaturedProducts from './components/Products/FeaturedProducts'
-import TestimonialsSection from './components/Testimonials/TestimonialsSection'
 import Footer from './components/Layout/Footer'
+import HomePage from './pages/HomePage'
+import ProductDetailPage from './pages/ProductDetailPage'
 import './App.css'
 
 function App() {
   return (
     <LanguageProvider>
-      <div className="App">
-        <Header />
-        <main>
-          <HeroSlider />
-          <CategoriesSection />
-          <FeaturedProducts />
-          <TestimonialsSection />
-        </main>
-        <Footer />
-      </div>
+      <Router>
+        <div className="App">
+          <Header />
+          <main>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/product/:id" element={<ProductDetailPage />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
     </LanguageProvider>
   )
 }

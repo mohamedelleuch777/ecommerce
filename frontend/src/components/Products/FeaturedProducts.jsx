@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Star, Heart, ShoppingCart, Eye, Truck, Shield } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -147,11 +148,23 @@ const FeaturedProducts = () => {
                   )}
                   
                   <div className="product-actions">
-                    <button className="action-btn favorite">
-                      <Heart size={18} />
+                    <button className="action-btn favorite" style={{ padding: 0, margin: 0 }}>
+                      <Heart 
+                        size={18} 
+                        width={18} 
+                        height={18} 
+                        strokeWidth={1.5}
+                        style={{ width: '18px', height: '18px', display: 'block' }}
+                      />
                     </button>
-                    <button className="action-btn view">
-                      <Eye size={18} />
+                    <button className="action-btn view" style={{ padding: 0, margin: 0 }}>
+                      <Eye 
+                        size={18} 
+                        width={18} 
+                        height={18} 
+                        strokeWidth={1.5}
+                        style={{ width: '18px', height: '18px', display: 'block' }}
+                      />
                     </button>
                   </div>
 
@@ -161,7 +174,9 @@ const FeaturedProducts = () => {
 
                   <div className="product-info">
                     <div className="product-category">{product.category}</div>
-                    <h4 className="product-name">{product.name}</h4>
+                    <Link to={`/product/${product.id}`} className="product-name-link">
+                      <h4 className="product-name">{product.name}</h4>
+                    </Link>
                     <p className="product-description">{product.description}</p>
                     
                     <div className="product-rating">

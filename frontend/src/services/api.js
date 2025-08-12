@@ -50,6 +50,11 @@ class ApiService {
     return this.fetchData('/products/featured');
   }
 
+  // Single product by ID
+  async getProductById(id) {
+    return this.fetchData(`/products/${id}`);
+  }
+
   // Testimonials
   async getTestimonials() {
     return this.fetchData('/testimonials');

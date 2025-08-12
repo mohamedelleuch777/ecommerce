@@ -97,6 +97,17 @@ export const translations = {
     loadingProducts: "Loading featured products...",
     loadingTestimonials: "Loading testimonials...",
     
+    // Product Detail Page
+    home: "Home",
+    backToHome: "Back to Home",
+    quantity: "Quantity",
+    save: "Save",
+    inStock: "In Stock",
+    description: "Description",
+    specifications: "Specifications",
+    noSpecifications: "No specifications available",
+    reviewsComingSoon: "Customer reviews coming soon...",
+    
     // Footer
     aboutUs: "About Us",
     contactUs: "Contact Us",
@@ -266,6 +277,17 @@ export const translations = {
     loadingCategories: "Chargement des catégories...",
     loadingProducts: "Chargement des produits en vedette...",
     loadingTestimonials: "Chargement des témoignages...",
+    
+    // Product Detail Page
+    home: "Accueil",
+    backToHome: "Retour à l'accueil",
+    quantity: "Quantité",
+    save: "Économiser",
+    inStock: "En Stock",
+    description: "Description",
+    specifications: "Spécifications",
+    noSpecifications: "Aucune spécification disponible",
+    reviewsComingSoon: "Avis clients bientôt disponibles...",
     
     // Footer
     aboutUs: "À Propos",

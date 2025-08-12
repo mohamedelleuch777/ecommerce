@@ -19,7 +19,7 @@ body {
 }
 
 .App {
-  width: 100vw;
+  width: calc(100vw - 15px);
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -67,7 +67,12 @@ img {
   border: 0;
 }
 
+/* Mobile-only fix for trimming issue */
 @media (max-width: 768px) {
+  .App {
+    width: 100vw;
+  }
+  
   .container {
     padding: 0 15px;
   }

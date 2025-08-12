@@ -9,7 +9,8 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api', (await import('./routes/landingRoutes.js')).default);
+import landingRoutes from './routes/landingRoutes.js';
+app.use('/api', landingRoutes);
 
 // Health check
 app.get('/health', (req, res) => {
