@@ -55,6 +55,11 @@ class ApiService {
     return this.fetchData(`/products/${id}`);
   }
 
+  // Products by category
+  async getProductsByCategory(category) {
+    return this.fetchData(`/categories/${category}/products`);
+  }
+
   // Testimonials
   async getTestimonials() {
     return this.fetchData('/testimonials');

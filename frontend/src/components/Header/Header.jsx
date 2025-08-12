@@ -1,15 +1,25 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, ShoppingCart, User, MapPin, Phone, Heart, TrendingUp, Clock, Globe } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Search, ShoppingCart, User, MapPin, Phone, Heart, TrendingUp, Clock, Globe, LogOut, Package, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../context/AuthContext';
 import { getTranslation } from '../../utils/translations';
+import ApiService from '../../services/api';
+import LoginModal from '../Auth/LoginModal';
 import './Header.css';
 
 const Header = () => {
-  const { language, changeLanguage } = useLanguage();
+  const { language, changeLanguage, t } = useLanguage();
+  const { user, logout, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const [recentSearches] = useState(['iPhone 15', 'MacBook Pro', 'Samsung TV']);
+  const [categories, setCategories] = useState([]);
   const searchRef = useRef(null);
+  const userMenuRef = useRef(null);
 
   const trendingSearches = [
     'iPhone 15 Pro Max',
@@ -47,6 +57,20 @@ const Header = () => {
     setIsSearchOpen(true);
   };
 
+  const handleUserClick = () => {
+    if (isAuthenticated) {
+      setShowUserMenu(!showUserMenu);
+    } else {
+      setIsLoginModalOpen(true);
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    setShowUserMenu(false);
+    navigate('/');
+  };
+
   const handleInputBlur = () => {
     setTimeout(() => setIsSearchOpen(false), 200);
   };
@@ -65,9 +89,33 @@ const Header = () => {
   };
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await ApiService.getCategories();
+        setCategories(data);
+      } catch (err) {
+        console.error('Failed to fetch categories:', err);
+        // Fallback to default categories if API fails
+        setCategories([
+          { name: 'Electronics', count: 156 },
+          { name: 'Fashion', count: 89 },
+          { name: 'Home & Garden', count: 67 },
+          { name: 'Sports & Outdoors', count: 45 },
+          { name: 'Health & Beauty', count: 78 }
+        ]);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setIsSearchOpen(false);
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setShowUserMenu(false);
       }
     };
 
@@ -201,15 +249,54 @@ const Header = () => {
             <div className="header-actions">
               <div className="action-item">
                 <Heart size={24} />
-                <span>{getTranslation('favorites', language)}</span>
+                <span>{t('favorites') || 'Favorites'}</span>
               </div>
-              <div className="action-item">
-                <User size={24} />
-                <span>{getTranslation('myAccount', language)}</span>
+              
+              <div className="action-item user-menu-container" ref={userMenuRef}>
+                <div className="action-item" onClick={handleUserClick}>
+                  <User size={24} />
+                  <span>{isAuthenticated ? user?.firstName || t('myAccount') : t('signIn')}</span>
+                  {isAuthenticated && <ChevronDown size={16} />}
+                </div>
+                
+                {isAuthenticated && showUserMenu && (
+                  <div className="user-dropdown">
+                    <div className="user-info">
+                      <div className="user-avatar">
+                        {user?.avatar ? (
+                          <img src={user.avatar} alt={user.fullName} />
+                        ) : (
+                          <div className="avatar-placeholder">
+                            {user?.firstName?.charAt(0)}{user?.lastName?.charAt(0)}
+                          </div>
+                        )}
+                      </div>
+                      <div className="user-details">
+                        <h4>{user?.fullName}</h4>
+                        <p>{user?.email}</p>
+                      </div>
+                    </div>
+                    <div className="dropdown-divider"></div>
+                    <Link to="/profile" onClick={() => setShowUserMenu(false)}>
+                      <User size={16} />
+                      {t('profile')}
+                    </Link>
+                    <Link to="/orders" onClick={() => setShowUserMenu(false)}>
+                      <Package size={16} />
+                      {t('myOrders')}
+                    </Link>
+                    <div className="dropdown-divider"></div>
+                    <button onClick={handleLogout}>
+                      <LogOut size={16} />
+                      {t('logout')}
+                    </button>
+                  </div>
+                )}
               </div>
+              
               <div className="action-item cart">
                 <ShoppingCart size={24} />
-                <span>{getTranslation('cart', language)}</span>
+                <span>{t('cart') || 'Cart'}</span>
                 <span className="cart-count">0</span>
               </div>
             </div>
@@ -220,17 +307,24 @@ const Header = () => {
       <nav className="header-nav">
         <div className="container">
           <ul className="nav-menu">
-            <li><a href="#phone">{getTranslation('phone', language)}</a></li>
-            <li><a href="#computer">{getTranslation('computer', language)}</a></li>
-            <li><a href="#tv">{getTranslation('tvAudio', language)}</a></li>
-            <li><a href="#appliances">{getTranslation('appliances', language)}</a></li>
-            <li><a href="#small-appliances">{getTranslation('smallAppliances', language)}</a></li>
-            <li><a href="#air-conditioners">{getTranslation('airConditioners', language)}</a></li>
-            <li><a href="#gaming">{getTranslation('gaming', language)}</a></li>
-            <li><a href="#sports">{getTranslation('sports', language)}</a></li>
+            {categories.map((category, index) => {
+              const categorySlug = category.name.toLowerCase().replace(/\s+/g, '-').replace(/&/g, 'and');
+              return (
+                <li key={index}>
+                  <Link to={`/category/${categorySlug}`}>
+                    {category.name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </nav>
+      
+      <LoginModal 
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
     </header>
   );
 };

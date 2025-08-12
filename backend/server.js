@@ -14,7 +14,12 @@ app.use(express.json());
 
 // Routes
 import landingRoutes from './routes/landingRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
+
 app.use('/api', landingRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

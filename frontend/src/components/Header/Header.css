@@ -597,3 +597,136 @@
     padding: 5px 8px;
   }
 }
+/* User Menu Styles */
+.user-menu-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  min-width: 280px;
+  z-index: 1000;
+  margin-top: 8px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.user-info {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #f8fafc;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.user-details h4 {
+  margin: 0 0 2px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.user-details p {
+  margin: 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 0;
+}
+
+.user-dropdown a,
+.user-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  color: #374151;
+  text-decoration: none;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.user-dropdown a:hover,
+.user-dropdown button:hover {
+  background-color: #f3f4f6;
+}
+
+.user-dropdown svg {
+  width: 16px;
+  height: 16px;
+  color: #6b7280;
+}
+
+/* Mobile responsiveness for user menu */
+@media (max-width: 768px) {
+  .user-dropdown {
+    right: -50px;
+    min-width: 240px;
+  }
+  
+  .user-info {
+    padding: 12px;
+  }
+  
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .user-details h4 {
+    font-size: 13px;
+  }
+  
+  .user-details p {
+    font-size: 11px;
+  }
+  
+  .user-dropdown a,
+  .user-dropdown button {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
+EOF < /dev/null
