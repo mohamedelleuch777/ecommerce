@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { LanguageProvider } from './contexts/LanguageProvider';
-import { AuthProvider } from './context/AuthProvider';
+import { AuthProvider } from './contexts/AuthProvider';
 import { useAuth } from './hooks/useAuth';
 import Header from './components/Header/Header'
 import Footer from './components/Layout/Footer'
