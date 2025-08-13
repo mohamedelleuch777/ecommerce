@@ -169,20 +169,47 @@ This file tracks all changes made to the e-commerce project by Claude.
   - ✅ Real-time favorites count in header
   - ✅ Seamless integration with existing product display components
 
+#### Database Integration Fix (2025-08-13)
+- **Major Issue Resolved**: Fixed fundamental architecture problem where all product/category data was hardcoded mock data instead of using database
+- **Database-First Implementation**: 
+  - ✅ Updated all product routes to query database first with graceful fallback to mock data
+  - ✅ Updated categories route to use database-first approach  
+  - ✅ Enhanced seed script with comprehensive product, category, and testimonial data
+  - ✅ Successfully seeded database with 8 products (6 featured), 6 categories, and 3 testimonials
+  - ✅ Verified all API endpoints now return database data with MongoDB `_id` fields
+- **Verification Results:**
+  - ✅ Categories endpoint returns data with database IDs like `"689ca3806ae2e6c321c06d3e"`
+  - ✅ Products endpoint returns data with database IDs like `"689ca3806ae2e6c321c06d46"`
+  - ✅ All content now dynamically sourced from MongoDB instead of hardcoded arrays
+- **Product Links Fix (2025-08-13):**
+  - ✅ Fixed product links that were showing `/product/undefined` URLs
+  - ✅ Updated all components to use `product._id || product.id` for database compatibility
+  - ✅ Fixed FeaturedProducts, CategoryPage, FavoritesPage, and FavoriteButton components
+  - ✅ Updated FavoritesProvider to handle both `_id` and `id` fields correctly
+  - ✅ Product links now properly navigate to `/product/689ca3806ae2e6c321c06d46` format
+- **Massive Code Cleanup (2025-08-13):**
+  - ✅ **REMOVED 580+ LINES OF HARDCODED MOCK DATA** from landing routes
+  - ✅ Completely rewrote landingRoutes.js to be 100% database-driven
+  - ✅ Reduced file size from 795 lines to 214 lines (73% reduction)
+  - ✅ All endpoints now query database directly with no fallback mock data
+  - ✅ Hero, categories, products, and testimonials all come from MongoDB
+  - ✅ Clean, maintainable code with proper error handling
+
 ## Development Commands
-- Backend dev: `cd backend && npm run dev` (port 5000) - **KEEP RUNNING ALWAYS**
+- Backend dev: `cd backend && npm run dev` (port 7953) - **KEEP RUNNING ALWAYS**
 - Backend start: `cd backend && npm start`
 - Frontend dev: `cd frontend && npm run dev` (port 5175) - **KEEP RUNNING ALWAYS**
 - Frontend build: `cd frontend && npm run build`
 - Frontend build (dev): `cd frontend && npm run build:dev`
 - Frontend build (prod): `cd frontend && npm run build:prod`
 - Frontend lint: `cd frontend && npm run lint`
+- Database seed: `cd backend && node scripts/seedData.js`
 
 ## Server Management
-- **IMPORTANT**: Always keep both frontend (port 5175) and backend (port 5000) servers running during development
+- **IMPORTANT**: Always keep both frontend (port 5175) and backend (port 7953) servers running during development
 - Use existing running servers instead of stopping/starting them
 - Frontend: http://localhost:5175
-- Backend API: http://localhost:5000
+- Backend API: http://localhost:7953
 
 ## API Endpoints (Implemented ✅)
 - GET /api/hero - Hero section data with slides

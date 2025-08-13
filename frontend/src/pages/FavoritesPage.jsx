@@ -86,9 +86,9 @@ const FavoritesPage = () => {
         ) : (
           <div className="favorites-grid">
             {favorites.map((product) => (
-              <div key={product.id} className="favorite-item">
+              <div key={product._id || product.id} className="favorite-item">
                 <div className="product-image-container">
-                  <Link to={`/product/${product.id}`}>
+                  <Link to={`/product/${product._id || product.id}`}>
                     <img src={product.image} alt={product.name} className="product-image" />
                   </Link>
                   <div className="favorite-overlay">
@@ -104,7 +104,7 @@ const FavoritesPage = () => {
                 <div className="product-info">
                   <div className="product-category">{product.category}</div>
                   
-                  <Link to={`/product/${product.id}`} className="product-name-link">
+                  <Link to={`/product/${product._id || product.id}`} className="product-name-link">
                     <h3 className="product-name">{product.name}</h3>
                   </Link>
                   

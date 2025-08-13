@@ -209,7 +209,7 @@ const Header = () => {
                     <div className="dropdown-section">
                       <h4>{getTranslation('products', language)}</h4>
                       {filteredProducts.map(product => (
-                        <div key={product.id} className="product-dropdown-item">
+                        <div key={product._id || product.id} className="product-dropdown-item">
                           <img src={product.image} alt={product.name} />
                           <div className="product-info">
                             <span className="product-name">{product.name}</span>

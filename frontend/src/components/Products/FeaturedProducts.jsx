@@ -125,7 +125,7 @@ const FeaturedProducts = () => {
             className="products-swiper"
           >
             {featuredProducts.map((product) => (
-              <SwiperSlide key={product.id}>
+              <SwiperSlide key={product._id || product.id}>
                 <div className="product-card">
                   
                   <div className="product-actions">
@@ -151,7 +151,7 @@ const FeaturedProducts = () => {
 
                   <div className="product-info">
                     <div className="product-category">{product.category}</div>
-                    <Link to={`/product/${product.id}`} className="product-name-link">
+                    <Link to={`/product/${product._id || product.id}`} className="product-name-link">
                       <h4 className="product-name">{product.name}</h4>
                     </Link>
                     <p className="product-description">{product.description}</p>

@@ -122,7 +122,7 @@ const SearchSuggestions = () => {
             <div className="suggestions-section">
               <h4>Ürünler</h4>
               {filteredProducts.map(product => (
-                <div key={product.id} className="product-suggestion">
+                <div key={product._id || product.id} className="product-suggestion">
                   <img src={product.image} alt={product.name} />
                   <div className="product-info">
                     <span className="product-name">{product.name}</span>

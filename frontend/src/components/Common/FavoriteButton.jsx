@@ -6,7 +6,8 @@ import './FavoriteButton.css';
 const FavoriteButton = ({ product, className = '', size = 18, showTooltip = true }) => {
   const { toggleFavorite, isFavorite } = useFavorites();
   const [isAnimating, setIsAnimating] = useState(false);
-  const favorite = isFavorite(product.id);
+  const productId = product._id || product.id;
+  const favorite = isFavorite(productId);
 
   const handleToggleFavorite = async (e) => {
     e.preventDefault();

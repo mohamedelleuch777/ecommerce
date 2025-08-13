@@ -98,7 +98,7 @@ const CategoryPage = () => {
         {/* Products Grid */}
         <div className="products-grid">
           {products.map((product) => (
-            <div key={product.id} className="product-card">
+            <div key={product._id || product.id} className="product-card">
               <div className="product-actions">
                 <FavoriteButton 
                   product={product} 
@@ -122,7 +122,7 @@ const CategoryPage = () => {
 
               <div className="product-info">
                 <div className="product-category">{product.category}</div>
-                <Link to={`/product/${product.id}`} className="product-name-link">
+                <Link to={`/product/${product._id || product.id}`} className="product-name-link">
                   <h4 className="product-name">{product.name}</h4>
                 </Link>
                 <p className="product-description">{product.description}</p>

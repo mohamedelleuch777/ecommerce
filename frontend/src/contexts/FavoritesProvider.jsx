@@ -53,18 +53,34 @@ export const FavoritesProvider = ({ children }) => {
   };
 
   const addToFavorites = async (product) => {
+    const productId = product._id || product.id;
+    
     // Check if product is already in favorites
-    if (favorites.some(fav => fav.id === product.id)) {
+    if (favorites.some(fav => (fav._id || fav.id) === productId)) {
       return;
     }
 
-    const newFavorites = [...favorites, product];
+    // Ensure the product has a consistent id field for local storage
+    const productToStore = { ...product, id: productId };
+    const newFavorites = [...favorites, productToStore];
     setFavorites(newFavorites);
 
     if (user) {
       // Sync with API for authenticated users
       try {
-        await api.post('/favorites', { productId: product.id });
+        await api.post('/favorites', { 
+          productId: productId,
+          name: product.name,
+          price: product.price,
+          originalPrice: product.originalPrice,
+          image: product.image,
+          category: product.category,
+          description: product.description,
+          rating: product.rating,
+          reviews: product.reviews,
+          inStock: product.inStock,
+          discount: product.discount
+        });
       } catch (error) {
         console.error('Failed to add favorite to server:', error);
         // Revert local change on API failure
@@ -74,7 +90,7 @@ export const FavoritesProvider = ({ children }) => {
   };
 
   const removeFromFavorites = async (productId) => {
-    const newFavorites = favorites.filter(fav => fav.id !== productId);
+    const newFavorites = favorites.filter(fav => (fav._id || fav.id) !== productId);
     setFavorites(newFavorites);
 
     if (user) {
@@ -90,15 +106,16 @@ export const FavoritesProvider = ({ children }) => {
   };
 
   const toggleFavorite = async (product) => {
-    if (isFavorite(product.id)) {
-      await removeFromFavorites(product.id);
+    const productId = product._id || product.id;
+    if (isFavorite(productId)) {
+      await removeFromFavorites(productId);
     } else {
       await addToFavorites(product);
     }
   };
 
   const isFavorite = (productId) => {
-    return favorites.some(fav => fav.id === productId);
+    return favorites.some(fav => (fav._id || fav.id) === productId);
   };
 
   const clearFavorites = async () => {

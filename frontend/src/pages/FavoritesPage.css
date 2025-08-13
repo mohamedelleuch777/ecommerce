@@ -73,7 +73,8 @@
 .favorites-count {
   margin: 0;
   font-size: 16px;
-  color: #666;
+  /* color: #666; */
+  transform: translate(-8px, 2px);
 }
 
 .clear-all-btn {
