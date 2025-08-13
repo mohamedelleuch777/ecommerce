@@ -132,6 +132,10 @@ export const translations = {
     securePaymentTitle: "Secure Payment",
     securePaymentDesc: "All credit cards and bank transfer",
     
+    // Footer Brands
+    popularBrands: "Popular Brands",
+    shopFromTopBrands: "Shop from the world's top brands",
+    
     // Footer Company
     companyDescription: "Turkey's largest technology store. We offer the latest technological products at the most affordable prices.",
     email: "info@techmarkt.com.tr",
@@ -311,6 +315,10 @@ export const translations = {
     secureShoppingDesc: "Certificat SSL 256-bit",
     securePaymentTitle: "Paiement Sécurisé",
     securePaymentDesc: "Toutes cartes de crédit et virement",
+    
+    // Footer Brands
+    popularBrands: "Marques Populaires",
+    shopFromTopBrands: "Achetez auprès des meilleures marques mondiales",
     
     // Footer Company
     companyDescription: "Le plus grand magasin de technologie de Turquie. Nous offrons les derniers produits technologiques aux prix les plus abordables.",

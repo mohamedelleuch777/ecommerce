@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import Product from '../models/Product.js';
 import Category from '../models/Category.js';
 import Testimonial from '../models/Testimonial.js';
+import Brand from '../models/Brand.js';
 import connectDB from '../config/database.js';
 
 // Load environment variables
@@ -855,6 +856,121 @@ const seedTestimonials = [
   }
 ];
 
+const seedBrands = [
+  {
+    name: "Apple",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/505px-Apple_logo_black.svg.png",
+    website: "https://apple.com",
+    description: "Technology and consumer electronics",
+    isActive: true,
+    displayOrder: 1
+  },
+  {
+    name: "Samsung",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/2560px-Samsung_Logo.svg.png",
+    website: "https://samsung.com",
+    description: "Electronics and technology solutions",
+    isActive: true,
+    displayOrder: 2
+  },
+  {
+    name: "Nike",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1280px-Logo_NIKE.svg.png",
+    website: "https://nike.com",
+    description: "Athletic footwear and apparel",
+    isActive: true,
+    displayOrder: 3
+  },
+  {
+    name: "Sony",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Sony_logo.svg/2560px-Sony_logo.svg.png",
+    website: "https://sony.com",
+    description: "Electronics and entertainment",
+    isActive: true,
+    displayOrder: 4
+  },
+  {
+    name: "Adidas",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/2560px-Adidas_Logo.svg.png",
+    website: "https://adidas.com",
+    description: "Sports apparel and equipment",
+    isActive: true,
+    displayOrder: 5
+  },
+  {
+    name: "LG",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/LG_logo_%282015%29.svg/2560px-LG_logo_%282015%29.svg.png",
+    website: "https://lg.com",
+    description: "Home appliances and electronics",
+    isActive: true,
+    displayOrder: 6
+  },
+  {
+    name: "HP",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/HP_logo_2012.svg/2560px-HP_logo_2012.svg.png",
+    website: "https://hp.com",
+    description: "Computing and printing solutions",
+    isActive: true,
+    displayOrder: 7
+  },
+  {
+    name: "Canon",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Canon_logo.svg/2560px-Canon_logo.svg.png",
+    website: "https://canon.com",
+    description: "Imaging and optical products",
+    isActive: true,
+    displayOrder: 8
+  },
+  {
+    name: "Microsoft",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2560px-Microsoft_logo.svg.png",
+    website: "https://microsoft.com",
+    description: "Software and cloud services",
+    isActive: true,
+    displayOrder: 9
+  },
+  {
+    name: "Dell",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Dell_Logo.svg/2560px-Dell_Logo.svg.png",
+    website: "https://dell.com",
+    description: "Computer technology and services",
+    isActive: true,
+    displayOrder: 10
+  },
+  {
+    name: "Intel",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Intel_logo_%282006-2020%29.svg/2560px-Intel_logo_%282006-2020%29.svg.png",
+    website: "https://intel.com",
+    description: "Semiconductor and computing",
+    isActive: true,
+    displayOrder: 11
+  },
+  {
+    name: "Tesla",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Tesla_T_symbol.svg/1024px-Tesla_T_symbol.svg.png",
+    website: "https://tesla.com",
+    description: "Electric vehicles and energy",
+    isActive: true,
+    displayOrder: 12
+  },
+  {
+    name: "Puma",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/en/thumb/d/da/Puma_complete_logo.svg/2560px-Puma_complete_logo.svg.png",
+    website: "https://puma.com",
+    description: "Athletic wear and accessories",
+    isActive: true,
+    displayOrder: 13
+  },
+  {
+    name: "Lenovo",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Lenovo_Global_Corporate_Logo.png/2560px-Lenovo_Global_Corporate_Logo.png",
+    website: "https://lenovo.com",
+    description: "Personal computers and technology",
+    isActive: true,
+    displayOrder: 14
+  }
+];
+
 async function seedDatabase() {
   try {
     // Connect to MongoDB
@@ -862,10 +978,11 @@ async function seedDatabase() {
     console.log('Connected to MongoDB for seeding...');
 
     // Clear existing data
-    console.log('Clearing existing products, categories, and testimonials...');
+    console.log('Clearing existing products, categories, testimonials, and brands...');
     await Product.deleteMany({});
     await Category.deleteMany({});
     await Testimonial.deleteMany({});
+    await Brand.deleteMany({});
 
     // Seed categories
     console.log('Seeding categories...');
@@ -882,11 +999,17 @@ async function seedDatabase() {
     const createdTestimonials = await Testimonial.insertMany(seedTestimonials);
     console.log(`✅ Created ${createdTestimonials.length} testimonials`);
 
+    // Seed brands
+    console.log('Seeding brands...');
+    const createdBrands = await Brand.insertMany(seedBrands);
+    console.log(`✅ Created ${createdBrands.length} brands`);
+
     console.log('\n🎉 Database seeding completed successfully!');
     console.log(`Total categories: ${createdCategories.length}`);
     console.log(`Total products: ${createdProducts.length}`);
     console.log(`Featured products: ${createdProducts.filter(p => p.featured).length}`);
     console.log(`Total testimonials: ${createdTestimonials.length}`);
+    console.log(`Total brands: ${createdBrands.length}`);
     
     process.exit(0);
   } catch (error) {

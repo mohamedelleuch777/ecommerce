@@ -2,6 +2,7 @@ import express from 'express';
 import Product from '../models/Product.js';
 import Category from '../models/Category.js';
 import Testimonial from '../models/Testimonial.js';
+import Brand from '../models/Brand.js';
 
 const router = express.Router();
 
@@ -209,6 +210,17 @@ router.post('/contact', (req, res) => {
     message: 'Thank you for your message! We will get back to you soon.',
     data: { name, email, subject } 
   });
+});
+
+// Brands endpoint
+router.get('/brands', async (req, res) => {
+  try {
+    const brands = await Brand.find({ isActive: true }).sort({ displayOrder: 1, name: 1 });
+    res.json(brands);
+  } catch (error) {
+    console.error('Error fetching brands:', error);
+    res.status(500).json({ error: 'Failed to fetch brands' });
+  }
 });
 
 export default router;

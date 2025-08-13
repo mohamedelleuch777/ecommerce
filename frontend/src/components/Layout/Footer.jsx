@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin, CreditCard, Truck, RotateCcw, Shield } from 'lucide-react';
 import { useLanguage } from '../../hooks/useLanguage';
@@ -11,7 +11,10 @@ import logo from '../../assets/logo-text.png';
 const Footer = () => {
   const { language } = useLanguage();
   const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [brandsLoading, setBrandsLoading] = useState(true);
+  const brandsScrollRef = useRef(null);
 
 
   useEffect(() => {
@@ -39,8 +42,77 @@ const Footer = () => {
     fetchCategories();
   }, [language]);
 
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        setBrandsLoading(true);
+        const data = await ApiService.getBrands();
+        setBrands(data || []);
+      } catch (err) {
+        console.error('Failed to fetch brands:', err);
+        setBrands([]);
+      } finally {
+        setBrandsLoading(false);
+      }
+    };
+
+    fetchBrands();
+  }, []);
+
+  // Add manual scroll functionality for brands carousel
+  useEffect(() => {
+    const brandsContainer = brandsScrollRef.current;
+    if (!brandsContainer) return;
+
+    const handleWheel = (e) => {
+      e.preventDefault();
+      brandsContainer.scrollLeft += e.deltaY;
+    };
+
+    brandsContainer.addEventListener('wheel', handleWheel, { passive: false });
+    
+    return () => {
+      brandsContainer.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
+
   return (
     <footer className="footer">
+      <div className="footer-brands">
+        <div className="container">
+          <div className="brands-header">
+            <h3>{getTranslation('popularBrands', language)}</h3>
+          </div>
+          <div className="brands-carousel" ref={brandsScrollRef}>
+            <div className="brands-scroll">
+              {brandsLoading ? (
+                // Loading placeholder
+                Array.from({ length: 8 }).map((_, index) => (
+                  <div key={`loading-${index}`} className="brand-logo loading">
+                    <div className="loading-shimmer"></div>
+                  </div>
+                ))
+              ) : (
+                <>
+                  {/* First set of brands */}
+                  {brands.map((brand) => (
+                    <div key={brand._id} className="brand-logo">
+                      <img src={brand.logoUrl} alt={brand.name} title={brand.description} />
+                    </div>
+                  ))}
+                  {/* Duplicate for seamless loop */}
+                  {brands.map((brand) => (
+                    <div key={`${brand._id}-duplicate`} className="brand-logo">
+                      <img src={brand.logoUrl} alt={brand.name} title={brand.description} />
+                    </div>
+                  ))}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="footer-features">
         <div className="container">
           <div className="features-grid">

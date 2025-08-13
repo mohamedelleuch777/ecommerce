@@ -79,6 +79,11 @@ class ApiService {
     return this.fetchData('/testimonials', { lang: language });
   }
 
+  // Brands
+  async getBrands() {
+    return this.fetchData('/brands');
+  }
+
   // Newsletter signup
   async subscribeNewsletter(email) {
     return this.postData('/newsletter', { email });
