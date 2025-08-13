@@ -69,18 +69,42 @@ const HeroSlider = () => {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="slide-content" style={{ background: slide.gradient || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+            <div 
+              className="slide-content" 
+              style={{ 
+                background: slide.backgroundImage 
+                  ? `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${slide.backgroundImage})` 
+                  : slide.gradient || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            >
               <div className="container">
                 <div className="slide-info">
                   <div className="slide-text">
                     <h2 className="slide-title">{slide.title}</h2>
                     <p className="slide-subtitle">{slide.subtitle}</p>
-                    
+                    {slide.description && (
+                      <p className="slide-description">{slide.description}</p>
+                    )}
+                    {slide.currentPrice && (
+                      <div className="slide-pricing">
+                        <span className="current-price">${slide.currentPrice}</span>
+                        {slide.oldPrice && (
+                          <>
+                            <span className="old-price">${slide.oldPrice}</span>
+                            {slide.discount && (
+                              <span className="discount">{slide.discount}% OFF</span>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    )}
                     <button className="cta-button">{slide.buttonText}</button>
                   </div>
                   
                   <div className="slide-image">
-                    <img src={slide.image} alt={slide.title} />
+                    <img src={slide.productImage || slide.image} alt={slide.title} />
                   </div>
                 </div>
               </div>
