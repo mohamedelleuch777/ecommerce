@@ -197,7 +197,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
             className="auth-submit-btn"
             disabled={loading}
           >
-            {loading ? t('processing') : (isLogin ? t('signIn') : t('signUp'))}
+            {loading ? t('processingAction') : (isLogin ? t('signIn') : t('signUp'))}
           </button>
         </form>
 

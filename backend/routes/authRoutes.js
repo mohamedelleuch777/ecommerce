@@ -69,7 +69,15 @@ router.post('/register', async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        fullName: user.fullName
+        phone: user.phone,
+        dateOfBirth: user.dateOfBirth,
+        gender: user.gender,
+        addresses: user.addresses,
+        preferences: user.preferences,
+        avatar: user.avatar,
+        fullName: user.fullName,
+        createdAt: user.createdAt,
+        lastLogin: user.lastLogin
       }
     });
 
@@ -129,9 +137,15 @@ router.post('/login', async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        fullName: user.fullName,
+        phone: user.phone,
+        dateOfBirth: user.dateOfBirth,
+        gender: user.gender,
+        addresses: user.addresses,
+        preferences: user.preferences,
         avatar: user.avatar,
-        preferences: user.preferences
+        fullName: user.fullName,
+        createdAt: user.createdAt,
+        lastLogin: user.lastLogin
       }
     });
 
@@ -211,9 +225,12 @@ router.put('/profile', authenticate, async (req, res) => {
         phone: user.phone,
         dateOfBirth: user.dateOfBirth,
         gender: user.gender,
+        addresses: user.addresses,
         preferences: user.preferences,
         avatar: user.avatar,
-        fullName: user.fullName
+        fullName: user.fullName,
+        createdAt: user.createdAt,
+        lastLogin: user.lastLogin
       }
     });
 

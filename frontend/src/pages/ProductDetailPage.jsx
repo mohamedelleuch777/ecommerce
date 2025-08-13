@@ -169,7 +169,7 @@ const ProductDetailPage = () => {
                   <>
                     <span className="old-price">{formatPrice(product.originalPrice)}</span>
                     <span className="discount">
-                      {getTranslation('save', language)} {formatPrice(product.originalPrice - product.price)}
+                      {getTranslation('saveAmount', language)} {formatPrice(product.originalPrice - product.price)}
                     </span>
                   </>
                 )}

@@ -6,7 +6,7 @@ import './ProfilePage.css';
 
 const ProfilePage = () => {
   const { user, updateProfile, addAddress, updateAddress, deleteAddress } = useAuth();
-  const { t } = useLanguage();
+  const { t, changeLanguage } = useLanguage();
   
   const [activeTab, setActiveTab] = useState('profile');
   const [profileData, setProfileData] = useState({
@@ -40,6 +40,16 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
+  // Helper function to get address type translation
+  const getAddressTypeTranslation = (type) => {
+    switch(type) {
+      case 'home': return t('homeAddress');
+      case 'work': return t('work');
+      case 'other': return t('other');
+      default: return type;
+    }
+  };
+
   useEffect(() => {
     if (user) {
       setProfileData({
@@ -68,6 +78,10 @@ const ProfilePage = () => {
     const result = await updateProfile(profileData);
     
     if (result.success) {
+      // Sync the language preference with the global language context
+      if (profileData.preferences.language) {
+        changeLanguage(profileData.preferences.language);
+      }
       setMessage(t('profileUpdatedSuccessfully'));
     } else {
       setMessage(result.error);
@@ -281,7 +295,7 @@ const ProfilePage = () => {
                         value={addressData.type}
                         onChange={(e) => setAddressData(prev => ({ ...prev, type: e.target.value }))}
                       >
-                        <option value="home">{t('home')}</option>
+                        <option value="home">{t('homeAddress')}</option>
                         <option value="work">{t('work')}</option>
                         <option value="other">{t('other')}</option>
                       </select>
@@ -371,7 +385,7 @@ const ProfilePage = () => {
                   {user.addresses && user.addresses.map((address) => (
                     <div key={address._id} className="address-card">
                       <div className="address-header">
-                        <span className="address-type">{t(address.type)}</span>
+                        <span className="address-type">{getAddressTypeTranslation(address.type)}</span>
                         {address.isDefault && <span className="default-badge">{t('default')}</span>}
                       </div>
                       <div className="address-details">

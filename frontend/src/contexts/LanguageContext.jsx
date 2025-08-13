@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const LanguageContext = createContext();
 
@@ -10,7 +10,7 @@ export const useLanguage = () => {
   return context;
 };
 
-export const LanguageProvider = ({ children }) => {
+export const LanguageProvider = ({ children, user }) => {
   const [language, setLanguage] = useState('en'); // default to English
 
   const changeLanguage = (lang) => {
@@ -18,12 +18,30 @@ export const LanguageProvider = ({ children }) => {
     localStorage.setItem('preferred-language', lang);
   };
 
-  React.useEffect(() => {
+  // Initialize language from localStorage or user preferences
+  useEffect(() => {
     const savedLang = localStorage.getItem('preferred-language');
+    const userLang = user?.preferences?.language;
+    
+    // Priority: localStorage > user preferences > default 'en'
     if (savedLang && (savedLang === 'en' || savedLang === 'fr')) {
       setLanguage(savedLang);
+    } else if (userLang && (userLang === 'en' || userLang === 'fr')) {
+      setLanguage(userLang);
+      localStorage.setItem('preferred-language', userLang);
     }
-  }, []);
+  }, [user]);
+
+  // Sync with user preferences when they change
+  useEffect(() => {
+    if (user?.preferences?.language && user.preferences.language !== language) {
+      const userLang = user.preferences.language;
+      if (userLang === 'en' || userLang === 'fr') {
+        setLanguage(userLang);
+        localStorage.setItem('preferred-language', userLang);
+      }
+    }
+  }, [user?.preferences?.language]);
 
   const translations = {
     // Navigation
@@ -118,7 +136,7 @@ export const LanguageProvider = ({ children }) => {
     state: { en: 'State', fr: 'État' },
     zipCode: { en: 'ZIP Code', fr: 'Code postal' },
     country: { en: 'Country', fr: 'Pays' },
-    home: { en: 'Home', fr: 'Domicile' },
+    homeAddress: { en: 'Home', fr: 'Domicile' },
     work: { en: 'Work', fr: 'Travail' },
     default: { en: 'Default', fr: 'Par défaut' },
     
@@ -163,7 +181,7 @@ export const LanguageProvider = ({ children }) => {
     enterFirstName: { en: 'Enter your first name', fr: 'Entrez votre prénom' },
     enterLastName: { en: 'Enter your last name', fr: 'Entrez votre nom de famille' },
     selectGender: { en: 'Select gender', fr: 'Sélectionnez le genre' },
-    processing: { en: 'Processing...', fr: 'Traitement en cours...' },
+    processingAction: { en: 'Processing...', fr: 'Traitement en cours...' },
     saving: { en: 'Saving...', fr: 'Enregistrement...' },
     saveChanges: { en: 'Save Changes', fr: 'Enregistrer les modifications' },
     saveAddress: { en: 'Save Address', fr: 'Enregistrer l\'adresse' },
@@ -193,7 +211,7 @@ export const LanguageProvider = ({ children }) => {
     reviewsComingSoon: { en: 'Reviews coming soon...', fr: 'Avis disponibles bientôt...' },
     backToHome: { en: 'Back to Home', fr: 'Retour à l\'accueil' },
     off: { en: 'off', fr: 'de réduction' },
-    save: { en: 'Save', fr: 'Économisez' },
+    saveAmount: { en: 'Save', fr: 'Économisez' },
     freeShippingTitle: { en: 'Free Shipping', fr: 'Livraison Gratuite' },
     yearWarranty: { en: '1 Year Warranty', fr: 'Garantie 1 An' },
     easyReturnTitle: { en: '30-Day Returns', fr: 'Retours 30 Jours' },
