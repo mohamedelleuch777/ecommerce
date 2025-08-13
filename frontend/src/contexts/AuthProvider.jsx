@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import { AuthContext } from './AuthContext';
-
-// API base URL
-const API_BASE_URL = 'http://localhost:5000/api';
+import { API_BASE_URL } from '../config/api.js';
 
 // Create axios instance with default config
 const api = axios.create({
