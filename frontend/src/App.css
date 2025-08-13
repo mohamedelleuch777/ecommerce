@@ -67,13 +67,30 @@ img {
   border: 0;
 }
 
-/* Mobile-only fix for trimming issue */
+/* Mobile optimizations */
 @media (max-width: 768px) {
   .App {
     width: 100vw;
+    overflow-x: hidden;
   }
   
   .container {
     padding: 0 15px;
+    max-width: 100%;
+  }
+  
+  /* Ensure sliders don't cause horizontal overflow */
+  .swiper {
+    overflow: hidden;
+  }
+  
+  .swiper-wrapper {
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px;
   }
 }

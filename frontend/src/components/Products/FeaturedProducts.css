@@ -454,6 +454,10 @@
     padding: 40px 0;
   }
   
+  .featured-products .container {
+    padding: 0 15px;
+  }
+  
   .section-header h2 {
     font-size: 28px;
   }
@@ -466,32 +470,130 @@
     flex-direction: column;
     gap: 15px;
     text-align: center;
+    margin-bottom: 25px;
   }
   
   .deals-header h3 {
-    font-size: 20px;
+    font-size: 22px;
   }
   
-  .products-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+  .products-swiper {
+    padding: 15px 0;
+    margin: 0 -15px;
+    overflow: visible;
+  }
+  
+  .products-swiper .swiper-wrapper {
+    padding: 0 15px;
+  }
+  
+  .products-swiper .swiper-button-next,
+  .products-swiper .swiper-button-prev {
+    width: 36px;
+    height: 36px;
+    margin-top: -18px;
+    background: rgba(0, 123, 255, 0.9);
+    color: white;
+    font-size: 14px;
+  }
+  
+  .products-swiper .swiper-button-next {
+    right: 10px;
+  }
+  
+  .products-swiper .swiper-button-prev {
+    left: 10px;
+  }
+  
+  .products-swiper .swiper-button-next:after,
+  .products-swiper .swiper-button-prev:after {
+    font-size: 14px;
+  }
+  
+  .products-swiper .swiper-pagination {
+    bottom: -5px;
+  }
+  
+  .product-card {
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .product-actions {
+    opacity: 1;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    gap: 6px;
+  }
+  
+  .action-btn {
+    width: 32px !important;
+    height: 32px !important;
+    background: rgba(255, 255, 255, 0.95);
+  }
+  
+  .action-btn svg {
+    width: 16px !important;
+    height: 16px !important;
   }
   
   .product-image {
-    height: 200px;
+    height: 160px;
+    max-height: 160px;
   }
   
   .product-info {
-    padding: 15px;
+    padding: 12px;
   }
   
   .product-name {
     font-size: 14px;
-    height: 40px;
+    height: 38px;
+    line-height: 1.3;
+  }
+  
+  .product-description {
+    font-size: 12px;
+    height: 32px;
+    margin-bottom: 6px;
+  }
+  
+  .product-rating {
+    margin-bottom: 8px;
+  }
+  
+  .rating-text {
+    font-size: 11px;
   }
   
   .current-price {
     font-size: 18px;
+  }
+  
+  .old-price {
+    font-size: 13px;
+  }
+  
+  .discount {
+    font-size: 9px;
+    padding: 2px 5px;
+  }
+  
+  .product-benefits {
+    margin-bottom: 10px;
+    justify-content: space-around;
+  }
+  
+  .benefit {
+    font-size: 10px;
+    gap: 3px;
+  }
+  
+  .add-to-cart-btn {
+    padding: 8px;
+    font-size: 13px;
+    gap: 6px;
   }
   
   .deals-section {
@@ -500,12 +602,139 @@
 }
 
 @media (max-width: 480px) {
-  .products-grid {
-    grid-template-columns: 1fr;
+  .featured-products {
+    padding: 30px 0;
+  }
+  
+  .featured-products .container {
+    padding: 0 10px;
+  }
+  
+  .section-header h2 {
+    font-size: 24px;
+  }
+  
+  .section-header {
+    margin-bottom: 25px;
+  }
+  
+  .deals-header h3 {
+    font-size: 20px;
+  }
+  
+  .products-swiper {
+    padding: 10px 0;
+    margin: 0 -10px;
+  }
+  
+  .products-swiper .swiper-wrapper {
+    padding: 0 10px;
+  }
+  
+  .products-swiper .swiper-button-next,
+  .products-swiper .swiper-button-prev {
+    width: 32px;
+    height: 32px;
+    margin-top: -16px;
+  }
+  
+  .products-swiper .swiper-button-next {
+    right: 5px;
+  }
+  
+  .products-swiper .swiper-button-prev {
+    left: 5px;
+  }
+  
+  .products-swiper .swiper-button-next:after,
+  .products-swiper .swiper-button-prev:after {
+    font-size: 12px;
   }
   
   .product-card {
-    border-radius: 12px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+  
+  .product-actions {
+    top: 10px;
+    right: 10px;
+    gap: 4px;
+  }
+  
+  .action-btn {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  
+  .action-btn svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+  
+  .product-image {
+    height: 140px;
+    max-height: 140px;
+  }
+  
+  .product-info {
+    padding: 10px;
+  }
+  
+  .product-category {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  
+  .product-name {
+    font-size: 13px;
+    height: 36px;
+    line-height: 1.2;
+  }
+  
+  .product-description {
+    font-size: 11px;
+    height: 28px;
+    margin-bottom: 5px;
+  }
+  
+  .product-rating {
+    margin-bottom: 6px;
+  }
+  
+  .rating-text {
+    font-size: 10px;
+  }
+  
+  .current-price {
+    font-size: 16px;
+  }
+  
+  .old-price {
+    font-size: 12px;
+  }
+  
+  .discount {
+    font-size: 8px;
+    padding: 1px 4px;
+  }
+  
+  .product-benefits {
+    margin-bottom: 8px;
+    flex-direction: column;
+    gap: 3px;
+    align-items: flex-start;
+  }
+  
+  .benefit {
+    font-size: 9px;
+    gap: 2px;
+  }
+  
+  .add-to-cart-btn {
+    padding: 7px;
+    font-size: 12px;
+    gap: 4px;
   }
   
   .countdown {
@@ -522,9 +751,9 @@
     font-size: 14px;
   }
   
-  .product-benefits {
-    flex-direction: column;
-    gap: 5px;
-    align-items: flex-start;
+  .view-all-btn {
+    padding: 12px 30px;
+    font-size: 14px;
+    border-radius: 20px;
   }
 }
