@@ -13,7 +13,10 @@ export default {
     libraryTarget: "commonjs2"
   },
   externals: [
-    nodeExternals()
+    nodeExternals({
+      // Include all node_modules in the bundle (set allowlist to match everything)
+      allowlist: /.*/
+    })
   ],
   optimization: {
     minimize: true,
@@ -46,10 +49,6 @@ export default {
             presets: ["@babel/preset-env"]
           }
         }
-      },
-      {
-        test: /\.(html|cs)$/, // ✅ Ignore non-JS files
-        use: "null-loader" // ✅ Prevent non-JS files from causing issues
       }
     ]
   }

@@ -1,6 +1,10 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import connectDB from './config/database.js';
+
+// Load environment variables
+dotenv.config();
 
 // Connect to MongoDB
 connectDB();

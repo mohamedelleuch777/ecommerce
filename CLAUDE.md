@@ -134,6 +134,12 @@ This file tracks all changes made to the e-commerce project by Claude.
   - ✅ Enhanced slider to display pricing, descriptions, and proper backgrounds
   - ✅ Added support for discount badges and enhanced styling
 
+- **Backend Build & Deployment Fixes:**
+  - ✅ Fixed webpack bundling to include all dependencies in bundle.cjs (changed nodeExternals allowlist to include everything)
+  - ✅ Added dotenv package and configuration for environment variable support
+  - ✅ Fixed server port configuration to properly read from .env file
+  - ✅ Updated deployment script to include build step and proper service management
+
 ## Development Commands
 - Backend dev: `cd backend && npm run dev` (port 5000) - **KEEP RUNNING ALWAYS**
 - Backend start: `cd backend && npm start`

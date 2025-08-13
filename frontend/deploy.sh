@@ -7,6 +7,24 @@ REMOTE_DIR="/var/www/la3rousa.com/"
 BUILD_DIR="dist"
 SSHPASS="J71Hs5pg3CSe34FnAi"
 
+
+# 🛠 Ask user if they want to build
+read -p "📢 Do you want to build the app? (yes/no): " SEND_ENV
+
+# If user says yes, then build the app
+if [[ "$SEND_ENV" == "yes" || "$SEND_ENV" == "y" ]]; then
+  echo "✅ Building the app..."
+  npm run build
+  if [ $? -ne 0 ]; then
+    echo "❌ Error: Build failed. Aborting deployment!"
+    exit 1
+  else
+    echo "✅ Build completed successfully!"
+  fi
+else
+  echo "🚫 Skipping build step."
+fi
+
 # 📢 Start Deployment Message
 echo "🚀 Starting deployment to $SERVER ..."
 
