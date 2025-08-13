@@ -116,11 +116,31 @@ This file tracks all changes made to the e-commerce project by Claude.
   - ✅ Error handling for non-existent products
   - ✅ Loading states and proper fallbacks
 
+#### API Configuration Centralization (2025-08-13)
+- **Unified API Configuration:**
+  - ✅ Created centralized API config in `/frontend/src/config/api.js`
+  - ✅ Added environment variable support with `VITE_API_BASE_URL`
+  - ✅ Updated both `ApiService` and `AuthProvider` to use centralized config
+  - ✅ Fixed hero slides image loading issue by updating component to use correct API fields
+
+- **Environment Configuration:**
+  - ✅ Added `.env.development`, `.env.production`, and `.env.example` files
+  - ✅ Updated build scripts with `build:dev` and `build:prod` commands
+  - ✅ Updated `.gitignore` to exclude local environment files
+  - ✅ Created `API_CONFIGURATION.md` documentation
+
+- **Hero Slider Improvements:**
+  - ✅ Fixed broken image loading by using `productImage` and `backgroundImage` fields
+  - ✅ Enhanced slider to display pricing, descriptions, and proper backgrounds
+  - ✅ Added support for discount badges and enhanced styling
+
 ## Development Commands
 - Backend dev: `cd backend && npm run dev` (port 5000) - **KEEP RUNNING ALWAYS**
 - Backend start: `cd backend && npm start`
 - Frontend dev: `cd frontend && npm run dev` (port 5175) - **KEEP RUNNING ALWAYS**
 - Frontend build: `cd frontend && npm run build`
+- Frontend build (dev): `cd frontend && npm run build:dev`
+- Frontend build (prod): `cd frontend && npm run build:prod`
 - Frontend lint: `cd frontend && npm run lint`
 
 ## Server Management
