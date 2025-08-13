@@ -1,14 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const LanguageContext = createContext();
+import { LanguageContext } from './LanguageContext';
 
-export const useLanguage = () => {
-  const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
-  return context;
-};
+
 
 export const LanguageProvider = ({ children, user }) => {
   const [language, setLanguage] = useState('en'); // default to English
@@ -41,7 +35,7 @@ export const LanguageProvider = ({ children, user }) => {
         localStorage.setItem('preferred-language', userLang);
       }
     }
-  }, [user?.preferences?.language]);
+  }, [user?.preferences?.language, language]);
 
   const translations = {
     // Navigation

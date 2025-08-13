@@ -17,7 +17,7 @@ export const getCategorySlug = (categoryName) => {
     .replace(/[îï]/g, 'i')          // Replace French i accents
     .replace(/[ôö]/g, 'o')          // Replace French o accents
     .replace(/[ç]/g, 'c')           // Replace French c cedilla
-    .replace(/[^a-z0-9\-]/g, '')    // Remove any other special characters
+    .replace(/[^a-z0-9-]/g, '')    // Remove any other special characters
     .replace(/-+/g, '-')            // Replace multiple hyphens with single
     .replace(/^-|-$/g, '');         // Remove leading/trailing hyphens
 };

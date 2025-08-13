@@ -1,7 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { LanguageProvider } from './contexts/LanguageContext'
-import { AuthProvider, useAuth } from './context/AuthContext'
+import { LanguageProvider } from './contexts/LanguageProvider';
+import { AuthProvider } from './context/AuthProvider';
+import { useAuth } from './hooks/useAuth';
 import Header from './components/Header/Header'
 import Footer from './components/Layout/Footer'
 import HomePage from './pages/HomePage'
@@ -9,6 +10,7 @@ import ProductDetailPage from './pages/ProductDetailPage'
 import CategoryPage from './pages/CategoryPage'
 import ProfilePage from './pages/ProfilePage'
 import OrdersPage from './pages/OrdersPage'
+import ScrollToTop from './components/Router/ScrollToTop'
 import './App.css'
 
 function AppContent() {
@@ -17,6 +19,7 @@ function AppContent() {
   return (
     <LanguageProvider user={user}>
       <Router>
+        <ScrollToTop />
         <div className="App">
           <Header />
           <main>

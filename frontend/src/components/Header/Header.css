@@ -97,7 +97,12 @@
   margin: 0 auto;
 }
 
-.header-content img {
+.header-content a {
+  display: flex;
+  align-items: center;
+}
+
+.header-content a img {
   width: 256px;
   height: auto;
   margin-right: 10px;

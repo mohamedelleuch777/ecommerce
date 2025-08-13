@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './FeaturedProducts.css';
-import { useLanguage } from '../../contexts/LanguageContext';
+import { useLanguage } from '../../hooks/useLanguage';
 import { getTranslation } from '../../utils/translations';
 import ApiService from '../../services/api';
 
@@ -15,7 +15,6 @@ const FeaturedProducts = () => {
   const { language } = useLanguage();
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
@@ -24,7 +23,6 @@ const FeaturedProducts = () => {
         setFeaturedProducts(data);
       } catch (err) {
         console.error('Failed to fetch featured products:', err);
-        setError(err);
         // Fallback data if API fails
         setFeaturedProducts([
           {
@@ -62,20 +60,7 @@ const FeaturedProducts = () => {
     );
   }
 
-  const deals = [
-    {
-      id: 1,
-      title: 'Günün Fırsatları',
-      timeLeft: '14:32:15',
-      products: featuredProducts.slice(0, 3)
-    },
-    {
-      id: 2,
-      title: 'Haftalık İndirimler',
-      timeLeft: '2 gün 6 saat',
-      products: featuredProducts.slice(3, 6)
-    }
-  ];
+  
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-US', {

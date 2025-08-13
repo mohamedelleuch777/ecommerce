@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { X, Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
-import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../hooks/useAuth';
+import { useLanguage } from '../../hooks/useLanguage';
 import './AuthModal.css';
 
-const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
+const LoginModal = ({ isOpen, onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
@@ -64,7 +64,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
       } else {
         setError(result.error);
       }
-    } catch (err) {
+    } catch {
       setError(t('somethingWentWrong'));
     }
     

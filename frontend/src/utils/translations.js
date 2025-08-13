@@ -127,22 +127,17 @@ export const translations = {
     
     // Footer Company
     companyDescription: "Turkey's largest technology store. We offer the latest technological products at the most affordable prices.",
-    phone: "444 1 333",
     email: "info@techmarkt.com.tr",
     address: "Istanbul, Turkey",
     
     // Footer Categories
-    categories: "Categories",
     phoneTablet: "Phone & Tablet",
     computerLaptop: "Computer & Laptop",
     tvAudioSystems: "TV & Audio Systems",
     whiteGoods: "White Goods",
-    gaming: "Gaming",
     sportsOutdoor: "Sports & Outdoor",
     
     // Footer Corporate
-    corporate: "Corporate",
-    aboutUs: "About Us",
     ourStores: "Our Stores",
     career: "Career",
     pressCenter: "Press Center",
@@ -150,7 +145,6 @@ export const translations = {
     sustainability: "Sustainability",
     
     // Footer Help
-    help: "Help",
     orderTracking: "Order Tracking",
     returnExchange: "Return & Exchange",
     warrantyTerms: "Warranty Terms",
@@ -160,9 +154,7 @@ export const translations = {
     
     // Footer Membership
     membership: "Membership",
-    myAccount: "My Account",
     myOrders: "My Orders",
-    favorites: "Favorites",
     addressBook: "Address Book",
     giftCard: "Gift Card",
     pointsStatus: "Points Status",
@@ -308,22 +300,17 @@ export const translations = {
     
     // Footer Company
     companyDescription: "Le plus grand magasin de technologie de Turquie. Nous offrons les derniers produits technologiques aux prix les plus abordables.",
-    phone: "444 1 333",
     email: "info@techmarkt.com.tr",
     address: "Istanbul, Turquie",
     
     // Footer Categories
-    categories: "Catégories",
     phoneTablet: "Téléphone & Tablette",
     computerLaptop: "Ordinateur & Portable",
     tvAudioSystems: "TV & Systèmes Audio",
     whiteGoods: "Électroménager",
-    gaming: "Gaming",
     sportsOutdoor: "Sport & Plein Air",
     
     // Footer Corporate
-    corporate: "Entreprise",
-    aboutUs: "À Propos",
     ourStores: "Nos Magasins",
     career: "Carrière",
     pressCenter: "Centre de Presse",
@@ -331,7 +318,6 @@ export const translations = {
     sustainability: "Durabilité",
     
     // Footer Help
-    help: "Aide",
     orderTracking: "Suivi de Commande",
     returnExchange: "Retour & Échange",
     warrantyTerms: "Conditions de Garantie",
@@ -341,9 +327,7 @@ export const translations = {
     
     // Footer Membership
     membership: "Adhésion",
-    myAccount: "Mon Compte",
     myOrders: "Mes Commandes",
-    favorites: "Favoris",
     addressBook: "Carnet d'Adresses",
     giftCard: "Carte Cadeau",
     pointsStatus: "Statut des Points",

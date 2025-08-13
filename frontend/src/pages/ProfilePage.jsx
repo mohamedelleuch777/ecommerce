@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../hooks/useAuth';
+import { useLanguage } from '../hooks/useLanguage';
 import { User, Mail, Phone, Calendar, MapPin, Settings, Save, Plus, Edit2, Trash2 } from 'lucide-react';
 import './ProfilePage.css';
 

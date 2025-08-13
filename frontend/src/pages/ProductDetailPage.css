@@ -138,6 +138,10 @@
 
 .product-badge.discount {
   background: #28a745;
+  border-radius: 8px;
+  padding: 5px 8px;
+  text-align: center;
+  font-size: 12px;
 }
 
 .stock-status {

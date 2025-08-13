@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, ShoppingCart, User, MapPin, Phone, Heart, TrendingUp, Clock, Globe, LogOut, Package, ChevronDown } from 'lucide-react';
-import { useLanguage } from '../../contexts/LanguageContext';
-import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../hooks/useLanguage';
+import { useAuth } from '../../hooks/useAuth';
 import { getTranslation } from '../../utils/translations';
 import { getStandardizedCategorySlug } from '../../utils/slugs';
 import ApiService from '../../services/api';

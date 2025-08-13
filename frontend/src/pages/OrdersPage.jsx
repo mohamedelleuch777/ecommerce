@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useLanguage } from '../contexts/LanguageContext';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useAuth } from '../hooks/useAuth';
+import { useLanguage } from '../hooks/useLanguage';
 import { 
   Package, 
   Clock, 
@@ -31,11 +31,7 @@ const OrdersPage = () => {
     limit: 10
   });
 
-  useEffect(() => {
-    fetchOrders();
-  }, [filterStatus, pagination.current]);
-
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -55,7 +51,11 @@ const OrdersPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [api, pagination, filterStatus]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
 
   const fetchOrderDetails = async (orderId) => {
     try {

@@ -5,7 +5,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { useLanguage } from '../../contexts/LanguageContext';
+import { useLanguage } from '../../hooks/useLanguage';
 import { getTranslation } from '../../utils/translations';
 import ApiService from '../../services/api';
 
@@ -13,7 +13,6 @@ const TestimonialsSection = () => {
   const { language } = useLanguage();
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -22,7 +21,6 @@ const TestimonialsSection = () => {
         setTestimonials(data);
       } catch (err) {
         console.error('Failed to fetch testimonials:', err);
-        setError(err);
         // Fallback data if API fails
         setTestimonials([
           {

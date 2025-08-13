@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './CategoriesSection.css';
-import { useLanguage } from '../../contexts/LanguageContext';
+import { useLanguage } from '../../hooks/useLanguage';
 import { getTranslation } from '../../utils/translations';
 import { getStandardizedCategorySlug } from '../../utils/slugs';
 import ApiService from '../../services/api';
@@ -16,7 +16,6 @@ const CategoriesSection = () => {
   const { language } = useLanguage();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
 
   useEffect(() => {
@@ -26,7 +25,6 @@ const CategoriesSection = () => {
         setCategories(data);
       } catch (err) {
         console.error('Failed to fetch categories:', err);
-        setError(err);
         // Fallback data if API fails
         setCategories([
           {
