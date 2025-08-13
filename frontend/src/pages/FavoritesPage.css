@@ -211,6 +211,7 @@
 /* Product Info */
 .product-info {
   padding: 20px;
+  
 }
 
 .product-category {
@@ -390,7 +391,7 @@
   }
   
   .product-info {
-    padding: 15px;
+    padding: 15px 15px 40px 15px;
   }
   
   .empty-favorites {

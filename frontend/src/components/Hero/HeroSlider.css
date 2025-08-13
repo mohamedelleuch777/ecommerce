@@ -13,6 +13,10 @@
   width: 100%;
 }
 
+section.hero-slider .swiper-pagination {
+  position: absolute !important;
+}
+
 .slide-content {
   height: 100%;
   display: flex;

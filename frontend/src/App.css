@@ -67,6 +67,10 @@ img {
   border: 0;
 }
 
+.swiper-pagination {
+  position: static;
+}
+
 /* Mobile optimizations */
 @media (max-width: 768px) {
   .App {

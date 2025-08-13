@@ -512,6 +512,7 @@
   
   .products-swiper .swiper-pagination {
     bottom: -5px;
+    /* transform: translateY(-10px); */
   }
   
   .product-card {
@@ -624,11 +625,11 @@
   
   .products-swiper {
     padding: 10px 0;
-    margin: 0 -10px;
+    margin: 0 0px;
   }
   
   .products-swiper .swiper-wrapper {
-    padding: 0 10px;
+    padding: 0 0px;
   }
   
   .products-swiper .swiper-button-next,
