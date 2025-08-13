@@ -334,7 +334,7 @@
   }
   
   .header-main {
-    padding: 12px 0;
+    padding: 15px 0;
     background: white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
@@ -350,7 +350,18 @@
   }
   
   .logo {
-    display: none;
+    display: flex !important;
+    justify-content: center;
+    order: 1;
+    margin-bottom: 10px;
+  }
+  
+  .logo h1 {
+    font-size: 32px;
+    color: #e53e3e;
+    margin: 0;
+    font-weight: bold;
+    text-align: center;
   }
   
   .search-container {

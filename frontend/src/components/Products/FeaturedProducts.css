@@ -539,8 +539,8 @@
   }
   
   .product-image {
-    height: 160px;
-    max-height: 160px;
+    height: 200px;
+    max-height: 200px;
   }
   
   .product-info {
@@ -673,8 +673,8 @@
   }
   
   .product-image {
-    height: 140px;
-    max-height: 140px;
+    height: 180px;
+    max-height: 180px;
   }
   
   .product-info {
