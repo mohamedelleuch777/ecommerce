@@ -21,8 +21,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (token) {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      console.log('Auth token set in API headers:', token.substring(0, 20) + '...');
     } else {
       delete api.defaults.headers.common['Authorization'];
+      console.log('Auth token removed from API headers');
     }
   }, [token]);
 
@@ -30,11 +32,14 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initAuth = async () => {
       const storedToken = localStorage.getItem('token');
+      console.log('Auth initialization - stored token:', storedToken ? 'found' : 'not found');
       if (storedToken) {
         try {
-          const response = await api.get('/auth/profile');
-          setUser(response.data.user);
+          // Set token first before making the API call
           setToken(storedToken);
+          const response = await api.get('/auth/profile');
+          console.log('Auth profile loaded:', response.data.user.email);
+          setUser(response.data.user);
         } catch (error) {
           console.error('Auth initialization failed:', error);
           localStorage.removeItem('token');
@@ -42,6 +47,7 @@ export const AuthProvider = ({ children }) => {
         }
       }
       setLoading(false);
+      console.log('Auth initialization complete');
     };
 
     initAuth();

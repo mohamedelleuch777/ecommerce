@@ -5,12 +5,15 @@ import { useAuth } from '../hooks/useAuth';
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { user, api } = useAuth();
+  const { user, api, loading: authLoading } = useAuth();
 
   // Load favorites from localStorage or API when component mounts
   useEffect(() => {
-    loadFavorites();
-  }, [user]);
+    // Don't load favorites until auth is initialized
+    if (!authLoading) {
+      loadFavorites();
+    }
+  }, [user, api, authLoading]);
 
   // Save favorites to localStorage whenever favorites change
   useEffect(() => {
@@ -21,14 +24,17 @@ export const FavoritesProvider = ({ children }) => {
   }, [favorites, user]);
 
   const loadFavorites = async () => {
-    if (user) {
+    if (user && api) {
       // Load from API for authenticated users
       try {
         setLoading(true);
+        console.log('Loading favorites for user:', user.email, 'API instance available:', !!api);
         const response = await api.get('/favorites');
+        console.log('Favorites loaded successfully:', response.data);
         setFavorites(response.data.favorites || []);
       } catch (error) {
         console.error('Failed to load favorites from server:', error);
+        console.log('Error details:', error.response?.status, error.response?.data);
         // Fallback to localStorage
         loadFavoritesFromLocalStorage();
       } finally {
@@ -36,6 +42,7 @@ export const FavoritesProvider = ({ children }) => {
       }
     } else {
       // Load from localStorage for guest users
+      console.log('Loading favorites from localStorage, user:', !!user, 'api:', !!api);
       loadFavoritesFromLocalStorage();
     }
   };

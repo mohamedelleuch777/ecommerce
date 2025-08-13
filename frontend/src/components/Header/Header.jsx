@@ -263,8 +263,10 @@ const Header = () => {
               <div className="action-item user-menu-container" ref={userMenuRef}>
                 <div className="action-item" onClick={handleUserClick}>
                   <User size={24} />
-                  <span>{isAuthenticated ? user?.firstName || t('myAccount') : t('signIn')}</span>
-                  {isAuthenticated && <ChevronDown size={16} />}
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span>{isAuthenticated ? user?.firstName || t('myAccount') : t('signIn')}</span>
+                    {isAuthenticated && <ChevronDown size={16} />}
+                  </div>
                 </div>
                 
                 {isAuthenticated && showUserMenu && (
