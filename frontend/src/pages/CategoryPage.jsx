@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Star, Heart, ShoppingCart, Eye, Truck, Shield } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 import { getTranslation } from '../utils/translations';
+import FavoriteButton from '../components/Common/FavoriteButton';
 import ApiService from '../services/api';
 import './CategoryPage.css';
 
@@ -99,15 +100,11 @@ const CategoryPage = () => {
           {products.map((product) => (
             <div key={product.id} className="product-card">
               <div className="product-actions">
-                <button className="action-btn favorite">
-                  <Heart 
-                    size={18} 
-                    width={18} 
-                    height={18} 
-                    strokeWidth={1.5}
-                    style={{ width: '18px', height: '18px', display: 'block' }}
-                  />
-                </button>
+                <FavoriteButton 
+                  product={product} 
+                  size={18}
+                  className="action-btn favorite"
+                />
                 <button className="action-btn view">
                   <Eye 
                     size={18} 

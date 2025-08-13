@@ -284,7 +284,8 @@
   color: #e53e3e;
 }
 
-.cart-count {
+.cart-count,
+.favorites-count {
   position: absolute;
   top: -8px;
   right: -8px;
@@ -422,7 +423,8 @@
     white-space: nowrap;
   }
   
-  .cart-count {
+  .cart-count,
+  .favorites-count {
     position: absolute;
     top: -5px;
     right: 8px;

@@ -1,0 +1,110 @@
+.favorite-button {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #666;
+  position: relative;
+  z-index: 10;
+}
+
+.favorite-button:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #e53e3e;
+}
+
+.favorite-button.active {
+  color: #e53e3e;
+  background: rgba(229, 62, 62, 0.1);
+}
+
+.favorite-button.active:hover {
+  background: rgba(229, 62, 62, 0.15);
+  color: #c53030;
+}
+
+.favorite-button.animating {
+  animation: favoriteAnimation 0.3s ease-in-out;
+}
+
+.favorite-button .heart-icon {
+  transition: all 0.2s ease;
+}
+
+.favorite-button:hover .heart-icon {
+  transform: scale(1.1);
+}
+
+.favorite-button.animating .heart-icon {
+  animation: heartBeat 0.3s ease-in-out;
+}
+
+@keyframes favoriteAnimation {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  50% { transform: scale(1.1); }
+  75% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+/* Variant for small sizes */
+.favorite-button.small {
+  width: 32px;
+  height: 32px;
+}
+
+/* Variant for large sizes */
+.favorite-button.large {
+  width: 44px;
+  height: 44px;
+}
+
+/* Variant for transparent background */
+.favorite-button.transparent {
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.favorite-button.transparent:hover {
+  background: rgba(0, 0, 0, 0.5);
+  color: #ff6b6b;
+}
+
+.favorite-button.transparent.active {
+  background: rgba(229, 62, 62, 0.3);
+  color: #ff6b6b;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .favorite-button {
+    width: 34px;
+    height: 34px;
+  }
+  
+  .favorite-button.small {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .favorite-button.large {
+    width: 40px;
+    height: 40px;
+  }
+}

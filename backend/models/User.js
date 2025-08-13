@@ -51,6 +51,26 @@ const userSchema = new mongoose.Schema({
       default: false
     }
   }],
+  favorites: [{
+    productId: {
+      type: String,
+      required: true
+    },
+    name: String,
+    price: Number,
+    originalPrice: Number,
+    image: String,
+    category: String,
+    description: String,
+    rating: Number,
+    reviews: Number,
+    inStock: Boolean,
+    discount: Number,
+    addedAt: {
+      type: Date,
+      default: Date.now
+    }
+  }],
   preferences: {
     language: {
       type: String,

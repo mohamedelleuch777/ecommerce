@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Star, Heart, ShoppingCart, Truck, Shield, RotateCcw, ChevronLeft, ChevronRight, Minus, Plus } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 import { getTranslation } from '../utils/translations';
+import FavoriteButton from '../components/Common/FavoriteButton';
 import ApiService from '../services/api';
 import './ProductDetailPage.css';
 
@@ -141,9 +142,11 @@ const ProductDetailPage = () => {
           <div className="product-info">
             <div className="product-header">
               <h1 className="product-title">{product.name}</h1>
-              <button className="favorite-btn">
-                <Heart size={24} />
-              </button>
+              <FavoriteButton 
+                product={product} 
+                size={24}
+                className="favorite-btn large"
+              />
             </div>
 
             <div className="product-rating">

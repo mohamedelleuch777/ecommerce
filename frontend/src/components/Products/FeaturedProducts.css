@@ -204,6 +204,7 @@
   background: #f8f9fa;
   overflow: hidden;
   flex-shrink: 0;
+  max-height: 160px;
 }
 
 .product-image img {

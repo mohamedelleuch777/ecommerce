@@ -281,6 +281,10 @@
   font-weight: 600;
 }
 
+.price-row .discount {
+  width: 100%;
+}
+
 .product-description {
   margin-bottom: 1.5rem;
   color: #666;

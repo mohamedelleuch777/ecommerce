@@ -9,6 +9,7 @@ import 'swiper/css/pagination';
 import './FeaturedProducts.css';
 import { useLanguage } from '../../hooks/useLanguage';
 import { getTranslation } from '../../utils/translations';
+import FavoriteButton from '../Common/FavoriteButton';
 import ApiService from '../../services/api';
 
 const FeaturedProducts = () => {
@@ -128,15 +129,11 @@ const FeaturedProducts = () => {
                 <div className="product-card">
                   
                   <div className="product-actions">
-                    <button className="action-btn favorite" style={{ padding: 0, margin: 0 }}>
-                      <Heart 
-                        size={18} 
-                        width={18} 
-                        height={18} 
-                        strokeWidth={1.5}
-                        style={{ width: '18px', height: '18px', display: 'block' }}
-                      />
-                    </button>
+                    <FavoriteButton 
+                      product={product} 
+                      size={18}
+                      className="action-btn favorite"
+                    />
                     <button className="action-btn view" style={{ padding: 0, margin: 0 }}>
                       <Eye 
                         size={18} 

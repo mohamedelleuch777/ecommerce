@@ -97,6 +97,13 @@ export const translations = {
     loadingProducts: "Loading featured products...",
     loadingTestimonials: "Loading testimonials...",
     
+    // Favorites
+    noFavorites: "No favorites yet",
+    noFavoritesDescription: "Start adding products you love to see them here.",
+    clearAll: "Clear All",
+    confirmClearFavorites: "Are you sure you want to clear all favorites?",
+    continueShopping: "Continue Shopping",
+    
     // Product Detail Page
     home: "Home",
     backToHome: "Back to Home",
@@ -269,6 +276,13 @@ export const translations = {
     loadingCategories: "Chargement des catégories...",
     loadingProducts: "Chargement des produits en vedette...",
     loadingTestimonials: "Chargement des témoignages...",
+    
+    // Favorites
+    noFavorites: "Aucun favori pour le moment",
+    noFavoritesDescription: "Commencez à ajouter des produits que vous aimez pour les voir ici.",
+    clearAll: "Effacer Tout",
+    confirmClearFavorites: "Êtes-vous sûr de vouloir effacer tous les favoris ?",
+    continueShopping: "Continuer les Achats",
     
     // Product Detail Page
     home: "Accueil",

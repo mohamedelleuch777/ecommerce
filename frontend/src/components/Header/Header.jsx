@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Search, ShoppingCart, User, MapPin, Phone, Heart, TrendingUp, Clock, Globe, LogOut, Package, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../../hooks/useLanguage';
 import { useAuth } from '../../hooks/useAuth';
+import { useFavorites } from '../../hooks/useFavorites';
 import { getTranslation } from '../../utils/translations';
 import { getStandardizedCategorySlug } from '../../utils/slugs';
 import ApiService from '../../services/api';
@@ -13,6 +14,7 @@ import logo from '../../assets/logo-text.png';
 const Header = () => {
   const { language, changeLanguage, t } = useLanguage();
   const { user, logout, isAuthenticated } = useAuth();
+  const { favoritesCount } = useFavorites();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -252,10 +254,11 @@ const Header = () => {
             </div>
 
             <div className="header-actions">
-              <div className="action-item">
+              <Link to="/favorites" className="action-item">
                 <Heart size={24} />
                 <span>{t('favorites') || 'Favorites'}</span>
-              </div>
+                {favoritesCount > 0 && <span className="favorites-count">{favoritesCount}</span>}
+              </Link>
               
               <div className="action-item user-menu-container" ref={userMenuRef}>
                 <div className="action-item" onClick={handleUserClick}>
