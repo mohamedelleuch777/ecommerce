@@ -6,6 +6,7 @@ import { getTranslation } from '../../utils/translations';
 import { getStandardizedCategorySlug } from '../../utils/slugs';
 import ApiService from '../../services/api';
 import './Footer.css';
+import logo from '../../assets/logo-text.png';
 
 const Footer = () => {
   const { language } = useLanguage();
@@ -80,7 +81,10 @@ const Footer = () => {
           <div className="footer-content">
             <div className="footer-section">
               <div className="footer-logo">
-                <h2>{getTranslation('brandName', language)}</h2>
+                <Link to="/">
+                  <img src={logo} alt="Logo" />
+                </Link>
+                {/* <h2>{getTranslation('brandName', language)}</h2> */}
                 <p>{getTranslation('companyDescription', language)}</p>
               </div>
               

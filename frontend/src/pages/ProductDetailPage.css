@@ -160,6 +160,7 @@
   gap: 0.5rem;
   overflow-x: auto;
   padding: 0.5rem 0;
+  padding-left: 3px;
 }
 
 .thumbnail {
@@ -267,6 +268,7 @@
 }
 
 .discount {
+  width: 120px;
   background: #28a745;
   color: white;
   padding: 0.25rem 0.5rem;

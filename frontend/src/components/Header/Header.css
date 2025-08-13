@@ -97,6 +97,13 @@
   margin: 0 auto;
 }
 
+.header-content img {
+  width: 256px;
+  height: auto;
+  margin-right: 10px;
+
+}
+
 .logo h1 {
   color: #e53e3e;
   font-size: 28px;
@@ -729,4 +736,3 @@
     font-size: 13px;
   }
 }
-EOF < /dev/null

@@ -81,6 +81,11 @@
   margin-bottom: 30px;
 }
 
+.footer-logo img {
+  width: 256px;
+  margin-bottom: 20px;
+}
+
 .footer-logo h2 {
   color: #e53e3e;
   font-size: 28px;

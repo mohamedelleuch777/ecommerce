@@ -8,6 +8,7 @@ import { getStandardizedCategorySlug } from '../../utils/slugs';
 import ApiService from '../../services/api';
 import LoginModal from '../Auth/LoginModal';
 import './Header.css';
+import logo from '../../assets/logo-text.png';
 
 const Header = () => {
   const { language, changeLanguage, t } = useLanguage();
@@ -169,7 +170,10 @@ const Header = () => {
         <div className="container">
           <div className="header-content">
             <div className="logo">
-              <h1>{getTranslation('brandName', language)}</h1>
+              <Link to="/">
+                <img src={logo} alt="Logo" />
+                {/* <h1>{getTranslation('brandName', language)}</h1> */}
+              </Link>
             </div>
 
             <div className="search-container" ref={searchRef}>
