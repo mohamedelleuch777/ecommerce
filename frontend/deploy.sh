@@ -14,7 +14,7 @@ read -p "📢 Do you want to build the app? (yes/no): " SEND_ENV
 # If user says yes, then build the app
 if [[ "$SEND_ENV" == "yes" || "$SEND_ENV" == "y" ]]; then
   echo "✅ Building the app..."
-  npm run build
+  npm run build:prod
   if [ $? -ne 0 ]; then
     echo "❌ Error: Build failed. Aborting deployment!"
     exit 1
