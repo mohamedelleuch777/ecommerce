@@ -5,11 +5,14 @@ import { useFavorites } from '../hooks/useFavorites';
 import { useLanguage } from '../hooks/useLanguage';
 import { getTranslation } from '../utils/translations';
 import FavoriteButton from '../components/Common/FavoriteButton';
+import usePageTitle from '../hooks/usePageTitle';
 import './FavoritesPage.css';
 
 const FavoritesPage = () => {
   const { favorites, clearFavorites, loading } = useFavorites();
   const { language } = useLanguage();
+
+  usePageTitle('favoritesPageTitle');
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-US', {

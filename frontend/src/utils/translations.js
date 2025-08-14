@@ -183,7 +183,16 @@ export const translations = {
     allRightsReserved: "All rights reserved.",
     paymentMethods: "Payment Methods:",
     cookiePolicy: "Cookie Policy",
-    gdpr: "GDPR"
+    gdpr: "GDPR",
+
+    // Page Titles
+    homePageTitle: "Home",
+    searchPageTitle: "Search Results",
+    categoryPageTitle: "Category",
+    productPageTitle: "Product",
+    profilePageTitle: "My Profile",
+    ordersPageTitle: "My Orders",
+    favoritesPageTitle: "My Favorites"
   },
   fr: {
     // Header
@@ -369,7 +378,16 @@ export const translations = {
     allRightsReserved: "Tous droits réservés.",
     paymentMethods: "Méthodes de Paiement:",
     cookiePolicy: "Politique de Cookies",
-    gdpr: "RGPD"
+    gdpr: "RGPD",
+
+    // Page Titles
+    homePageTitle: "Accueil",
+    searchPageTitle: "Résultats de Recherche",
+    categoryPageTitle: "Catégorie",
+    productPageTitle: "Produit",
+    profilePageTitle: "Mon Profil",
+    ordersPageTitle: "Mes Commandes",
+    favoritesPageTitle: "Mes Favoris"
   }
 };
 

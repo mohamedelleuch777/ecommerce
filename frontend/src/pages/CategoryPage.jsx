@@ -5,6 +5,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import { getTranslation } from '../utils/translations';
 import FavoriteButton from '../components/Common/FavoriteButton';
 import ApiService from '../services/api';
+import usePageTitle from '../hooks/usePageTitle';
 import './CategoryPage.css';
 
 const CategoryPage = () => {
@@ -14,6 +15,8 @@ const CategoryPage = () => {
   const [categoryName, setCategoryName] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  usePageTitle('categoryPageTitle', categoryName);
 
   useEffect(() => {
     const fetchCategoryProducts = async () => {

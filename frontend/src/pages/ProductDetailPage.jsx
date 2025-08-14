@@ -5,6 +5,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import { getTranslation } from '../utils/translations';
 import FavoriteButton from '../components/Common/FavoriteButton';
 import ApiService from '../services/api';
+import usePageTitle from '../hooks/usePageTitle';
 import './ProductDetailPage.css';
 
 const ProductDetailPage = () => {
@@ -19,6 +20,8 @@ const ProductDetailPage = () => {
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedDetails, setSelectedDetails] = useState('');
+
+  usePageTitle('productPageTitle', product?.name);
 
   useEffect(() => {
     const fetchProduct = async () => {

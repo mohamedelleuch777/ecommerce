@@ -219,7 +219,16 @@ export const LanguageProvider = ({ children, user }) => {
     // Modal actions
     or: { en: 'or', fr: 'ou' },
     noAccount: { en: 'Don\'t have an account?', fr: 'Vous n\'avez pas de compte ?' },
-    alreadyHaveAccount: { en: 'Already have an account?', fr: 'Vous avez déjà un compte ?' }
+    alreadyHaveAccount: { en: 'Already have an account?', fr: 'Vous avez déjà un compte ?' },
+    
+    // Page Titles
+    homePageTitle: { en: 'Home', fr: 'Accueil' },
+    searchPageTitle: { en: 'Search Results', fr: 'Résultats de Recherche' },
+    categoryPageTitle: { en: 'Category', fr: 'Catégorie' },
+    productPageTitle: { en: 'Product', fr: 'Produit' },
+    profilePageTitle: { en: 'My Profile', fr: 'Mon Profil' },
+    ordersPageTitle: { en: 'My Orders', fr: 'Mes Commandes' },
+    favoritesPageTitle: { en: 'My Favorites', fr: 'Mes Favoris' }
   };
 
   const t = (key) => {

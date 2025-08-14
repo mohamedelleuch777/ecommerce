@@ -6,12 +6,15 @@ import { getTranslation } from '../utils/translations';
 import { getStandardizedCategorySlug } from '../utils/slugs';
 import FavoriteButton from '../components/Common/FavoriteButton';
 import ApiService from '../services/api';
+import usePageTitle from '../hooks/usePageTitle';
 import './SearchResultsPage.css';
 
 const SearchResultsPage = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
   const { language } = useLanguage();
+
+  usePageTitle('searchPageTitle', query);
   
   const [searchResults, setSearchResults] = useState({ products: [], categories: [], total: 0 });
   const [loading, setLoading] = useState(true);

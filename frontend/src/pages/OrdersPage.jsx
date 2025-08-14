@@ -14,11 +14,14 @@ import {
   MapPin,
   Star
 } from 'lucide-react';
+import usePageTitle from '../hooks/usePageTitle';
 import './OrdersPage.css';
 
 const OrdersPage = () => {
   const { api, user } = useAuth();
   const { t } = useLanguage();
+
+  usePageTitle('ordersPageTitle');
   
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);

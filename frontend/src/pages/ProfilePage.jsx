@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
 import { User, Mail, Phone, Calendar, MapPin, Settings, Save, Plus, Edit2, Trash2 } from 'lucide-react';
+import usePageTitle from '../hooks/usePageTitle';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
   const { user, updateProfile, addAddress, updateAddress, deleteAddress } = useAuth();
   const { t, changeLanguage } = useLanguage();
+
+  usePageTitle('profilePageTitle');
   
   const [activeTab, setActiveTab] = useState('profile');
   const [profileData, setProfileData] = useState({
