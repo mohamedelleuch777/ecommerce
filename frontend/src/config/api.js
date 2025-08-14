@@ -11,7 +11,7 @@ const getApiBaseUrl = () => {
   }
   
   // Fallback for development
-  return 'http://localhost:5000/api';
+  return 'http://localhost:7953/api';
 };
 
 export const API_CONFIG = {

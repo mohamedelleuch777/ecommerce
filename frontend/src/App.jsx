@@ -12,6 +12,7 @@ import CategoryPage from './pages/CategoryPage'
 import ProfilePage from './pages/ProfilePage'
 import OrdersPage from './pages/OrdersPage'
 import FavoritesPage from './pages/FavoritesPage'
+import SearchResultsPage from './pages/SearchResultsPage'
 import ScrollToTop from './components/Router/ScrollToTop'
 import './App.css'
 
@@ -28,6 +29,7 @@ function AppContent() {
             <main>
               <Routes>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/search" element={<SearchResultsPage />} />
                 <Route path="/category/:category" element={<CategoryPage />} />
                 <Route path="/product/:id" element={<ProductDetailPage />} />
                 <Route path="/profile" element={<ProfilePage />} />

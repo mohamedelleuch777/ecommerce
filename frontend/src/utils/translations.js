@@ -96,6 +96,8 @@ export const translations = {
     loadingCategories: "Loading categories...",
     loadingProducts: "Loading featured products...",
     loadingTestimonials: "Loading testimonials...",
+    searching: "Searching",
+    searchResults: "Search Results",
     
     // Favorites
     noFavorites: "No favorites yet",
@@ -280,6 +282,8 @@ export const translations = {
     loadingCategories: "Chargement des catégories...",
     loadingProducts: "Chargement des produits en vedette...",
     loadingTestimonials: "Chargement des témoignages...",
+    searching: "Recherche",
+    searchResults: "Résultats de Recherche",
     
     // Favorites
     noFavorites: "Aucun favori pour le moment",

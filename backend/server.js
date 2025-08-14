@@ -21,11 +21,13 @@ import landingRoutes from './routes/landingRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import favoritesRoutes from './routes/favoritesRoutes.js';
+import searchRoutes from './routes/searchRoutes.js';
 
 app.use('/api', landingRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/favorites', favoritesRoutes);
+app.use('/api', searchRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

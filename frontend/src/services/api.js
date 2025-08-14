@@ -93,6 +93,26 @@ class ApiService {
   async submitContact(contactData) {
     return this.postData('/contact', contactData);
   }
+
+  // Search functionality
+  async search(query, limit = 10) {
+    return this.fetchData('/search', { q: query, limit });
+  }
+
+  // Search suggestions
+  async getSearchSuggestions(query) {
+    return this.fetchData('/suggestions', { q: query });
+  }
+
+  // Trending searches
+  async getTrendingSearches() {
+    return this.fetchData('/trending');
+  }
+
+  // Recent searches
+  async getRecentSearches() {
+    return this.fetchData('/recent');
+  }
 }
 
 export default new ApiService();

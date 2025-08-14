@@ -20,42 +20,14 @@ const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [recentSearches] = useState(['iPhone 15', 'MacBook Pro', 'Samsung TV']);
+  const [recentSearches, setRecentSearches] = useState([]);
+  const [trendingSearches, setTrendingSearches] = useState([]);
+  const [searchResults, setSearchResults] = useState({ products: [], categories: [] });
+  const [isSearching, setIsSearching] = useState(false);
   const [categories, setCategories] = useState([]);
   const searchRef = useRef(null);
   const userMenuRef = useRef(null);
-
-  const trendingSearches = [
-    'iPhone 15 Pro Max',
-    'PlayStation 5',
-    'MacBook Air M2',
-    'Samsung Galaxy S24',
-    'AirPods Pro',
-    'Gaming Laptop',
-    'Wireless Headphones',
-    'Smart Watch'
-  ];
-
-  const productSuggestions = [
-    {
-      id: 1,
-      name: 'iPhone 15 Pro Max 256GB',
-      price: '$1,199',
-      image: 'https://images.unsplash.com/photo-1678652197831-2d180705cd2c?w=100&q=80'
-    },
-    {
-      id: 2,
-      name: 'MacBook Pro M3 14"',
-      price: '$1,999',
-      image: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=100&q=80'
-    },
-    {
-      id: 3,
-      name: 'Samsung QLED 75" TV',
-      price: '$899',
-      image: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=100&q=80'
-    }
-  ];
+  const searchTimeoutRef = useRef(null);
 
   const handleInputFocus = () => {
     setIsSearchOpen(true);
@@ -79,17 +51,65 @@ const Header = () => {
     setTimeout(() => setIsSearchOpen(false), 200);
   };
 
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = async (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-      console.log('Searching for:', searchTerm);
-      setIsSearchOpen(false);
+      try {
+        const results = await ApiService.search(searchTerm);
+        // Navigate to search results page or handle results
+        console.log('Search results:', results);
+        setIsSearchOpen(false);
+        // TODO: Navigate to search results page
+        navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
+      } catch (error) {
+        console.error('Search failed:', error);
+      }
     }
   };
 
   const handleSuggestionClick = (suggestion) => {
     setSearchTerm(suggestion);
     setIsSearchOpen(false);
+    // Trigger search with the selected suggestion
+    handleSearchSubmit({ preventDefault: () => {} });
+  };
+
+  // Debounced search function
+  const performSearch = async (query) => {
+    if (!query.trim() || query.length < 2) {
+      setSearchResults({ products: [], categories: [] });
+      return;
+    }
+
+    setIsSearching(true);
+    try {
+      const results = await ApiService.search(query, 6);
+      setSearchResults({
+        products: results.products || [],
+        categories: results.categories || []
+      });
+    } catch (error) {
+      console.error('Search error:', error);
+      setSearchResults({ products: [], categories: [] });
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  // Handle search input change with debouncing
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    // Clear existing timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    // Set new timeout for debounced search
+    searchTimeoutRef.current = setTimeout(() => {
+      performSearch(value);
+    }, 300);
   };
 
   useEffect(() => {
@@ -113,6 +133,34 @@ const Header = () => {
     fetchCategories();
   }, [language]);
 
+  // Fetch search-related data on component mount
+  useEffect(() => {
+    const fetchSearchData = async () => {
+      try {
+        const [trending, recent] = await Promise.all([
+          ApiService.getTrendingSearches(),
+          ApiService.getRecentSearches()
+        ]);
+        
+        setTrendingSearches(trending.trending || []);
+        setRecentSearches(recent.recent || []);
+      } catch (error) {
+        console.error('Failed to fetch search data:', error);
+        // Set fallback data
+        setTrendingSearches([
+          'iPhone 15 Pro Max',
+          'PlayStation 5',
+          'MacBook Air M2',
+          'Samsung Galaxy S24',
+          'AirPods Pro',
+          'Gaming Laptop'
+        ]);
+      }
+    };
+
+    fetchSearchData();
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -126,14 +174,6 @@ const Header = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
-  const filteredSuggestions = trendingSearches.filter(item =>
-    item.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const filteredProducts = productSuggestions.filter(item =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <header className="header">
@@ -184,7 +224,7 @@ const Header = () => {
                   type="text"
                   placeholder={getTranslation('searchPlaceholder', language)}
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={handleSearchChange}
                   onFocus={handleInputFocus}
                   onBlur={handleInputBlur}
                   className="search-input"
@@ -205,18 +245,47 @@ const Header = () => {
                     </div>
                   )}
 
-                  {searchTerm && filteredProducts.length > 0 && (
+                  {searchTerm && searchResults.products.length > 0 && (
                     <div className="dropdown-section">
                       <h4>{getTranslation('products', language)}</h4>
-                      {filteredProducts.map(product => (
-                        <div key={product._id || product.id} className="product-dropdown-item">
+                      {searchResults.products.map(product => (
+                        <Link 
+                          key={product._id} 
+                          to={`/product/${product._id}`}
+                          className="product-dropdown-item"
+                          onClick={() => setIsSearchOpen(false)}
+                        >
                           <img src={product.image} alt={product.name} />
                           <div className="product-info">
                             <span className="product-name">{product.name}</span>
                             <span className="product-price">{product.price}</span>
                           </div>
-                        </div>
+                        </Link>
                       ))}
+                    </div>
+                  )}
+
+                  {searchTerm && searchResults.categories.length > 0 && (
+                    <div className="dropdown-section">
+                      <h4>{getTranslation('categories', language)}</h4>
+                      {searchResults.categories.map(category => (
+                        <Link 
+                          key={category._id} 
+                          to={`/category/${getStandardizedCategorySlug(category.name)}`}
+                          className="dropdown-item"
+                          onClick={() => setIsSearchOpen(false)}
+                        >
+                          <span>{category.name} ({category.productCount} {getTranslation('products', language)})</span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+
+                  {isSearching && (
+                    <div className="dropdown-section">
+                      <div className="dropdown-item">
+                        <span>{getTranslation('searching', language)}...</span>
+                      </div>
                     </div>
                   )}
 
@@ -236,19 +305,21 @@ const Header = () => {
                     </div>
                   )}
 
-                  <div className="dropdown-section">
-                    <h4><TrendingUp size={16} /> {getTranslation('trendingSearches', language)}</h4>
-                    {(searchTerm ? filteredSuggestions : trendingSearches.slice(0, 6)).map((search, index) => (
-                      <div
-                        key={index}
-                        className="dropdown-item"
-                        onClick={() => handleSuggestionClick(search)}
-                      >
-                        <TrendingUp size={16} />
-                        <span>{search}</span>
-                      </div>
-                    ))}
-                  </div>
+                  {!searchTerm && trendingSearches.length > 0 && (
+                    <div className="dropdown-section">
+                      <h4><TrendingUp size={16} /> {getTranslation('trendingSearches', language)}</h4>
+                      {trendingSearches.slice(0, 6).map((search, index) => (
+                        <div
+                          key={index}
+                          className="dropdown-item"
+                          onClick={() => handleSuggestionClick(search)}
+                        >
+                          <TrendingUp size={16} />
+                          <span>{search}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
