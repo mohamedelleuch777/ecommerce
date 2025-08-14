@@ -29,7 +29,7 @@
 
 .categories-swiper .swiper-button-next,
 .categories-swiper .swiper-button-prev {
-  color: #007bff;
+  color: #e53e3e;
   background: white;
   border-radius: 50%;
   width: 40px;
@@ -45,7 +45,7 @@
 }
 
 .categories-swiper .swiper-pagination-bullet {
-  background: #007bff;
+  background: #e53e3e;
   opacity: 0.3;
 }
 

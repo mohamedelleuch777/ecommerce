@@ -47,7 +47,7 @@
   position: absolute;
   top: -16px;
   left: 30px;
-  background: #007bff;
+  background: #e53e3e;
   color: white;
   border-radius: 50%;
   width: 64px;
@@ -103,7 +103,7 @@
 
 .author-info .author-title {
   font-size: 0.9rem;
-  color: #007bff;
+  color: #e53e3e;
   margin-bottom: 4px;
 }
 

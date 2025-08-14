@@ -23,7 +23,7 @@
 .back-home-btn {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  background: #007bff;
+  background: #e53e3e;
   color: white;
   text-decoration: none;
   border-radius: 0.5rem;
@@ -32,7 +32,7 @@
 }
 
 .back-home-btn:hover {
-  background: #0056b3;
+  background: #d73a3a;
   transform: translateY(-2px);
 }
 
@@ -478,7 +478,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 2rem;
-  background: #007bff;
+  background: #e53e3e;
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -490,7 +490,7 @@
 }
 
 .add-to-cart-btn:hover:not(.disabled) {
-  background: #0056b3;
+  background: #d73a3a;
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
