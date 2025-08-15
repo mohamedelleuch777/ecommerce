@@ -16,6 +16,7 @@ import SearchResultsPage from './pages/SearchResultsPage'
 import AdminLayout from './admin/components/AdminLayout'
 import AdminDashboard from './admin/pages/AdminDashboard'
 import HeroManagement from './admin/pages/HeroManagement'
+import CategoriesManagement from './admin/pages/CategoriesManagement'
 import GlobalLoader from './components/Common/GlobalLoader'
 import ScrollToTop from './components/Router/ScrollToTop'
 import './App.css'
@@ -47,6 +48,7 @@ function AppContent() {
             }>
               <Route index element={<AdminDashboard />} />
               <Route path="hero" element={<HeroManagement />} />
+              <Route path="categories" element={<CategoriesManagement />} />
             </Route>
 
             {/* Public Routes */}

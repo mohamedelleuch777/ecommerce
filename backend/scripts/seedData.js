@@ -4,6 +4,7 @@ import Product from '../models/Product.js';
 import Category from '../models/Category.js';
 import Testimonial from '../models/Testimonial.js';
 import Brand from '../models/Brand.js';
+import User from '../models/User.js';
 import connectDB from '../config/database.js';
 
 // Load environment variables
@@ -977,12 +978,39 @@ async function seedDatabase() {
     await connectDB();
     console.log('Connected to MongoDB for seeding...');
 
-    // Clear existing data
+    // Clear existing data (but keep users)
     console.log('Clearing existing products, categories, testimonials, and brands...');
     await Product.deleteMany({});
     await Category.deleteMany({});
     await Testimonial.deleteMany({});
     await Brand.deleteMany({});
+
+    // Create admin user if it doesn't exist
+    console.log('Creating admin user...');
+    const existingAdmin = await User.findOne({ email: 'admin@example.com' });
+    if (!existingAdmin) {
+      const adminUser = new User({
+        firstName: 'Admin',
+        lastName: 'User',
+        email: 'admin@example.com',
+        password: 'admin123',
+        role: 'admin',
+        permissions: [
+          'manage_users',
+          'manage_products', 
+          'manage_categories',
+          'manage_orders',
+          'manage_hero',
+          'manage_footer',
+          'manage_pages',
+          'view_analytics'
+        ]
+      });
+      await adminUser.save();
+      console.log('✅ Created admin user: admin@example.com / admin123');
+    } else {
+      console.log('✅ Admin user already exists');
+    }
 
     // Seed categories
     console.log('Seeding categories...');

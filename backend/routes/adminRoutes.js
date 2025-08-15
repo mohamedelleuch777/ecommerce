@@ -218,5 +218,74 @@ router.delete('/hero/:id', requirePermission('manage_hero'), async (req, res) =>
   }
 });
 
+// Categories Management Routes
+router.get('/categories', requirePermission('manage_categories'), async (req, res) => {
+  try {
+    const { default: Category } = await import('../models/Category.js');
+    const categories = await Category.find().sort({ order: 1, createdAt: -1 });
+    res.json(categories);
+  } catch (error) {
+    console.error('Get categories error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.post('/categories', requirePermission('manage_categories'), async (req, res) => {
+  try {
+    const { default: Category } = await import('../models/Category.js');
+    
+    const category = new Category(req.body);
+    await category.save();
+    
+    res.status(201).json(category);
+  } catch (error) {
+    console.error('Create category error:', error);
+    res.status(500).json({ 
+      message: 'Server error',
+      error: error.message 
+    });
+  }
+});
+
+router.put('/categories/:id', requirePermission('manage_categories'), async (req, res) => {
+  try {
+    const { default: Category } = await import('../models/Category.js');
+    
+    const category = await Category.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+
+    if (!category) {
+      return res.status(404).json({ message: 'Category not found' });
+    }
+
+    res.json(category);
+  } catch (error) {
+    console.error('Update category error:', error);
+    res.status(500).json({ 
+      message: 'Server error',
+      error: error.message 
+    });
+  }
+});
+
+router.delete('/categories/:id', requirePermission('manage_categories'), async (req, res) => {
+  try {
+    const { default: Category } = await import('../models/Category.js');
+    
+    const category = await Category.findByIdAndDelete(req.params.id);
+    if (!category) {
+      return res.status(404).json({ message: 'Category not found' });
+    }
+
+    res.json({ message: 'Category deleted successfully' });
+  } catch (error) {
+    console.error('Delete category error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Export the router
 export default router;
