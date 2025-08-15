@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Plus, 
   Edit3, 
@@ -14,8 +14,7 @@ import {
   Eye,
   EyeOff,
   ChevronLeft,
-  ChevronRight,
-  Filter
+  ChevronRight
 } from 'lucide-react';
 import { adminApi } from '../services/adminApi';
 import '../components/AdminLayout.css';

@@ -5,6 +5,7 @@ import Category from '../models/Category.js';
 import Testimonial from '../models/Testimonial.js';
 import Brand from '../models/Brand.js';
 import User from '../models/User.js';
+import Order from '../models/Order.js';
 import connectDB from '../config/database.js';
 
 // Load environment variables
@@ -1032,12 +1033,164 @@ async function seedDatabase() {
     const createdBrands = await Brand.insertMany(seedBrands);
     console.log(`✅ Created ${createdBrands.length} brands`);
 
+    // Create sample test user for orders
+    console.log('Creating test user for orders...');
+    let testUser = await User.findOne({ email: 'test@example.com' });
+    if (!testUser) {
+      testUser = new User({
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'test@example.com',
+        password: 'password123',
+        addresses: [{
+          type: 'home',
+          street: '123 Main St',
+          city: 'New York',
+          state: 'NY',
+          zipCode: '10001',
+          country: 'USA',
+          isDefault: true
+        }]
+      });
+      await testUser.save();
+      console.log('✅ Created test user for orders');
+    }
+
+    // Seed sample orders
+    console.log('Seeding sample orders...');
+    await Order.deleteMany({});
+    
+    const sampleOrders = [
+      {
+        user: testUser._id,
+        orderNumber: 'ORD-2025-001',
+        items: [
+          {
+            product: createdProducts[0]._id,
+            name: createdProducts[0].name,
+            price: createdProducts[0].price,
+            quantity: 2,
+            image: createdProducts[0].image
+          },
+          {
+            product: createdProducts[1]._id,
+            name: createdProducts[1].name,
+            price: createdProducts[1].price,
+            quantity: 1,
+            image: createdProducts[1].image
+          }
+        ],
+        status: 'delivered',
+        payment: {
+          method: 'card',
+          status: 'completed'
+        },
+        pricing: {
+          subtotal: (createdProducts[0].price * 2) + createdProducts[1].price,
+          total: (createdProducts[0].price * 2) + createdProducts[1].price
+        },
+        shippingAddress: {
+          firstName: testUser.firstName,
+          lastName: testUser.lastName,
+          street: testUser.addresses[0].street,
+          city: testUser.addresses[0].city,
+          state: testUser.addresses[0].state,
+          zipCode: testUser.addresses[0].zipCode,
+          country: testUser.addresses[0].country
+        },
+        timeline: [
+          { status: 'pending', note: 'Order placed', timestamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) },
+          { status: 'confirmed', note: 'Payment confirmed', timestamp: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000) },
+          { status: 'processing', note: 'Order is being prepared', timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000) },
+          { status: 'shipped', note: 'Package shipped', timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000) },
+          { status: 'delivered', note: 'Package delivered', timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000) }
+        ],
+        createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+      },
+      {
+        user: testUser._id,
+        orderNumber: 'ORD-2025-002',
+        items: [
+          {
+            product: createdProducts[2]._id,
+            name: createdProducts[2].name,
+            price: createdProducts[2].price,
+            quantity: 1,
+            image: createdProducts[2].image
+          }
+        ],
+        status: 'processing',
+        payment: {
+          method: 'paypal',
+          status: 'completed'
+        },
+        pricing: {
+          subtotal: createdProducts[2].price,
+          total: createdProducts[2].price
+        },
+        shippingAddress: {
+          firstName: testUser.firstName,
+          lastName: testUser.lastName,
+          street: testUser.addresses[0].street,
+          city: testUser.addresses[0].city,
+          state: testUser.addresses[0].state,
+          zipCode: testUser.addresses[0].zipCode,
+          country: testUser.addresses[0].country
+        },
+        timeline: [
+          { status: 'pending', note: 'Order placed', timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) },
+          { status: 'confirmed', note: 'Payment confirmed', timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) },
+          { status: 'processing', note: 'Order is being prepared', timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000) }
+        ],
+        createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000)
+      },
+      {
+        user: testUser._id,
+        orderNumber: 'ORD-2025-003',
+        items: [
+          {
+            product: createdProducts[3]._id,
+            name: createdProducts[3].name,
+            price: createdProducts[3].price,
+            quantity: 3,
+            image: createdProducts[3].image
+          }
+        ],
+        status: 'pending',
+        payment: {
+          method: 'card',
+          status: 'pending'
+        },
+        pricing: {
+          subtotal: createdProducts[3].price * 3,
+          total: createdProducts[3].price * 3
+        },
+        shippingAddress: {
+          firstName: testUser.firstName,
+          lastName: testUser.lastName,
+          street: testUser.addresses[0].street,
+          city: testUser.addresses[0].city,
+          state: testUser.addresses[0].state,
+          zipCode: testUser.addresses[0].zipCode,
+          country: testUser.addresses[0].country
+        },
+        timeline: [
+          { status: 'pending', note: 'Order placed, awaiting payment', timestamp: new Date() }
+        ],
+        createdAt: new Date()
+      }
+    ];
+
+    const createdOrders = await Order.insertMany(sampleOrders);
+    console.log(`✅ Created ${createdOrders.length} sample orders`);
+
     console.log('\n🎉 Database seeding completed successfully!');
     console.log(`Total categories: ${createdCategories.length}`);
     console.log(`Total products: ${createdProducts.length}`);
     console.log(`Featured products: ${createdProducts.filter(p => p.featured).length}`);
     console.log(`Total testimonials: ${createdTestimonials.length}`);
     console.log(`Total brands: ${createdBrands.length}`);
+    console.log(`Total orders: ${createdOrders.length}`);
     
     process.exit(0);
   } catch (error) {

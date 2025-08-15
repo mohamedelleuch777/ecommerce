@@ -450,5 +450,128 @@ router.put('/products/:id/toggle-stock', requirePermission('manage_products'), a
   }
 });
 
+// Orders Management Routes
+router.get('/orders', requirePermission('manage_orders'), async (req, res) => {
+  try {
+    const { default: Order } = await import('../models/Order.js');
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const skip = (page - 1) * limit;
+    const search = req.query.search || '';
+    const status = req.query.status || '';
+    const dateFrom = req.query.dateFrom;
+    const dateTo = req.query.dateTo;
+
+    // Build filter query
+    const filter = {};
+    if (search) {
+      filter.$or = [
+        { orderNumber: { $regex: search, $options: 'i' } },
+        { 'user.firstName': { $regex: search, $options: 'i' } },
+        { 'user.lastName': { $regex: search, $options: 'i' } },
+        { 'user.email': { $regex: search, $options: 'i' } }
+      ];
+    }
+    if (status) {
+      filter.status = status;
+    }
+    if (dateFrom || dateTo) {
+      filter.createdAt = {};
+      if (dateFrom) filter.createdAt.$gte = new Date(dateFrom);
+      if (dateTo) filter.createdAt.$lte = new Date(dateTo + 'T23:59:59.999Z');
+    }
+
+    const orders = await Order.find(filter)
+      .populate('user', 'firstName lastName email')
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const total = await Order.countDocuments(filter);
+
+    res.json({
+      orders,
+      pagination: {
+        current: page,
+        pages: Math.ceil(total / limit),
+        total
+      }
+    });
+  } catch (error) {
+    console.error('Get orders error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.get('/orders/:id', requirePermission('manage_orders'), async (req, res) => {
+  try {
+    const { default: Order } = await import('../models/Order.js');
+    
+    const order = await Order.findById(req.params.id)
+      .populate('user', 'firstName lastName email phone addresses');
+      
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    res.json(order);
+  } catch (error) {
+    console.error('Get order error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.put('/orders/:id/status', requirePermission('manage_orders'), async (req, res) => {
+  try {
+    const { default: Order } = await import('../models/Order.js');
+    const { status, notes } = req.body;
+    
+    const order = await Order.findById(req.params.id);
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    // Add status change to timeline
+    if (status !== order.status) {
+      order.timeline.push({
+        status: status,
+        note: notes || `Status changed to ${status}`,
+        timestamp: new Date()
+      });
+    }
+
+    order.status = status;
+    if (notes) {
+      order.notes = notes;
+    }
+
+    await order.save();
+
+    const updatedOrder = await Order.findById(req.params.id)
+      .populate('user', 'firstName lastName email');
+
+    res.json(updatedOrder);
+  } catch (error) {
+    console.error('Update order status error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.delete('/orders/:id', requirePermission('manage_orders'), async (req, res) => {
+  try {
+    const { default: Order } = await import('../models/Order.js');
+    
+    const order = await Order.findByIdAndDelete(req.params.id);
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    res.json({ message: 'Order deleted successfully' });
+  } catch (error) {
+    console.error('Delete order error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Export the router
 export default router;
