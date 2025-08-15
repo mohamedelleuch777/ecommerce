@@ -110,6 +110,24 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  role: {
+    type: String,
+    enum: ['user', 'admin', 'superadmin'],
+    default: 'user'
+  },
+  permissions: [{
+    type: String,
+    enum: [
+      'manage_users',
+      'manage_products', 
+      'manage_categories',
+      'manage_orders',
+      'manage_hero',
+      'manage_footer',
+      'manage_pages',
+      'view_analytics'
+    ]
+  }],
   emailVerificationToken: String,
   passwordResetToken: String,
   passwordResetExpires: Date
@@ -146,6 +164,17 @@ userSchema.virtual('fullName').get(function() {
 // Get default address
 userSchema.methods.getDefaultAddress = function() {
   return this.addresses.find(addr => addr.isDefault) || this.addresses[0];
+};
+
+// Check if user is admin
+userSchema.methods.isAdmin = function() {
+  return this.role === 'admin' || this.role === 'superadmin';
+};
+
+// Check if user has specific permission
+userSchema.methods.hasPermission = function(permission) {
+  if (this.role === 'superadmin') return true;
+  return this.permissions.includes(permission);
 };
 
 // Remove password from JSON output

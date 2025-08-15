@@ -22,12 +22,14 @@ import authRoutes from './routes/authRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import favoritesRoutes from './routes/favoritesRoutes.js';
 import searchRoutes from './routes/searchRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 app.use('/api', landingRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/favorites', favoritesRoutes);
 app.use('/api', searchRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

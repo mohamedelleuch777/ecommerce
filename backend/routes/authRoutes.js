@@ -144,6 +144,8 @@ router.post('/login', async (req, res) => {
         preferences: user.preferences,
         avatar: user.avatar,
         fullName: user.fullName,
+        role: user.role,
+        permissions: user.permissions,
         createdAt: user.createdAt,
         lastLogin: user.lastLogin
       }
@@ -177,6 +179,8 @@ router.get('/profile', authenticate, async (req, res) => {
         preferences: user.preferences,
         avatar: user.avatar,
         fullName: user.fullName,
+        role: user.role,
+        permissions: user.permissions,
         createdAt: user.createdAt,
         lastLogin: user.lastLogin
       }
