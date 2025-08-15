@@ -397,10 +397,14 @@
   z-index: 1;
 }
 
+.search-button:hover svg {
+  color: #ffffff;
+}
+
 .search-box input {
   width: 100%;
   padding: 0.5rem 0.75rem 0.5rem 2.5rem;
-  border: 1px solid #d1d5db;
+  /* border: 1px solid #d1d5db; */
   border-radius: 6px;
   font-size: 0.875rem;
 }
