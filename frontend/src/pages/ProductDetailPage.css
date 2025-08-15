@@ -542,6 +542,7 @@
 .tab-btn.active {
   color: #007bff;
   border-bottom-color: #007bff;
+  border-radius: 0;
 }
 
 .tab-content {
