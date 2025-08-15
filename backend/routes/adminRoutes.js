@@ -287,5 +287,168 @@ router.delete('/categories/:id', requirePermission('manage_categories'), async (
   }
 });
 
+// Products Management Routes
+router.get('/products', requirePermission('manage_products'), async (req, res) => {
+  try {
+    const { default: Product } = await import('../models/Product.js');
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const skip = (page - 1) * limit;
+    const search = req.query.search || '';
+    const category = req.query.category || '';
+    const featured = req.query.featured;
+    const inStock = req.query.inStock;
+
+    // Build filter query
+    const filter = {};
+    if (search) {
+      filter.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
+        { category: { $regex: search, $options: 'i' } }
+      ];
+    }
+    if (category) {
+      filter.category = category;
+    }
+    if (featured !== undefined) {
+      filter.featured = featured === 'true';
+    }
+    if (inStock !== undefined) {
+      filter.inStock = inStock === 'true';
+    }
+
+    const products = await Product.find(filter)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const total = await Product.countDocuments(filter);
+
+    res.json({
+      products,
+      pagination: {
+        current: page,
+        pages: Math.ceil(total / limit),
+        total
+      }
+    });
+  } catch (error) {
+    console.error('Get products error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.get('/products/:id', requirePermission('manage_products'), async (req, res) => {
+  try {
+    const { default: Product } = await import('../models/Product.js');
+    
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.json(product);
+  } catch (error) {
+    console.error('Get product error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.post('/products', requirePermission('manage_products'), async (req, res) => {
+  try {
+    const { default: Product } = await import('../models/Product.js');
+    
+    const product = new Product(req.body);
+    await product.save();
+    
+    res.status(201).json(product);
+  } catch (error) {
+    console.error('Create product error:', error);
+    res.status(500).json({ 
+      message: 'Server error',
+      error: error.message 
+    });
+  }
+});
+
+router.put('/products/:id', requirePermission('manage_products'), async (req, res) => {
+  try {
+    const { default: Product } = await import('../models/Product.js');
+    
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.json(product);
+  } catch (error) {
+    console.error('Update product error:', error);
+    res.status(500).json({ 
+      message: 'Server error',
+      error: error.message 
+    });
+  }
+});
+
+router.delete('/products/:id', requirePermission('manage_products'), async (req, res) => {
+  try {
+    const { default: Product } = await import('../models/Product.js');
+    
+    const product = await Product.findByIdAndDelete(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error('Delete product error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.put('/products/:id/toggle-featured', requirePermission('manage_products'), async (req, res) => {
+  try {
+    const { default: Product } = await import('../models/Product.js');
+    
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    product.featured = !product.featured;
+    await product.save();
+
+    res.json(product);
+  } catch (error) {
+    console.error('Toggle featured error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.put('/products/:id/toggle-stock', requirePermission('manage_products'), async (req, res) => {
+  try {
+    const { default: Product } = await import('../models/Product.js');
+    
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    product.inStock = !product.inStock;
+    await product.save();
+
+    res.json(product);
+  } catch (error) {
+    console.error('Toggle stock error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Export the router
 export default router;

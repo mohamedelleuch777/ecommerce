@@ -749,3 +749,180 @@
     width: 100%;
   }
 }
+
+/* Products Management Specific Styles */
+.admin-table .product-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.admin-table .product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-table .product-name {
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.admin-table .product-description {
+  color: #6b7280;
+  font-size: 0.875rem;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.price-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.current-price {
+  font-weight: 600;
+  color: #111827;
+}
+
+.original-price {
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-decoration: line-through;
+}
+
+.discount {
+  font-size: 0.75rem;
+  color: #dc2626;
+  background: #fef2f2;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.rating-info {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #6b7280;
+}
+
+.star-icon {
+  color: #fbbf24;
+}
+
+.status-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.status-badges .badge {
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+/* Filter Controls */
+.filter-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  background: white;
+  min-width: 120px;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.pagination-info {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+/* Large Modal */
+.large-modal {
+  max-width: 800px;
+}
+
+/* Badge Variants */
+.badge-warning {
+  background: #fbbf24;
+  color: #92400e;
+}
+
+.badge-success {
+  background: #10b981;
+  color: white;
+}
+
+.btn-warning {
+  background: #fbbf24;
+  color: #92400e;
+  border: none;
+}
+
+.btn-warning:hover {
+  background: #f59e0b;
+}
+
+.btn-success {
+  background: #10b981;
+  color: white;
+  border: none;
+}
+
+.btn-success:hover {
+  background: #059669;
+}
+
+@media (max-width: 768px) {
+  .filter-controls {
+    width: 100%;
+    justify-content: stretch;
+  }
+  
+  .filter-select {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .admin-table .product-description {
+    max-width: 150px;
+  }
+  
+  .status-badges {
+    gap: 0.25rem;
+  }
+  
+  .pagination {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
