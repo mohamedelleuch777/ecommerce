@@ -1337,3 +1337,263 @@ input[type="date"].filter-select {
     padding: 0.125rem 0.375rem;
   }
 }
+
+/* Footer Management Specific Styles */
+.footer-management-container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.footer-tabs {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+}
+
+.footer-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.footer-tab:hover {
+  background: #f9fafb;
+  color: #374151;
+}
+
+.footer-tab.active {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 500;
+}
+
+.footer-tab.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #1d4ed8;
+}
+
+.footer-tab-content {
+  flex: 1;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.tab-panel {
+  padding: 2rem;
+}
+
+.tab-panel h3 {
+  margin: 0 0 1.5rem 0;
+  color: #111827;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.tab-panel h4 {
+  margin: 2rem 0 1rem 0;
+  color: #374151;
+  font-size: 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.5rem;
+}
+
+/* Section Header */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-header h3 {
+  margin: 0;
+}
+
+/* Sections Grid */
+.sections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.section-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background: #f9fafb;
+}
+
+.section-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-card-header h4 {
+  margin: 0;
+  color: #111827;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  padding: 0;
+}
+
+.section-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.section-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.section-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.external-icon {
+  color: #3b82f6;
+  margin-left: auto;
+}
+
+/* Social Links */
+.social-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.social-link-item {
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #f9fafb;
+}
+
+/* Color Input Group */
+.color-input-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.color-input-group input[type="color"] {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.color-input-group input[type="text"] {
+  flex: 1;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 0.875rem;
+}
+
+/* Links Form */
+.links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.link-form-row {
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #f9fafb;
+}
+
+.checkbox-label.small {
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.checkbox-label.small .checkmark {
+  width: 14px;
+  height: 14px;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-management-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .footer-tabs {
+    flex-direction: row;
+    overflow-x: auto;
+    min-width: auto;
+    padding: 0.5rem;
+  }
+  
+  .footer-tab {
+    flex-shrink: 0;
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+  }
+  
+  .footer-tab.active::before {
+    display: none;
+  }
+  
+  .tab-panel {
+    padding: 1rem;
+  }
+  
+  .sections-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .color-input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .color-input-group input[type="color"] {
+    width: 100%;
+    height: 50px;
+  }
+}

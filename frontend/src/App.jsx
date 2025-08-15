@@ -20,6 +20,7 @@ import CategoriesManagement from './admin/pages/CategoriesManagement'
 import ProductsManagement from './admin/pages/ProductsManagement'
 import OrdersManagement from './admin/pages/OrdersManagement'
 import UsersManagement from './admin/pages/UsersManagement'
+import FooterManagement from './admin/pages/FooterManagement'
 import GlobalLoader from './components/Common/GlobalLoader'
 import ScrollToTop from './components/Router/ScrollToTop'
 import './App.css'
@@ -55,6 +56,7 @@ function AppContent() {
               <Route path="products" element={<ProductsManagement />} />
               <Route path="orders" element={<OrdersManagement />} />
               <Route path="users" element={<UsersManagement />} />
+              <Route path="footer" element={<FooterManagement />} />
             </Route>
 
             {/* Public Routes */}

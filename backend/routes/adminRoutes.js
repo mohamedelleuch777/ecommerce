@@ -573,5 +573,153 @@ router.delete('/orders/:id', requirePermission('manage_orders'), async (req, res
   }
 });
 
+// Footer Management Routes
+router.get('/footer', requirePermission('manage_footer'), async (req, res) => {
+  try {
+    const { default: Footer } = await import('../models/Footer.js');
+    
+    let footer = await Footer.findOne({ isActive: true });
+    
+    // If no footer exists, create a default one
+    if (!footer) {
+      footer = new Footer({
+        companyInfo: {
+          name: 'E-Commerce Store',
+          description: 'Your trusted online shopping destination',
+          contact: {
+            email: 'info@ecommerce.com',
+            phone: '+1 (555) 123-4567'
+          }
+        },
+        sections: [
+          {
+            title: 'Quick Links',
+            order: 1,
+            links: [
+              { title: 'About Us', url: '/about', order: 1 },
+              { title: 'Contact', url: '/contact', order: 2 },
+              { title: 'FAQ', url: '/faq', order: 3 }
+            ]
+          },
+          {
+            title: 'Customer Service',
+            order: 2,
+            links: [
+              { title: 'Shipping Info', url: '/shipping', order: 1 },
+              { title: 'Returns', url: '/returns', order: 2 },
+              { title: 'Size Guide', url: '/size-guide', order: 3 }
+            ]
+          }
+        ],
+        socialLinks: [
+          { platform: 'facebook', url: 'https://facebook.com', order: 1 },
+          { platform: 'twitter', url: 'https://twitter.com', order: 2 },
+          { platform: 'instagram', url: 'https://instagram.com', order: 3 }
+        ],
+        copyright: {
+          text: 'All rights reserved.',
+          year: new Date().getFullYear()
+        }
+      });
+      await footer.save();
+    }
+
+    res.json(footer);
+  } catch (error) {
+    console.error('Get footer error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.put('/footer', requirePermission('manage_footer'), async (req, res) => {
+  try {
+    const { default: Footer } = await import('../models/Footer.js');
+    
+    let footer = await Footer.findOne({ isActive: true });
+    
+    if (!footer) {
+      footer = new Footer(req.body);
+    } else {
+      Object.assign(footer, req.body);
+    }
+    
+    await footer.save();
+    res.json(footer);
+  } catch (error) {
+    console.error('Update footer error:', error);
+    res.status(500).json({ 
+      message: 'Server error',
+      error: error.message 
+    });
+  }
+});
+
+router.post('/footer/sections', requirePermission('manage_footer'), async (req, res) => {
+  try {
+    const { default: Footer } = await import('../models/Footer.js');
+    
+    const footer = await Footer.findOne({ isActive: true });
+    if (!footer) {
+      return res.status(404).json({ message: 'Footer not found' });
+    }
+
+    const newSection = {
+      ...req.body,
+      order: footer.sections.length + 1
+    };
+    
+    footer.sections.push(newSection);
+    await footer.save();
+    
+    res.status(201).json(footer);
+  } catch (error) {
+    console.error('Add footer section error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.put('/footer/sections/:sectionId', requirePermission('manage_footer'), async (req, res) => {
+  try {
+    const { default: Footer } = await import('../models/Footer.js');
+    
+    const footer = await Footer.findOne({ isActive: true });
+    if (!footer) {
+      return res.status(404).json({ message: 'Footer not found' });
+    }
+
+    const section = footer.sections.id(req.params.sectionId);
+    if (!section) {
+      return res.status(404).json({ message: 'Section not found' });
+    }
+
+    Object.assign(section, req.body);
+    await footer.save();
+    
+    res.json(footer);
+  } catch (error) {
+    console.error('Update footer section error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.delete('/footer/sections/:sectionId', requirePermission('manage_footer'), async (req, res) => {
+  try {
+    const { default: Footer } = await import('../models/Footer.js');
+    
+    const footer = await Footer.findOne({ isActive: true });
+    if (!footer) {
+      return res.status(404).json({ message: 'Footer not found' });
+    }
+
+    footer.sections.pull({ _id: req.params.sectionId });
+    await footer.save();
+    
+    res.json(footer);
+  } catch (error) {
+    console.error('Delete footer section error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Export the router
 export default router;
