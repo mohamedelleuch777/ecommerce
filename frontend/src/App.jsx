@@ -19,6 +19,7 @@ import HeroManagement from './admin/pages/HeroManagement'
 import CategoriesManagement from './admin/pages/CategoriesManagement'
 import ProductsManagement from './admin/pages/ProductsManagement'
 import OrdersManagement from './admin/pages/OrdersManagement'
+import UsersManagement from './admin/pages/UsersManagement'
 import GlobalLoader from './components/Common/GlobalLoader'
 import ScrollToTop from './components/Router/ScrollToTop'
 import './App.css'
@@ -53,6 +54,7 @@ function AppContent() {
               <Route path="categories" element={<CategoriesManagement />} />
               <Route path="products" element={<ProductsManagement />} />
               <Route path="orders" element={<OrdersManagement />} />
+              <Route path="users" element={<UsersManagement />} />
             </Route>
 
             {/* Public Routes */}
