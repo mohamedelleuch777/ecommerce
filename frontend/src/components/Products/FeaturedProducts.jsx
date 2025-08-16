@@ -6,7 +6,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import './FeaturedProducts.css';
+import styles from './FeaturedProducts.module.css';
 import { useLanguage } from '../../hooks/useLanguage';
 import { getTranslation } from '../../utils/translations';
 import FavoriteButton from '../Common/FavoriteButton';
@@ -51,9 +51,9 @@ const FeaturedProducts = () => {
 
   if (loading) {
     return (
-      <section className="featured-products">
+      <section className={styles.featuredProducts}>
         <div className="container">
-          <div className="loading-placeholder">
+          <div className={styles.loadingPlaceholder}>
             <p>{getTranslation('loadingProducts', language)}</p>
           </div>
         </div>
@@ -72,18 +72,18 @@ const FeaturedProducts = () => {
   };
 
   return (
-    <section className="featured-products">
+    <section className={styles.featuredProducts}>
       <div className="container">
-        <div className="section-header">
+        <div className={styles.sectionHeader}>
           <h2>{getTranslation('featuredProducts', language)}</h2>
           <p>{getTranslation('featuredSubtitle', language)}</p>
         </div>
 
-        <div className="deals-section">
-          <div className="deals-header">
+        <div className={styles.dealsSection}>
+          <div className={styles.dealsHeader}>
             <h3>{getTranslation('featuredProducts', language)}</h3>
-            <div className="countdown">
-              <span className="countdown-label">{getTranslation('specialOffers', language)}</span>
+            <div className={styles.countdown}>
+              <span className={styles.countdownLabel}>{getTranslation('specialOffers', language)}</span>
             </div>
           </div>
 
@@ -122,19 +122,19 @@ const FeaturedProducts = () => {
                 spaceBetween: 25
               }
             }}
-            className="products-swiper"
+            className={styles.productsSwiper}
           >
             {featuredProducts.map((product) => (
               <SwiperSlide key={product._id || product.id}>
-                <div className="product-card">
+                <div className={styles.productCard}>
                   
-                  <div className="product-actions">
+                  <div className={styles.productActions}>
                     <FavoriteButton 
                       product={product} 
                       size={18}
-                      className="action-btn favorite"
+                      className={`${styles.actionBtn} ${styles.favorite}`}
                     />
-                    <button className="action-btn view" style={{ padding: 0, margin: 0 }}>
+                    <button className={`${styles.actionBtn} ${styles.view}`} style={{ padding: 0, margin: 0 }}>
                       <Eye 
                         size={18} 
                         width={18} 
@@ -145,19 +145,19 @@ const FeaturedProducts = () => {
                     </button>
                   </div>
 
-                  <div className="product-image">
+                  <div className={styles.productImage}>
                     <img src={product.image} alt={product.name} />
                   </div>
 
-                  <div className="product-info">
-                    <div className="product-category">{product.category}</div>
-                    <Link to={`/product/${product._id || product.id}`} className="product-name-link">
-                      <h4 className="product-name">{product.name}</h4>
+                  <div className={styles.productInfo}>
+                    <div className={styles.productCategory}>{product.category}</div>
+                    <Link to={`/product/${product._id || product.id}`} className={styles.productNameLink}>
+                      <h4 className={styles.productName}>{product.name}</h4>
                     </Link>
-                    <p className="product-description">{product.description}</p>
+                    <p className={styles.productDescription}>{product.description}</p>
                     
-                    <div className="product-rating">
-                      <div className="stars">
+                    <div className={styles.productRating}>
+                      <div className={styles.stars}>
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
@@ -167,45 +167,45 @@ const FeaturedProducts = () => {
                           />
                         ))}
                       </div>
-                      <span className="rating-text">
+                      <span className={styles.ratingText}>
                         {product.rating} ({product.reviews} {getTranslation('reviews', language)})
                       </span>
                     </div>
 
-                    <div className="product-pricing">
-                      <div className="price-row">
-                        <span className="current-price">{formatPrice(product.price)}</span>
+                    <div className={styles.productPricing}>
+                      <div className={styles.priceRow}>
+                        <span className={styles.currentPrice}>{formatPrice(product.price)}</span>
                         {product.originalPrice && (
                           <>
-                            <span className="old-price">{formatPrice(product.originalPrice)}</span>
-                            <span className="discount">
+                            <span className={styles.oldPrice}>{formatPrice(product.originalPrice)}</span>
+                            <span className={styles.discount}>
                               {product.discount}% {getTranslation('off', language)}
                             </span>
                           </>
                         )}
                       </div>
                       {!product.inStock && (
-                        <div className="out-of-stock-row">
-                          <span className="out-of-stock-badge">
+                        <div className={styles.outOfStockRow}>
+                          <span className={styles.outOfStockBadge}>
                             {getTranslation('outOfStock', language)}
                           </span>
                         </div>
                       )}
                     </div>
 
-                    <div className="product-benefits">
-                      <div className="benefit">
+                    <div className={styles.productBenefits}>
+                      <div className={styles.benefit}>
                         <Truck size={14} />
                         <span>{getTranslation('freeShipping', language)}</span>
                       </div>
-                      <div className="benefit">
+                      <div className={styles.benefit}>
                         <Shield size={14} />
                         <span>{getTranslation('yearWarranty', language)}</span>
                       </div>
                     </div>
 
                     <button 
-                      className={`add-to-cart-btn ${!product.inStock ? 'disabled' : ''}`}
+                      className={`${styles.addToCartBtn} ${!product.inStock ? styles.disabled : ''}`}
                       disabled={!product.inStock}
                     >
                       <ShoppingCart size={18} />
@@ -218,8 +218,8 @@ const FeaturedProducts = () => {
           </Swiper>
         </div>
 
-        <div className="view-all-section">
-          <button className="view-all-btn">{getTranslation('viewAllProducts', language)}</button>
+        <div className={styles.viewAllSection}>
+          <button className={styles.viewAllBtn}>{getTranslation('viewAllProducts', language)}</button>
         </div>
       </div>
     </section>

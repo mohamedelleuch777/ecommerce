@@ -19,7 +19,6 @@ import {
   Building
 } from 'lucide-react';
 import { adminApi } from '../services/adminApi';
-import '../components/AdminLayout.css';
 
 const FooterManagement = () => {
   const [footerData, setFooterData] = useState(null);

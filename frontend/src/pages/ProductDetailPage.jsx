@@ -6,7 +6,7 @@ import { getTranslation } from '../utils/translations';
 import FavoriteButton from '../components/Common/FavoriteButton';
 import ApiService from '../services/api';
 import usePageTitle from '../hooks/usePageTitle';
-import './ProductDetailPage.css';
+import styles from './ProductDetailPage.module.css';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -62,7 +62,7 @@ const ProductDetailPage = () => {
   if (loading) {
     return (
       <div className="container">
-        <div className="loading-placeholder pdp-loading">
+        <div className={`loading-placeholder ${styles.pdpLoading}`}>
           <p>{getTranslation('loading', language)}</p>
         </div>
       </div>
@@ -72,10 +72,10 @@ const ProductDetailPage = () => {
   if (error || !product) {
     return (
       <div className="container">
-        <div className="error-message">
+        <div className={styles.errorMessage}>
           <h2>Product Not Found</h2>
           <p>The product you're looking for doesn't exist.</p>
-          <Link to="/" className="back-home-btn">
+          <Link to="/" className={styles.backHomeBtn}>
             {getTranslation('backToHome', language)}
           </Link>
         </div>
@@ -84,10 +84,10 @@ const ProductDetailPage = () => {
   }
 
   return (
-    <section className="product-detail-page">
+    <section className={styles.productDetailPage}>
       <div className="container">
         {/* Breadcrumb */}
-        <nav className="breadcrumb">
+        <nav className={styles.breadcrumb}>
           <Link to="/">{getTranslation('home', language)}</Link>
           <span>/</span>
           <Link to={`/category/${product.category.toLowerCase()}`}>{product.category}</Link>
@@ -95,10 +95,10 @@ const ProductDetailPage = () => {
           <span>{product.name}</span>
         </nav>
 
-        <div className="product-detail-content">
+        <div className={styles.productDetailContent}>
           {/* Product Images */}
-          <div className="product-images">
-            <div className="main-image">
+          <div className={styles.productImages}>
+            <div className={styles.mainImage}>
               <img 
                 src={product.images ? product.images[selectedImageIndex] : product.image} 
                 alt={product.name} 
@@ -106,13 +106,13 @@ const ProductDetailPage = () => {
               {product.images && product.images.length > 1 && (
                 <>
                   <button 
-                    className="image-nav prev"
+                    className={`${styles.imageNav} ${styles.prev}`}
                     onClick={() => handleImageChange('prev')}
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button 
-                    className="image-nav next"
+                    className={`${styles.imageNav} ${styles.next}`}
                     onClick={() => handleImageChange('next')}
                   >
                     <ChevronRight size={24} />
@@ -120,18 +120,18 @@ const ProductDetailPage = () => {
                 </>
               )}
               {product.discount > 0 && (
-                <div className="product-badge discount">
+                <div className={`${styles.productBadge} ${styles.discount}`}>
                   {product.discount}% {getTranslation('off', language)}
                 </div>
               )}
             </div>
             
             {product.images && product.images.length > 1 && (
-              <div className="image-thumbnails">
+              <div className={styles.imageThumbnails}>
                 {product.images.map((image, index) => (
                   <button
                     key={index}
-                    className={`thumbnail ${index === selectedImageIndex ? 'active' : ''}`}
+                    className={`${styles.thumbnail} ${index === selectedImageIndex ? styles.active : ''}`}
                     onClick={() => setSelectedImageIndex(index)}
                   >
                     <img src={image} alt={`${product.name} ${index + 1}`} />
@@ -142,18 +142,18 @@ const ProductDetailPage = () => {
           </div>
 
           {/* Product Info */}
-          <div className="product-info">
-            <div className="product-header">
-              <h1 className="product-title">{product.name}</h1>
+          <div className={styles.productInfo}>
+            <div className={styles.productHeader}>
+              <h1 className={styles.productTitle}>{product.name}</h1>
               <FavoriteButton 
                 product={product} 
                 size={24}
-                className="favorite-btn large"
+                className={`${styles.favoriteBtn} ${styles.large}`}
               />
             </div>
 
-            <div className="product-rating">
-              <div className="stars">
+            <div className={styles.productRating}>
+              <div className={styles.stars}>
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
@@ -163,76 +163,76 @@ const ProductDetailPage = () => {
                   />
                 ))}
               </div>
-              <span className="rating-text">
+              <span className={styles.ratingText}>
                 {product.rating} ({product.reviews} {getTranslation('reviews', language)})
               </span>
             </div>
 
-            <div className="product-pricing">
-              <div className="price-row">
-                <span className="current-price">{formatPrice(product.price)}</span>
+            <div className={styles.productPricing}>
+              <div className={styles.priceRow}>
+                <span className={styles.currentPrice}>{formatPrice(product.price)}</span>
                 {product.originalPrice && (
                   <>
-                    <span className="old-price">{formatPrice(product.originalPrice)}</span>
-                    <span className="discount">
+                    <span className={styles.oldPrice}>{formatPrice(product.originalPrice)}</span>
+                    <span className={styles.discount}>
                       {getTranslation('saveAmount', language)} {formatPrice(product.originalPrice - product.price)}
                     </span>
                   </>
                 )}
               </div>
               {!product.inStock && (
-                <div className="stock-status">
-                  <span className="out-of-stock-badge">
+                <div className={styles.stockStatus}>
+                  <span className={styles.outOfStockBadge}>
                     {getTranslation('outOfStock', language)}
                   </span>
                 </div>
               )}
             </div>
 
-            <div className="product-description">
+            <div className={styles.productDescription}>
               <p>{product.description}</p>
             </div>
 
-            <div className="product-features">
-              <div className="feature">
+            <div className={styles.productFeatures}>
+              <div className={styles.feature}>
                 <Truck size={20} />
                 <span>{getTranslation('freeShippingTitle', language)}</span>
               </div>
-              <div className="feature">
+              <div className={styles.feature}>
                 <Shield size={20} />
                 <span>{getTranslation('yearWarranty', language)}</span>
               </div>
-              <div className="feature">
+              <div className={styles.feature}>
                 <RotateCcw size={20} />
                 <span>{getTranslation('easyReturnTitle', language)}</span>
               </div>
             </div>
 
-            <div className="product-actions">
+            <div className={styles.productActions}>
               {/* Color Selector */}
-              <div className="option-selector color-selector">
+              <div className={`${styles.optionSelector} ${styles.colorSelector}`}>
                 <label>Color:</label>
-                <div className="color-options">
+                <div className={styles.colorOptions}>
                   <button 
-                    className={`color-option black ${selectedColor === 'black' ? 'selected' : ''}`}
+                    className={`${styles.colorOption} ${styles.black} ${selectedColor === 'black' ? styles.selected : ''}`}
                     onClick={() => setSelectedColor('black')}
                     style={{ backgroundColor: '#000' }}
                   >
                   </button>
                   <button 
-                    className={`color-option white ${selectedColor === 'white' ? 'selected' : ''}`}
+                    className={`${styles.colorOption} ${styles.white} ${selectedColor === 'white' ? styles.selected : ''}`}
                     onClick={() => setSelectedColor('white')}
                     style={{ backgroundColor: '#fff', border: '2px solid #ddd' }}
                   >
                   </button>
                   <button 
-                    className={`color-option blue ${selectedColor === 'blue' ? 'selected' : ''}`}
+                    className={`${styles.colorOption} ${styles.blue} ${selectedColor === 'blue' ? styles.selected : ''}`}
                     onClick={() => setSelectedColor('blue')}
                     style={{ backgroundColor: '#2563eb' }}
                   >
                   </button>
                   <button 
-                    className={`color-option red ${selectedColor === 'red' ? 'selected' : ''}`}
+                    className={`${styles.colorOption} ${styles.red} ${selectedColor === 'red' ? styles.selected : ''}`}
                     onClick={() => setSelectedColor('red')}
                     style={{ backgroundColor: '#dc2626' }}
                   >
@@ -241,13 +241,13 @@ const ProductDetailPage = () => {
               </div>
 
               {/* Size Selector */}
-              <div className="option-selector size-selector">
+              <div className={`${styles.optionSelector} ${styles.sizeSelector}`}>
                 <label>Size:</label>
-                <div className="size-options">
+                <div className={styles.sizeOptions}>
                   {['S', 'M', 'L', 'XL', 'XXL'].map(size => (
                     <button 
                       key={size}
-                      className={`size-option ${selectedSize === size ? 'selected' : ''}`}
+                      className={`${styles.sizeOption} ${selectedSize === size ? styles.selected : ''}`}
                       onClick={() => setSelectedSize(size)}
                     >
                       {size}
@@ -257,13 +257,13 @@ const ProductDetailPage = () => {
               </div>
 
               {/* Details Selector */}
-              <div className="option-selector details-selector">
+              <div className={`${styles.optionSelector} ${styles.detailsSelector}`}>
                 <label>Memory/Storage:</label>
-                <div className="details-options">
+                <div className={styles.detailsOptions}>
                   {['128GB', '256GB', '512GB', '1TB'].map(detail => (
                     <button 
                       key={detail}
-                      className={`details-option ${selectedDetails === detail ? 'selected' : ''}`}
+                      className={`${styles.detailsOption} ${selectedDetails === detail ? styles.selected : ''}`}
                       onClick={() => setSelectedDetails(detail)}
                     >
                       {detail}
@@ -272,9 +272,9 @@ const ProductDetailPage = () => {
                 </div>
               </div>
 
-              <div className="quantity-selector">
+              <div className={styles.quantitySelector}>
                 <label>{getTranslation('quantity', language)}:</label>
-                <div className="quantity-controls">
+                <div className={styles.quantityControls}>
                   <button onClick={() => handleQuantityChange(-1)}>
                     <Minus size={16} />
                   </button>
@@ -286,7 +286,7 @@ const ProductDetailPage = () => {
               </div>
 
               <button 
-                className={`add-to-cart-btn primary ${!product.inStock ? 'disabled' : ''}`}
+                className={`${styles.addToCartBtn} ${styles.primary} ${!product.inStock ? styles.disabled : ''}`}
                 disabled={!product.inStock}
               >
                 <ShoppingCart size={20} />
@@ -294,54 +294,54 @@ const ProductDetailPage = () => {
               </button>
             </div>
 
-            <div className="stock-status">
+            <div className={styles.stockStatus}>
               {product.inStock ? (
-                <span className="in-stock">{getTranslation('inStock', language)}</span>
+                <span className={styles.inStock}>{getTranslation('inStock', language)}</span>
               ) : (
-                <span className="out-of-stock">{getTranslation('outOfStock', language)}</span>
+                <span className={styles.outOfStock}>{getTranslation('outOfStock', language)}</span>
               )}
             </div>
           </div>
         </div>
 
         {/* Product Details Tabs */}
-        <div className="product-details-tabs">
-          <div className="tab-buttons">
+        <div className={styles.productDetailsTabs}>
+          <div className={styles.tabButtons}>
             <button 
-              className={`tab-btn ${activeTab === 'description' ? 'active' : ''}`}
+              className={`${styles.tabBtn} ${activeTab === 'description' ? styles.active : ''}`}
               onClick={() => setActiveTab('description')}
             >
               {getTranslation('description', language)}
             </button>
             <button 
-              className={`tab-btn ${activeTab === 'specifications' ? 'active' : ''}`}
+              className={`${styles.tabBtn} ${activeTab === 'specifications' ? styles.active : ''}`}
               onClick={() => setActiveTab('specifications')}
             >
               {getTranslation('specifications', language)}
             </button>
             <button 
-              className={`tab-btn ${activeTab === 'reviews' ? 'active' : ''}`}
+              className={`${styles.tabBtn} ${activeTab === 'reviews' ? styles.active : ''}`}
               onClick={() => setActiveTab('reviews')}
             >
               {getTranslation('reviews', language)} ({product.reviews})
             </button>
           </div>
 
-          <div className="tab-content">
+          <div className={styles.tabContent}>
             {activeTab === 'description' && (
-              <div className="tab-panel">
+              <div className={styles.tabPanel}>
                 <p>{product.detailedDescription || product.description}</p>
               </div>
             )}
 
             {activeTab === 'specifications' && (
-              <div className="tab-panel">
-                <div className="specifications">
+              <div className={styles.tabPanel}>
+                <div className={styles.specifications}>
                   {product.specifications ? (
                     Object.entries(product.specifications).map(([key, value]) => (
-                      <div key={key} className="spec-row">
-                        <span className="spec-label">{key}:</span>
-                        <span className="spec-value">{value}</span>
+                      <div key={key} className={styles.specRow}>
+                        <span className={styles.specLabel}>{key}:</span>
+                        <span className={styles.specValue}>{value}</span>
                       </div>
                     ))
                   ) : (
@@ -352,12 +352,12 @@ const ProductDetailPage = () => {
             )}
 
             {activeTab === 'reviews' && (
-              <div className="tab-panel">
-                <div className="reviews-section">
-                  <div className="reviews-summary">
-                    <div className="overall-rating">
-                      <div className="rating-number">{product.rating}</div>
-                      <div className="stars">
+              <div className={styles.tabPanel}>
+                <div className={styles.reviewsSection}>
+                  <div className={styles.reviewsSummary}>
+                    <div className={styles.overallRating}>
+                      <div className={styles.ratingNumber}>{product.rating}</div>
+                      <div className={styles.stars}>
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
@@ -367,7 +367,7 @@ const ProductDetailPage = () => {
                           />
                         ))}
                       </div>
-                      <div className="reviews-count">{product.reviews} {getTranslation('reviews', language)}</div>
+                      <div className={styles.reviewsCount}>{product.reviews} {getTranslation('reviews', language)}</div>
                     </div>
                   </div>
                   <p>{getTranslation('reviewsComingSoon', language)}</p>

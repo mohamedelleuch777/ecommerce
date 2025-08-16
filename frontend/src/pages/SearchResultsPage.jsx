@@ -7,7 +7,7 @@ import { getStandardizedCategorySlug } from '../utils/slugs';
 import FavoriteButton from '../components/Common/FavoriteButton';
 import ApiService from '../services/api';
 import usePageTitle from '../hooks/usePageTitle';
-import './SearchResultsPage.css';
+import styles from './SearchResultsPage.module.css';
 
 const SearchResultsPage = () => {
   const [searchParams] = useSearchParams();
@@ -78,9 +78,9 @@ const SearchResultsPage = () => {
 
   if (loading) {
     return (
-      <div className="search-results-page">
+      <div className={styles.searchResultsPage}>
         <div className="container">
-          <div className="loading-placeholder">
+          <div className={styles.loadingPlaceholder}>
             <Search size={48} />
             <h2>{getTranslation('searching', language)}...</h2>
             <p>"{query}"</p>
@@ -91,10 +91,10 @@ const SearchResultsPage = () => {
   }
 
   return (
-    <div className="search-results-page">
+    <div className={styles.searchResultsPage}>
       <div className="container">
         {/* Breadcrumb */}
-        <nav className="breadcrumb">
+        <nav className={styles.breadcrumb}>
           <Link to="/">
             <ArrowLeft size={16} />
             {getTranslation('home', language)}
@@ -104,11 +104,11 @@ const SearchResultsPage = () => {
         </nav>
 
         {/* Search Header */}
-        <div className="search-header">
+        <div className={styles.searchHeader}>
           <div className="search-info">
             <h1>{getTranslation('searchResults', language)}</h1>
-            <p className="search-query">"{query}"</p>
-            <p className="results-count">
+            <p className={styles.searchQuery}>"{query}"</p>
+            <p className={styles.resultsCount}>
               {searchResults.total} {searchResults.total === 1 ? 'result' : 'results'} found
             </p>
           </div>
@@ -116,11 +116,11 @@ const SearchResultsPage = () => {
 
         {searchResults.total === 0 ? (
           /* No Results */
-          <div className="no-results">
+          <div className={styles.noResults}>
             <Search size={64} />
             <h2>No results found</h2>
             <p>Try searching for something else or check your spelling</p>
-            <Link to="/" className="back-home-btn">
+            <Link to="/" className={styles.backHomeBtn}>
               {getTranslation('continueShopping', language)}
             </Link>
           </div>
@@ -128,19 +128,19 @@ const SearchResultsPage = () => {
           <>
             {/* Categories Section */}
             {searchResults.categories.length > 0 && (
-              <div className="categories-section">
+              <div className={styles.categoriesSection}>
                 <h3>{getTranslation('categories', language)}</h3>
-                <div className="categories-grid">
+                <div className={styles.categoriesGrid}>
                   {searchResults.categories.map(category => (
                     <Link
                       key={category._id}
                       to={`/category/${getStandardizedCategorySlug(category.name)}`}
-                      className="category-result-card"
+                      className={styles.categoryResultCard}
                     >
-                      <div className="category-info">
+                      <div className={styles.categoryInfo}>
                         <h4>{category.name}</h4>
                         <p>{category.description}</p>
-                        <span className="product-count">
+                        <span className={styles.productCount}>
                           {category.productCount || 0} {getTranslation('products', language)}
                         </span>
                       </div>
@@ -152,18 +152,18 @@ const SearchResultsPage = () => {
 
             {/* Products Section */}
             {searchResults.products.length > 0 && (
-              <div className="products-section">
-                <div className="section-header">
+              <div className={styles.productsSection}>
+                <div className={styles.sectionHeader}>
                   <h3>{getTranslation('products', language)} ({searchResults.products.length})</h3>
                   
-                  <div className="filters-sort">
+                  <div className={styles.filtersSort}>
                     {/* Category Filter */}
-                    <div className="filter-group">
+                    <div className={styles.filterGroup}>
                       <Filter size={16} />
                       <select 
                         value={filterCategory} 
                         onChange={(e) => setFilterCategory(e.target.value)}
-                        className="filter-select"
+                        className={styles.filterSelect}
                       >
                         <option value="all">All Categories</option>
                         {getUniqueCategories().map(category => (
@@ -173,12 +173,12 @@ const SearchResultsPage = () => {
                     </div>
 
                     {/* Sort Options */}
-                    <div className="sort-group">
+                    <div className={styles.sortGroup}>
                       <label>Sort by:</label>
                       <select 
                         value={sortBy} 
                         onChange={(e) => setSortBy(e.target.value)}
-                        className="sort-select"
+                        className={styles.sortSelect}
                       >
                         <option value="relevance">Relevance</option>
                         <option value="price-low">Price: Low to High</option>
@@ -190,39 +190,39 @@ const SearchResultsPage = () => {
                   </div>
                 </div>
 
-                <div className="products-grid">
+                <div className={styles.productsGrid}>
                   {searchResults.products.map(product => (
-                    <div key={product._id} className="product-result-card">
-                      <div className="product-image-container">
+                    <div key={product._id} className={styles.productResultCard}>
+                      <div className={styles.productImageContainer}>
                         <Link to={`/product/${product._id}`}>
-                          <img src={product.image} alt={product.name} className="product-image" />
+                          <img src={product.image} alt={product.name} className={styles.productImage} />
                         </Link>
-                        <div className="product-overlay">
-                          <FavoriteButton product={product} className="overlay-favorite" />
+                        <div className={styles.productOverlay}>
+                          <FavoriteButton product={product} className={styles.overlayFavorite} />
                         </div>
                         {product.discount && (
-                          <div className="discount-badge">
+                          <div className={styles.discountBadge}>
                             {product.discount}% OFF
                           </div>
                         )}
                         {!product.inStock && (
-                          <div className="out-of-stock-overlay">
+                          <div className={styles.outOfStockOverlay}>
                             <span>{getTranslation('outOfStock', language)}</span>
                           </div>
                         )}
                       </div>
 
-                      <div className="product-info">
-                        <div className="product-category">{product.category}</div>
+                      <div className={styles.productInfo}>
+                        <div className={styles.productCategory}>{product.category}</div>
                         
-                        <Link to={`/product/${product._id}`} className="product-name-link">
-                          <h4 className="product-name">{product.name}</h4>
+                        <Link to={`/product/${product._id}`} className={styles.productNameLink}>
+                          <h4 className={styles.productName}>{product.name}</h4>
                         </Link>
                         
-                        <p className="product-description">{product.description}</p>
+                        <p className={styles.productDescription}>{product.description}</p>
                         
-                        <div className="product-rating">
-                          <div className="stars">
+                        <div className={styles.productRating}>
+                          <div className={styles.stars}>
                             {[...Array(5)].map((_, i) => (
                               <Star
                                 key={i}
@@ -232,16 +232,16 @@ const SearchResultsPage = () => {
                               />
                             ))}
                           </div>
-                          <span className="rating-text">
+                          <span className={styles.ratingText}>
                             {product.rating} ({product.reviews} {getTranslation('reviews', language)})
                           </span>
                         </div>
 
-                        <div className="product-pricing">
-                          <div className="price-row">
-                            <span className="current-price">{product.price}</span>
+                        <div className={styles.productPricing}>
+                          <div className={styles.priceRow}>
+                            <span className={styles.currentPrice}>{product.price}</span>
                             {product.originalPrice && (
-                              <span className="old-price">{product.originalPrice}</span>
+                              <span className={styles.oldPrice}>{product.originalPrice}</span>
                             )}
                           </div>
                         </div>

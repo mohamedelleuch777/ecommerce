@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { adminApi } from '../services/adminApi';
 import usePageTitle from '../../hooks/usePageTitle';
-import './HeroManagement.css';
+import styles from './HeroManagement.module.css';
 
 const HeroManagement = () => {
   const [slides, setSlides] = useState([]);
@@ -179,8 +179,8 @@ const HeroManagement = () => {
   if (loading) {
     return (
       <div className="admin-page">
-        <div className="loading-state">
-          <div className="spinner"></div>
+        <div className={styles.loadingState}>
+          <div className={styles.spinner}></div>
           <p>Loading hero slides...</p>
         </div>
       </div>
@@ -188,8 +188,8 @@ const HeroManagement = () => {
   }
 
   return (
-    <div className="hero-management">
-      <div className="page-header">
+    <div className={styles.heroManagement}>
+      <div className={styles.pageHeader}>
         <h1>Hero Slider Management</h1>
         <button onClick={() => openModal()} className="btn-primary">
           <Plus size={20} />
@@ -198,48 +198,48 @@ const HeroManagement = () => {
       </div>
 
       {error && (
-        <div className="error-message">
+        <div className={styles.errorMessage}>
           <p>{error}</p>
           <button onClick={() => setError(null)}>×</button>
         </div>
       )}
 
-      <div className="slides-grid">
+      <div className={styles.slidesGrid}>
         {slides.map((slide, index) => (
-          <div key={slide._id} className={`slide-card ${!slide.isActive ? 'inactive' : ''}`}>
-            <div className="slide-preview">
+          <div key={slide._id} className={`${styles.slideCard} ${!slide.isActive ? styles.inactive : ''}`}>
+            <div className={styles.slidePreview}>
               {slide.backgroundImage && (
                 <img 
                   src={slide.backgroundImage} 
                   alt={slide.title}
-                  className="slide-bg"
+                  className={styles.slideBg}
                 />
               )}
-              <div className="slide-content">
+              <div className={styles.slideContent}>
                 <h3>{slide.title}</h3>
                 <p>{slide.subtitle}</p>
                 {slide.discount && (
-                  <div className="slide-pricing">
-                    <span className="discount">{slide.discount}% OFF</span>
-                    <span className="price">${slide.currentPrice}</span>
+                  <div className={styles.slidePricing}>
+                    <span className={styles.discount}>{slide.discount}% OFF</span>
+                    <span className={styles.price}>${slide.currentPrice}</span>
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="slide-actions">
-              <div className="slide-info">
-                <span className="slide-order">#{index + 1}</span>
-                <span className={`slide-status ${slide.isActive ? 'active' : 'inactive'}`}>
+            <div className={styles.slideActions}>
+              <div className={styles.slideInfo}>
+                <span className={styles.slideOrder}>#{index + 1}</span>
+                <span className={`${styles.slideStatus} ${slide.isActive ? styles.active : styles.inactive}`}>
                   {slide.isActive ? 'Active' : 'Inactive'}
                 </span>
               </div>
 
-              <div className="action-buttons">
+              <div className={styles.actionButtons}>
                 <button
                   onClick={() => moveSlide(slide._id, 'up')}
                   disabled={index === 0}
-                  className="btn-icon"
+                  className={styles.btnIcon}
                   title="Move up"
                 >
                   <ArrowUp size={16} />
@@ -247,28 +247,28 @@ const HeroManagement = () => {
                 <button
                   onClick={() => moveSlide(slide._id, 'down')}
                   disabled={index === slides.length - 1}
-                  className="btn-icon"
+                  className={styles.btnIcon}
                   title="Move down"
                 >
                   <ArrowDown size={16} />
                 </button>
                 <button
                   onClick={() => handleToggleActive(slide)}
-                  className="btn-icon"
+                  className={styles.btnIcon}
                   title={slide.isActive ? 'Deactivate' : 'Activate'}
                 >
                   {slide.isActive ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
                 <button
                   onClick={() => openModal(slide)}
-                  className="btn-icon edit"
+                  className={`${styles.btnIcon} ${styles.edit}`}
                   title="Edit"
                 >
                   <Edit size={16} />
                 </button>
                 <button
                   onClick={() => handleDelete(slide._id)}
-                  className="btn-icon delete"
+                  className={`${styles.btnIcon} ${styles.delete}`}
                   title="Delete"
                 >
                   <Trash2 size={16} />
@@ -280,7 +280,7 @@ const HeroManagement = () => {
       </div>
 
       {slides.length === 0 && !loading && (
-        <div className="empty-state">
+        <div className={styles.emptyState}>
           <Image size={64} />
           <h3>No slides found</h3>
           <p>Create your first hero slide to get started.</p>
@@ -292,18 +292,18 @@ const HeroManagement = () => {
 
       {/* Modal */}
       {showModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <div className="modal-header">
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal}>
+            <div className={styles.modalHeader}>
               <h2>{editingSlide ? 'Edit Slide' : 'Add New Slide'}</h2>
-              <button onClick={closeModal} className="btn-icon">
+              <button onClick={closeModal} className={styles.btnIcon}>
                 <X size={20} />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="modal-form">
-              <div className="form-grid">
-                <div className="form-group">
+            <form onSubmit={handleSubmit} className={styles.modalForm}>
+              <div className={styles.formGrid}>
+                <div className={styles.formGroup}>
                   <label htmlFor="title">Title</label>
                   <input
                     type="text"
@@ -315,7 +315,7 @@ const HeroManagement = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label htmlFor="subtitle">Subtitle</label>
                   <input
                     type="text"
@@ -326,7 +326,7 @@ const HeroManagement = () => {
                   />
                 </div>
 
-                <div className="form-group full-width">
+                <div className={`${styles.formGroup} ${styles.fullWidth}`}>
                   <label htmlFor="description">Description</label>
                   <textarea
                     id="description"
@@ -337,7 +337,7 @@ const HeroManagement = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label htmlFor="buttonText">Button Text</label>
                   <input
                     type="text"
@@ -348,7 +348,7 @@ const HeroManagement = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label htmlFor="buttonLink">Button Link</label>
                   <input
                     type="text"
@@ -359,7 +359,7 @@ const HeroManagement = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label htmlFor="productImage">Product Image URL</label>
                   <input
                     type="url"
@@ -370,7 +370,7 @@ const HeroManagement = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label htmlFor="backgroundImage">Background Image URL</label>
                   <input
                     type="url"
@@ -381,7 +381,7 @@ const HeroManagement = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label htmlFor="discount">Discount (%)</label>
                   <input
                     type="number"
@@ -394,7 +394,7 @@ const HeroManagement = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label htmlFor="originalPrice">Original Price</label>
                   <input
                     type="number"
@@ -407,7 +407,7 @@ const HeroManagement = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label htmlFor="currentPrice">Current Price</label>
                   <input
                     type="number"
@@ -420,7 +420,7 @@ const HeroManagement = () => {
                   />
                 </div>
 
-                <div className="form-group checkbox-group">
+                <div className={`${styles.formGroup} ${styles.checkboxGroup}`}>
                   <label>
                     <input
                       type="checkbox"
@@ -433,7 +433,7 @@ const HeroManagement = () => {
                 </div>
               </div>
 
-              <div className="modal-actions">
+              <div className={styles.modalActions}>
                 <button type="button" onClick={closeModal} className="btn-secondary">
                   Cancel
                 </button>

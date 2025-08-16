@@ -11,7 +11,7 @@ import {
   ArrowDownRight
 } from 'lucide-react';
 import { adminApi } from '../services/adminApi';
-import './AdminDashboard.css';
+import styles from './AdminDashboard.module.css';
 
 const AdminDashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
@@ -62,9 +62,9 @@ const AdminDashboard = () => {
 
   if (loading) {
     return (
-      <div className="admin-page">
-        <div className="loading-state">
-          <div className="spinner"></div>
+      <div className={styles.adminPage}>
+        <div className={styles.loadingState}>
+          <div className={styles.spinner}></div>
           <p>Loading dashboard...</p>
         </div>
       </div>
@@ -73,10 +73,10 @@ const AdminDashboard = () => {
 
   if (error) {
     return (
-      <div className="admin-page">
-        <div className="error-state">
+      <div className={styles.adminPage}>
+        <div className={styles.errorState}>
           <p>Error loading dashboard: {error}</p>
-          <button onClick={fetchDashboardData} className="btn-primary">
+          <button onClick={fetchDashboardData} className={styles.btnPrimary}>
             Retry
           </button>
         </div>
@@ -122,21 +122,21 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-header">
+    <div className={styles.dashboard}>
+      <div className={styles.dashboardHeader}>
         <h1>Dashboard</h1>
         <p>Welcome to your admin dashboard</p>
       </div>
 
       {/* Stats Cards */}
-      <div className="stats-grid">
+      <div className={styles.statsGrid}>
         {statCards.map((stat, index) => (
-          <div key={index} className="stat-card">
-            <div className="stat-card-content">
-              <div className="stat-info">
+          <div key={index} className={styles.statCard}>
+            <div className={styles.statCardContent}>
+              <div className={styles.statInfo}>
                 <h3>{stat.title}</h3>
-                <p className="stat-value">{stat.value}</p>
-                <div className={`stat-change ${stat.changeType}`}>
+                <p className={styles.statValue}>{stat.value}</p>
+                <div className={`${styles.statChange} ${styles[stat.changeType]}`}>
                   {stat.changeType === 'increase' ? (
                     <ArrowUpRight size={16} />
                   ) : (
@@ -145,7 +145,7 @@ const AdminDashboard = () => {
                   <span>{stat.change}</span>
                 </div>
               </div>
-              <div className="stat-icon" style={{ backgroundColor: stat.color }}>
+              <div className={styles.statIcon} style={{ backgroundColor: stat.color }}>
                 <stat.icon size={24} color="white" />
               </div>
             </div>
@@ -154,14 +154,14 @@ const AdminDashboard = () => {
       </div>
 
       {/* Recent Orders */}
-      <div className="dashboard-section">
-        <div className="section-header">
+      <div className={styles.dashboardSection}>
+        <div className={styles.sectionHeader}>
           <h2>Recent Orders</h2>
-          <button className="btn-secondary">View All</button>
+          <button className={styles.btnSecondary}>View All</button>
         </div>
         
-        <div className="orders-table">
-          <div className="table-header">
+        <div className={styles.ordersTable}>
+          <div className={styles.tableHeader}>
             <div>Order ID</div>
             <div>Customer</div>
             <div>Date</div>
@@ -172,33 +172,33 @@ const AdminDashboard = () => {
           
           {recentOrders && recentOrders.length > 0 ? (
             recentOrders.map((order) => (
-              <div key={order._id} className="table-row">
-                <div className="order-id">#{order._id.slice(-8)}</div>
-                <div className="customer-info">
-                  <div className="customer-name">
+              <div key={order._id} className={styles.tableRow}>
+                <div className={styles.orderId}>#{order._id.slice(-8)}</div>
+                <div className={styles.customerInfo}>
+                  <div className={styles.customerName}>
                     {order.user?.firstName} {order.user?.lastName}
                   </div>
-                  <div className="customer-email">{order.user?.email}</div>
+                  <div className={styles.customerEmail}>{order.user?.email}</div>
                 </div>
-                <div className="order-date">{formatDate(order.createdAt)}</div>
-                <div className="order-status">
+                <div className={styles.orderDate}>{formatDate(order.createdAt)}</div>
+                <div className={styles.orderStatus}>
                   <span 
-                    className="status-badge"
+                    className={styles.statusBadge}
                     style={{ backgroundColor: getStatusColor(order.status) }}
                   >
                     {order.status}
                   </span>
                 </div>
-                <div className="order-total">{formatCurrency(order.total)}</div>
-                <div className="order-actions">
-                  <button className="btn-sm">
+                <div className={styles.orderTotal}>{formatCurrency(order.total)}</div>
+                <div className={styles.orderActions}>
+                  <button className={styles.btnSm}>
                     <Eye size={16} />
                   </button>
                 </div>
               </div>
             ))
           ) : (
-            <div className="empty-state">
+            <div className={styles.emptyState}>
               <p>No recent orders found</p>
             </div>
           )}
@@ -206,25 +206,25 @@ const AdminDashboard = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="dashboard-section">
-        <div className="section-header">
+      <div className={styles.dashboardSection}>
+        <div className={styles.sectionHeader}>
           <h2>Quick Actions</h2>
         </div>
         
-        <div className="quick-actions">
-          <button className="action-card">
+        <div className={styles.quickActions}>
+          <button className={styles.actionCard}>
             <Package size={24} />
             <span>Add Product</span>
           </button>
-          <button className="action-card">
+          <button className={styles.actionCard}>
             <Users size={24} />
             <span>Manage Users</span>
           </button>
-          <button className="action-card">
+          <button className={styles.actionCard}>
             <ShoppingCart size={24} />
             <span>View Orders</span>
           </button>
-          <button className="action-card">
+          <button className={styles.actionCard}>
             <TrendingUp size={24} />
             <span>Analytics</span>
           </button>

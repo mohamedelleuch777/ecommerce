@@ -8,7 +8,7 @@ import { getTranslation } from '../../utils/translations';
 import { getStandardizedCategorySlug } from '../../utils/slugs';
 import ApiService from '../../services/api';
 import LoginModal from '../Auth/LoginModal';
-import './Header.css';
+import styles from './Header.module.css';
 import logo from '../../assets/logo-text.png';
 
 const Header = () => {
@@ -176,29 +176,29 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="header">
-      <div className="header-top">
-        <div className="container">
-          <div className="header-top-left">
-            <span className="location">
+    <header className={styles.header}>
+      <div className={styles.headerTop}>
+        <div className={styles.container}>
+          <div className={styles.headerTopLeft}>
+            <span className={styles.location}>
               <MapPin size={16} />
               {getTranslation('storeFinder', language)}
             </span>
-            <span className="phone">
+            <span className={styles.phone}>
               <Phone size={16} />
               +1 (555) 123-4567
             </span>
           </div>
-          <div className="header-top-right">
+          <div className={styles.headerTopRight}>
             <span>{getTranslation('campaigns', language)}</span>
             <span>{getTranslation('corporate', language)}</span>
             <span>{getTranslation('help', language)}</span>
-            <div className="language-switcher">
+            <div className={styles.languageSwitcher}>
               <Globe size={16} />
               <select 
                 value={language} 
                 onChange={(e) => changeLanguage(e.target.value)}
-                className="language-select"
+                className={styles.languageSelect}
               >
                 <option value="en">EN</option>
                 <option value="fr">FR</option>
@@ -208,18 +208,18 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="header-main">
-        <div className="container">
-          <div className="header-content">
-            <div className="logo">
+      <div className={styles.headerMain}>
+        <div className={styles.container}>
+          <div className={styles.headerContent}>
+            <div className={styles.logo}>
               <Link to="/">
                 <img src={logo} alt="Logo" />
                 {/* <h1>{getTranslation('brandName', language)}</h1> */}
               </Link>
             </div>
 
-            <div className="search-container" ref={searchRef}>
-              <form onSubmit={handleSearchSubmit} className="search-box">
+            <div className={styles.searchContainer} ref={searchRef}>
+              <form onSubmit={handleSearchSubmit} className={styles.searchBox}>
                 <input
                   type="text"
                   placeholder={getTranslation('searchPlaceholder', language)}
@@ -227,18 +227,18 @@ const Header = () => {
                   onChange={handleSearchChange}
                   onFocus={handleInputFocus}
                   onBlur={handleInputBlur}
-                  className="search-input"
+                  className={styles.searchInput}
                 />
-                <button type="submit" className="search-button">
+                <button type="submit" className={styles.searchButton}>
                   <Search size={20} />
                 </button>
               </form>
 
               {isSearchOpen && (
-                <div className="search-dropdown">
+                <div className={styles.searchDropdown}>
                   {searchTerm && (
-                    <div className="dropdown-section">
-                      <div className="dropdown-item search-for">
+                    <div className={styles.dropdownSection}>
+                      <div className={`${styles.dropdownItem} ${styles.searchFor}`}>
                         <Search size={16} />
                         <span>{getTranslation('searchFor', language)} "{searchTerm}"</span>
                       </div>
@@ -246,19 +246,19 @@ const Header = () => {
                   )}
 
                   {searchTerm && searchResults.products.length > 0 && (
-                    <div className="dropdown-section">
+                    <div className={styles.dropdownSection}>
                       <h4>{getTranslation('products', language)}</h4>
                       {searchResults.products.map(product => (
                         <Link 
                           key={product._id} 
                           to={`/product/${product._id}`}
-                          className="product-dropdown-item"
+                          className={styles.productDropdownItem}
                           onClick={() => setIsSearchOpen(false)}
                         >
                           <img src={product.image} alt={product.name} />
-                          <div className="product-info">
-                            <span className="product-name">{product.name}</span>
-                            <span className="product-price">{product.price}</span>
+                          <div className={styles.productInfo}>
+                            <span className={styles.productName}>{product.name}</span>
+                            <span className={styles.productPrice}>{product.price}</span>
                           </div>
                         </Link>
                       ))}
@@ -266,13 +266,13 @@ const Header = () => {
                   )}
 
                   {searchTerm && searchResults.categories.length > 0 && (
-                    <div className="dropdown-section">
+                    <div className={styles.dropdownSection}>
                       <h4>{getTranslation('categories', language)}</h4>
                       {searchResults.categories.map(category => (
                         <Link 
                           key={category._id} 
                           to={`/category/${getStandardizedCategorySlug(category.name)}`}
-                          className="dropdown-item"
+                          className={styles.dropdownItem}
                           onClick={() => setIsSearchOpen(false)}
                         >
                           <span>{category.name} ({category.productCount} {getTranslation('products', language)})</span>
@@ -282,20 +282,20 @@ const Header = () => {
                   )}
 
                   {isSearching && (
-                    <div className="dropdown-section">
-                      <div className="dropdown-item">
+                    <div className={styles.dropdownSection}>
+                      <div className={styles.dropdownItem}>
                         <span>{getTranslation('searching', language)}...</span>
                       </div>
                     </div>
                   )}
 
                   {!searchTerm && recentSearches.length > 0 && (
-                    <div className="dropdown-section">
+                    <div className={styles.dropdownSection}>
                       <h4><Clock size={16} /> {getTranslation('recentSearches', language)}</h4>
                       {recentSearches.map((search, index) => (
                         <div
                           key={index}
-                          className="dropdown-item"
+                          className={styles.dropdownItem}
                           onClick={() => handleSuggestionClick(search)}
                         >
                           <Clock size={16} />
@@ -306,12 +306,12 @@ const Header = () => {
                   )}
 
                   {!searchTerm && trendingSearches.length > 0 && (
-                    <div className="dropdown-section">
+                    <div className={styles.dropdownSection}>
                       <h4><TrendingUp size={16} /> {getTranslation('trendingSearches', language)}</h4>
                       {trendingSearches.slice(0, 6).map((search, index) => (
                         <div
                           key={index}
-                          className="dropdown-item"
+                          className={styles.dropdownItem}
                           onClick={() => handleSuggestionClick(search)}
                         >
                           <TrendingUp size={16} />
@@ -324,15 +324,15 @@ const Header = () => {
               )}
             </div>
 
-            <div className="header-actions">
-              <Link to="/favorites" className="action-item">
+            <div className={styles.headerActions}>
+              <Link to="/favorites" className={styles.actionItem}>
                 <Heart size={24} />
                 <span>{t('favorites') || 'Favorites'}</span>
-                {favoritesCount > 0 && <span className="favorites-count">{favoritesCount}</span>}
+                {favoritesCount > 0 && <span className={styles.favoritesCount}>{favoritesCount}</span>}
               </Link>
               
-              <div className="action-item user-menu-container" ref={userMenuRef}>
-                <div className="action-item" onClick={handleUserClick}>
+              <div className={`${styles.actionItem} ${styles.userMenuContainer}`} ref={userMenuRef}>
+                <div className={styles.actionItem} onClick={handleUserClick}>
                   <User size={24} />
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <span>{isAuthenticated ? user?.firstName || t('myAccount') : t('signIn')}</span>
@@ -341,23 +341,23 @@ const Header = () => {
                 </div>
                 
                 {isAuthenticated && showUserMenu && (
-                  <div className="user-dropdown">
-                    <div className="user-info">
-                      <div className="user-avatar">
+                  <div className={styles.userDropdown}>
+                    <div className={styles.userInfo}>
+                      <div className={styles.userAvatar}>
                         {user?.avatar ? (
                           <img src={user.avatar} alt={user.fullName} />
                         ) : (
-                          <div className="avatar-placeholder">
+                          <div className={styles.avatarPlaceholder}>
                             {user?.firstName?.charAt(0)}{user?.lastName?.charAt(0)}
                           </div>
                         )}
                       </div>
-                      <div className="user-details">
+                      <div className={styles.userDetails}>
                         <h4>{user?.fullName}</h4>
                         <p>{user?.email}</p>
                       </div>
                     </div>
-                    <div className="dropdown-divider"></div>
+                    <div className={styles.dropdownDivider}></div>
                     <Link to="/profile" onClick={() => setShowUserMenu(false)}>
                       <User size={16} />
                       {t('profile')}
@@ -366,7 +366,7 @@ const Header = () => {
                       <Package size={16} />
                       {t('myOrders')}
                     </Link>
-                    <div className="dropdown-divider"></div>
+                    <div className={styles.dropdownDivider}></div>
                     <button onClick={handleLogout}>
                       <LogOut size={16} />
                       {t('logout')}
@@ -375,19 +375,19 @@ const Header = () => {
                 )}
               </div>
               
-              <div className="action-item cart">
+              <div className={`${styles.actionItem} ${styles.cart}`}>
                 <ShoppingCart size={24} />
                 <span>{t('cart') || 'Cart'}</span>
-                <span className="cart-count">0</span>
+                <span className={styles.cartCount}>0</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <nav className="header-nav">
-        <div className="container">
-          <ul className="nav-menu">
+      <nav className={styles.headerNav}>
+        <div className={styles.container}>
+          <ul className={styles.navMenu}>
             {categories.map((category, index) => {
               const categorySlug = getStandardizedCategorySlug(category.name);
               return (

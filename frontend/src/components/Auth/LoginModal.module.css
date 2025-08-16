@@ -1,4 +1,4 @@
-.auth-modal-overlay {
+.authModalOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +12,7 @@
   backdrop-filter: blur(2px);
 }
 
-.auth-modal {
+.authModal {
   background: white;
   border-radius: 12px;
   padding: 0;
@@ -35,7 +35,7 @@
   }
 }
 
-.auth-modal-header {
+.authModalHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,14 +44,14 @@
   margin-bottom: 0;
 }
 
-.auth-modal-header h2 {
+.authModalHeader h2 {
   margin: 0;
   font-size: 24px;
   font-weight: 600;
   color: #111827;
 }
 
-.close-btn {
+.closeBtn {
   background: none;
   border: none;
   cursor: pointer;
@@ -61,26 +61,26 @@
   transition: all 0.2s;
 }
 
-.close-btn:hover {
+.closeBtn:hover {
   background-color: #f3f4f6;
   color: #374151;
 }
 
-.auth-form {
+.authForm {
   padding: 24px 24px 24px;
 }
 
-.form-row {
+.formRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
 
-.form-group {
+.formGroup {
   margin-bottom: 20px;
 }
 
-.form-group label {
+.formGroup label {
   display: block;
   margin-bottom: 6px;
   font-weight: 500;
@@ -88,20 +88,20 @@
   font-size: 14px;
 }
 
-.input-with-icon {
+.inputWithIcon {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.input-with-icon svg:first-child {
+.inputWithIcon svg:first-child {
   position: absolute;
   left: 12px;
   color: #9ca3af;
   z-index: 1;
 }
 
-.input-with-icon input {
+.inputWithIcon input {
   width: 100%;
   padding: 12px 44px 12px 48px;
   border: 1.5px solid #d1d5db;
@@ -112,13 +112,13 @@
   box-sizing: border-box;
 }
 
-.input-with-icon input:focus {
+.inputWithIcon input:focus {
   outline: none;
   border-color: #e53e3e;
   box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
 }
 
-.password-toggle {
+.passwordToggle {
   position: absolute;
   right: 15px;
   top: 50%;
@@ -135,11 +135,11 @@
   justify-content: center;
 }
 
-.password-toggle:hover {
+.passwordToggle:hover {
   color: #374151;
 }
 
-.error-message {
+.errorMessage {
   background-color: #fee2e2;
   border: 1px solid #fecaca;
   color: #dc2626;
@@ -150,7 +150,7 @@
   font-weight: 500;
 }
 
-.auth-submit-btn {
+.authSubmitBtn {
   width: 100%;
   background: linear-gradient(135deg, #e53e3e 0%, #d73a3a 100%);
   color: white;
@@ -164,25 +164,25 @@
   margin-bottom: 24px;
 }
 
-.auth-submit-btn:hover:not(:disabled) {
+.authSubmitBtn:hover:not(:disabled) {
   background: linear-gradient(135deg, #d73a3a 0%, #c53030 100%);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(229, 62, 62, 0.4);
 }
 
-.auth-submit-btn:disabled {
+.authSubmitBtn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
 }
 
-.auth-divider {
+.authDivider {
   position: relative;
   text-align: center;
   margin: 24px 24px;
 }
 
-.auth-divider::before {
+.authDivider::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -192,7 +192,7 @@
   background-color: #e5e7eb;
 }
 
-.auth-divider span {
+.authDivider span {
   background-color: white;
   padding: 8px 16px;
   color: #6b7280;
@@ -201,18 +201,18 @@
   z-index: 1;
 }
 
-.auth-switch {
+.authSwitch {
   text-align: center;
   padding: 0 24px 24px;
 }
 
-.auth-switch p {
+.authSwitch p {
   margin: 0;
   color: #6b7280;
   font-size: 14px;
 }
 
-.switch-mode-btn {
+.switchModeBtn {
   background: none;
   border: none;
   color: #e53e3e;
@@ -223,82 +223,82 @@
   font-size: 14px;
 }
 
-.switch-mode-btn:hover {
+.switchModeBtn:hover {
   color: #d73a3a;
   text-decoration: underline;
 }
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
-  .auth-modal {
+  .authModal {
     width: 95%;
     margin: 20px;
     max-height: 85vh;
   }
 
-  .form-row {
+  .formRow {
     grid-template-columns: 1fr;
     gap: 0;
   }
 
-  .auth-modal-header {
+  .authModalHeader {
     padding: 20px 20px 12px 20px;
   }
 
-  .auth-form {
+  .authForm {
     padding: 20px 20px 20px;
   }
 
-  .auth-switch {
+  .authSwitch {
     padding: 0 20px 20px;
   }
 
-  .auth-modal-header h2 {
+  .authModalHeader h2 {
     font-size: 20px;
   }
 }
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
-  .auth-modal {
+  .authModal {
     background: #1f2937;
     color: #f9fafb;
   }
 
-  .auth-modal-header {
+  .authModalHeader {
     border-bottom-color: #374151;
   }
 
-  .auth-modal-header h2 {
+  .authModalHeader h2 {
     color: #f9fafb;
   }
 
-  .close-btn:hover {
+  .closeBtn:hover {
     background-color: #374151;
     color: #d1d5db;
   }
 
-  .form-group label {
+  .formGroup label {
     color: #d1d5db;
   }
 
-  .input-with-icon input {
+  .inputWithIcon input {
     background-color: #374151;
     border-color: #4b5563;
     color: #f9fafb;
     box-sizing: border-box;
   }
 
-  .input-with-icon input:focus {
+  .inputWithIcon input:focus {
     border-color: #e53e3e;
     box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
   }
 
-  .auth-divider::before {
+  .authDivider::before {
     background-color: #374151;
   }
 
-  .auth-divider span {
+  .authDivider span {
     background-color: #1f2937;
     color: #9ca3af;
     position: relative;
@@ -306,7 +306,7 @@
     padding: 8px 16px;
   }
 
-  .auth-switch p {
+  .authSwitch p {
     color: #9ca3af;
   }
 }

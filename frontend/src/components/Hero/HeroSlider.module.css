@@ -1,4 +1,4 @@
-.hero-slider {
+.heroSlider {
   margin-bottom: 40px;
   width: 100vw;
   position: relative;
@@ -8,16 +8,16 @@
   margin-right: -50vw;
 }
 
-.hero-swiper {
+.heroSwiper {
   height: 500px;
   width: 100%;
 }
 
-section.hero-slider .swiper-pagination {
+.heroSlider :global(.swiper-pagination) {
   position: absolute !important;
 }
 
-.slide-content {
+.slideContent {
   height: 100%;
   display: flex;
   align-items: center;
@@ -25,14 +25,14 @@ section.hero-slider .swiper-pagination {
   overflow: hidden;
 }
 
-.slide-content .container {
+.slideContent .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-.slide-content::before {
+.slideContent::before {
   content: '';
   position: absolute;
   top: 0;
@@ -43,7 +43,7 @@ section.hero-slider .swiper-pagination {
   z-index: 1;
 }
 
-.slide-info {
+.slideInfo {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -52,27 +52,27 @@ section.hero-slider .swiper-pagination {
   position: relative;
 }
 
-.slide-text {
+.slideText {
   flex: 1;
   color: white;
   max-width: 500px;
 }
 
-.slide-title {
+.slideTitle {
   font-size: 48px;
   font-weight: bold;
   margin: 0 0 10px 0;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-.slide-subtitle {
+.slideSubtitle {
   font-size: 24px;
   margin: 0 0 15px 0;
   opacity: 0.9;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
-.slide-description {
+.slideDescription {
   font-size: 16px;
   margin: 0 0 25px 0;
   line-height: 1.5;
@@ -80,28 +80,28 @@ section.hero-slider .swiper-pagination {
   text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
-.slide-pricing {
+.slidePricing {
   margin-bottom: 30px;
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-.price-section {
+.priceSection {
   margin-bottom: 30px;
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-.current-price {
+.currentPrice {
   font-size: 32px;
   font-weight: bold;
   color: #fff;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-.old-price {
+.oldPrice {
   font-size: 20px;
   text-decoration: line-through;
   opacity: 0.7;
@@ -118,7 +118,7 @@ section.hero-slider .swiper-pagination {
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.cta-button {
+.ctaButton {
   background: #fff;
   color: #333;
   border: none;
@@ -131,13 +131,13 @@ section.hero-slider .swiper-pagination {
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-.cta-button:hover {
+.ctaButton:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0,0,0,0.2);
   background: #f0f0f0;
 }
 
-.slide-image {
+.slideImage {
   flex: 0 0 400px;
   height: 350px;
   display: flex;
@@ -145,15 +145,15 @@ section.hero-slider .swiper-pagination {
   justify-content: center;
 }
 
-.slide-image img {
+.slideImage img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
   filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
 }
 
-.swiper-button-next,
-.swiper-button-prev {
+.heroSlider :global(.swiper-button-next),
+.heroSlider :global(.swiper-button-prev) {
   color: white;
   background: rgba(0,0,0,0.3);
   border-radius: 50%;
@@ -162,31 +162,41 @@ section.hero-slider .swiper-pagination {
   margin-top: -25px;
 }
 
-.swiper-button-next:after,
-.swiper-button-prev:after {
+.heroSlider :global(.swiper-button-next:after),
+.heroSlider :global(.swiper-button-prev:after) {
   font-size: 20px;
   font-weight: bold;
 }
 
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
+.heroSlider :global(.swiper-button-next:hover),
+.heroSlider :global(.swiper-button-prev:hover) {
   background: rgba(0,0,0,0.5);
 }
 
-.swiper-pagination-bullet {
+.heroSlider :global(.swiper-pagination-bullet) {
   background: rgba(255,255,255,0.5);
   opacity: 1;
   width: 12px;
   height: 12px;
 }
 
-.swiper-pagination-bullet-active {
+.heroSlider :global(.swiper-pagination-bullet-active) {
   background: white;
   transform: scale(1.2);
 }
 
+.loadingPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  background: #f5f5f5;
+  color: #666;
+  font-size: 18px;
+}
+
 @media (max-width: 768px) {
-  .hero-slider {
+  .heroSlider {
     margin-bottom: 20px;
     width: 100vw;
     position: relative;
@@ -196,16 +206,16 @@ section.hero-slider .swiper-pagination {
     margin-right: -50vw;
   }
   
-  .hero-swiper {
+  .heroSwiper {
     height: 600px;
   }
   
-  .slide-content .container {
+  .slideContent .container {
     padding: 0 20px;
     max-width: 100%;
   }
   
-  .slide-info {
+  .slideInfo {
     flex-direction: column;
     text-align: center;
     gap: 25px;
@@ -214,34 +224,34 @@ section.hero-slider .swiper-pagination {
     justify-content: center;
   }
   
-  .slide-text {
+  .slideText {
     max-width: none;
     padding: 0;
     order: 1;
   }
   
-  .slide-image {
+  .slideImage {
     flex: 0 0 300px;
     height: 250px;
     order: 2;
     margin: 20px 0;
   }
   
-  .slide-title {
+  .slideTitle {
     font-size: 32px;
     margin-bottom: 15px;
     line-height: 1.1;
     letter-spacing: -0.5px;
   }
   
-  .slide-subtitle {
+  .slideSubtitle {
     font-size: 18px;
     margin-bottom: 15px;
     line-height: 1.3;
     padding: 0;
   }
   
-  .slide-description {
+  .slideDescription {
     font-size: 14px;
     margin-bottom: 20px;
     line-height: 1.4;
@@ -249,23 +259,23 @@ section.hero-slider .swiper-pagination {
     opacity: 0.9;
   }
   
-  .slide-image img {
+  .slideImage img {
     filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
   }
   
-  .slide-pricing,
-  .price-section {
+  .slidePricing,
+  .priceSection {
     justify-content: center;
     margin-bottom: 25px;
     flex-wrap: wrap;
     gap: 10px 15px;
   }
   
-  .current-price {
+  .currentPrice {
     font-size: 28px;
   }
   
-  .old-price {
+  .oldPrice {
     font-size: 18px;
   }
   
@@ -275,7 +285,7 @@ section.hero-slider .swiper-pagination {
     border-radius: 20px;
   }
   
-  .cta-button {
+  .ctaButton {
     padding: 16px 40px;
     font-size: 16px;
     border-radius: 25px;
@@ -286,13 +296,13 @@ section.hero-slider .swiper-pagination {
     min-width: 160px;
   }
   
-  .cta-button:hover {
+  .ctaButton:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.2);
   }
   
-  .swiper-button-next,
-  .swiper-button-prev {
+  .heroSlider :global(.swiper-button-next),
+  .heroSlider :global(.swiper-button-prev) {
     width: 44px;
     height: 44px;
     margin-top: -22px;
@@ -301,97 +311,97 @@ section.hero-slider .swiper-pagination {
     border-radius: 50%;
   }
   
-  .swiper-button-next {
+  .heroSlider :global(.swiper-button-next) {
     right: 15px;
   }
   
-  .swiper-button-prev {
+  .heroSlider :global(.swiper-button-prev) {
     left: 15px;
   }
   
-  .swiper-button-next:after,
-  .swiper-button-prev:after {
+  .heroSlider :global(.swiper-button-next:after),
+  .heroSlider :global(.swiper-button-prev:after) {
     font-size: 16px;
     color: white;
   }
   
-  .swiper-pagination {
+  .heroSlider :global(.swiper-pagination) {
     bottom: 20px !important;
   }
   
-  .swiper-pagination-bullet {
+  .heroSlider :global(.swiper-pagination-bullet) {
     width: 10px;
     height: 10px;
     margin: 0 5px !important;
     background: rgba(255,255,255,0.7);
   }
   
-  .swiper-pagination-bullet-active {
+  .heroSlider :global(.swiper-pagination-bullet-active) {
     background: white;
     transform: scale(1.2);
   }
 }
 
 @media (max-width: 480px) {
-  .hero-swiper {
+  .heroSwiper {
     height: 550px;
   }
   
-  .slide-content .container {
+  .slideContent .container {
     padding: 0 15px;
     max-width: 100%;
   }
   
-  .slide-info {
+  .slideInfo {
     gap: 20px;
     padding: 25px 0;
     justify-content: center;
     height: 100%;
   }
   
-  .slide-text {
+  .slideText {
     padding: 0;
     order: 1;
   }
   
-  .slide-image {
+  .slideImage {
     flex: 0 0 220px;
     height: 200px;
     order: 2;
     margin: 15px 0;
   }
   
-  .slide-title {
+  .slideTitle {
     font-size: 26px;
     margin-bottom: 12px;
     line-height: 1.1;
   }
   
-  .slide-subtitle {
+  .slideSubtitle {
     font-size: 16px;
     margin-bottom: 12px;
     padding: 0;
   }
   
-  .slide-description {
+  .slideDescription {
     font-size: 13px;
     margin-bottom: 18px;
     padding: 0 5px;
     line-height: 1.4;
   }
   
-  .slide-pricing,
-  .price-section {
+  .slidePricing,
+  .priceSection {
     margin-bottom: 20px;
     justify-content: center;
     gap: 8px 12px;
   }
   
-  .current-price {
+  .currentPrice {
     font-size: 24px;
   }
   
-  .old-price {
+  .oldPrice {
     font-size: 16px;
   }
   
@@ -400,37 +410,37 @@ section.hero-slider .swiper-pagination {
     font-size: 12px;
   }
   
-  .cta-button {
+  .ctaButton {
     padding: 14px 32px;
     font-size: 15px;
     min-width: 140px;
   }
   
-  .swiper-button-next,
-  .swiper-button-prev {
+  .heroSlider :global(.swiper-button-next),
+  .heroSlider :global(.swiper-button-prev) {
     width: 40px;
     height: 40px;
     margin-top: -20px;
   }
   
-  .swiper-button-next {
+  .heroSlider :global(.swiper-button-next) {
     right: 10px;
   }
   
-  .swiper-button-prev {
+  .heroSlider :global(.swiper-button-prev) {
     left: 10px;
   }
   
-  .swiper-button-next:after,
-  .swiper-button-prev:after {
+  .heroSlider :global(.swiper-button-next:after),
+  .heroSlider :global(.swiper-button-prev:after) {
     font-size: 14px;
   }
   
-  .swiper-pagination {
+  .heroSlider :global(.swiper-pagination) {
     bottom: 15px !important;
   }
   
-  .swiper-pagination-bullet {
+  .heroSlider :global(.swiper-pagination-bullet) {
     width: 8px;
     height: 8px;
     margin: 0 4px !important;

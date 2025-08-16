@@ -12,7 +12,6 @@ import {
   Hash
 } from 'lucide-react';
 import { adminApi } from '../services/adminApi';
-import '../components/AdminLayout.css';
 
 const CategoriesManagement = () => {
   const [categories, setCategories] = useState([]);

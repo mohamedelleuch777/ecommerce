@@ -16,7 +16,7 @@ import {
   Globe
 } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
-import './AdminLayout.css';
+import styles from './AdminLayout.module.css';
 
 const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -91,27 +91,27 @@ const AdminLayout = () => {
   };
 
   return (
-    <div className="admin-layout">
+    <div className={styles.adminLayout}>
       {/* Mobile menu button */}
-      <div className="mobile-menu-button">
+      <div className={styles.mobileMenuButton}>
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="menu-toggle"
+          className={styles.menuToggle}
         >
           {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* Sidebar */}
-      <div className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}>
-        <div className="sidebar-header">
-          <Link to="/admin" className="logo">
+      <div className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ''}`}>
+        <div className={styles.sidebarHeader}>
+          <Link to="/admin" className={styles.logo}>
             <Globe size={32} />
             <span>Admin Panel</span>
           </Link>
         </div>
 
-        <nav className="sidebar-nav">
+        <nav className={styles.sidebarNav}>
           {navigation.map((item) => {
             if (!hasPermission(item.permission)) return null;
             
@@ -122,7 +122,7 @@ const AdminLayout = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`nav-item ${isActive ? 'active' : ''}`}
+                className={`${styles.navItem} ${isActive ? styles.active : ''}`}
                 onClick={() => setSidebarOpen(false)}
               >
                 <Icon size={20} />
@@ -132,17 +132,17 @@ const AdminLayout = () => {
           })}
         </nav>
 
-        <div className="sidebar-footer">
-          <div className="user-info">
-            <div className="user-avatar">
+        <div className={styles.sidebarFooter}>
+          <div className={styles.userInfo}>
+            <div className={styles.userAvatar}>
               {user?.firstName?.[0]}{user?.lastName?.[0]}
             </div>
-            <div className="user-details">
-              <div className="user-name">{user?.firstName} {user?.lastName}</div>
-              <div className="user-role">{user?.role}</div>
+            <div className={styles.userDetails}>
+              <div className={styles.userName}>{user?.firstName} {user?.lastName}</div>
+              <div className={styles.userRole}>{user?.role}</div>
             </div>
           </div>
-          <button onClick={handleLogout} className="logout-btn">
+          <button onClick={handleLogout} className={styles.logoutBtn}>
             <LogOut size={20} />
             <span>Logout</span>
           </button>
@@ -150,8 +150,8 @@ const AdminLayout = () => {
       </div>
 
       {/* Main content */}
-      <div className="main-content">
-        <div className="content-wrapper">
+      <div className={styles.mainContent}>
+        <div className={styles.contentWrapper}>
           <Outlet />
         </div>
       </div>
@@ -159,7 +159,7 @@ const AdminLayout = () => {
       {/* Overlay for mobile */}
       {sidebarOpen && (
         <div 
-          className="sidebar-overlay"
+          className={styles.sidebarOverlay}
           onClick={() => setSidebarOpen(false)}
         />
       )}

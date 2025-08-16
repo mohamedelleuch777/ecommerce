@@ -1,11 +1,11 @@
 import React from 'react';
-import './GlobalLoader.css';
+import styles from './GlobalLoader.module.css';
 
 const GlobalLoader = () => {
   return (
-    <div className="global-loader">
-      <div className="global-loader-content">
-        <div className="spinner-large"></div>
+    <div className={styles.globalLoader}>
+      <div className={styles.globalLoaderContent}>
+        <div className={styles.spinnerLarge}></div>
         <h2>Loading...</h2>
         <p>Initializing application...</p>
       </div>

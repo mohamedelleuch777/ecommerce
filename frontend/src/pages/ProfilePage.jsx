@@ -3,7 +3,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useLanguage } from '../hooks/useLanguage';
 import { User, Mail, Phone, Calendar, MapPin, Settings, Save, Plus, Edit2, Trash2 } from 'lucide-react';
 import usePageTitle from '../hooks/usePageTitle';
-import './ProfilePage.css';
+import styles from './ProfilePage.module.css';
 
 const ProfilePage = () => {
   const { user, updateProfile, addAddress, updateAddress, deleteAddress } = useAuth();
@@ -143,49 +143,49 @@ const ProfilePage = () => {
   };
 
   if (!user) {
-    return <div className="profile-loading">{t('loading')}</div>;
+    return <div className={styles.profileLoading}>{t('loading')}</div>;
   }
 
   return (
-    <div className="profile-page">
+    <div className={styles.profilePage}>
       <div className="container">
-        <div className="profile-header">
-          <div className="profile-avatar">
+        <div className={styles.profileHeader}>
+          <div className={styles.profileAvatar}>
             {user.avatar ? (
               <img src={user.avatar} alt={user.fullName} />
             ) : (
-              <div className="avatar-placeholder">
+              <div className={styles.avatarPlaceholder}>
                 {user.firstName.charAt(0)}{user.lastName.charAt(0)}
               </div>
             )}
           </div>
-          <div className="profile-info">
+          <div className={styles.profileInfo}>
             <h1>{user.fullName}</h1>
             <p>{user.email}</p>
-            <span className="member-since">
+            <span className={styles.memberSince}>
               {t('memberSince')} {new Date(user.createdAt).toLocaleDateString()}
             </span>
           </div>
         </div>
 
-        <div className="profile-content">
-          <div className="profile-tabs">
+        <div className={styles.profileContent}>
+          <div className={styles.profileTabs}>
             <button 
-              className={activeTab === 'profile' ? 'tab active' : 'tab'}
+              className={activeTab === 'profile' ? `${styles.tab} ${styles.active}` : styles.tab}
               onClick={() => setActiveTab('profile')}
             >
               <User size={20} />
               {t('personalInfo')}
             </button>
             <button 
-              className={activeTab === 'addresses' ? 'tab active' : 'tab'}
+              className={activeTab === 'addresses' ? `${styles.tab} ${styles.active}` : styles.tab}
               onClick={() => setActiveTab('addresses')}
             >
               <MapPin size={20} />
               {t('addresses')}
             </button>
             <button 
-              className={activeTab === 'preferences' ? 'tab active' : 'tab'}
+              className={activeTab === 'preferences' ? `${styles.tab} ${styles.active}` : styles.tab}
               onClick={() => setActiveTab('preferences')}
             >
               <Settings size={20} />
@@ -193,7 +193,7 @@ const ProfilePage = () => {
             </button>
           </div>
 
-          <div className="profile-tab-content">
+          <div className={styles.profileTabContent}>
             {message && (
               <div className={`message ${message.includes(t('successfully')) ? 'success' : 'error'}`}>
                 {message}
@@ -201,11 +201,11 @@ const ProfilePage = () => {
             )}
 
             {activeTab === 'profile' && (
-              <form className="profile-form" onSubmit={handleProfileUpdate}>
+              <form className={styles.profileForm} onSubmit={handleProfileUpdate}>
                 <h3>{t('personalInformation')}</h3>
                 
-                <div className="form-row">
-                  <div className="form-group">
+                <div className={styles.formRow}>
+                  <div className={styles.formGroup}>
                     <label>{t('firstName')}</label>
                     <input
                       type="text"
@@ -214,7 +214,7 @@ const ProfilePage = () => {
                       required
                     />
                   </div>
-                  <div className="form-group">
+                  <div className={styles.formGroup}>
                     <label>{t('lastName')}</label>
                     <input
                       type="text"
@@ -225,19 +225,19 @@ const ProfilePage = () => {
                   </div>
                 </div>
 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label>{t('email')}</label>
                   <input
                     type="email"
                     value={user.email}
                     disabled
-                    className="disabled"
+                    className={styles.disabled}
                   />
                   <small>{t('emailCannotBeChanged')}</small>
                 </div>
 
-                <div className="form-row">
-                  <div className="form-group">
+                <div className={styles.formRow}>
+                  <div className={styles.formGroup}>
                     <label>{t('phone')}</label>
                     <input
                       type="tel"
@@ -245,7 +245,7 @@ const ProfilePage = () => {
                       onChange={(e) => setProfileData(prev => ({ ...prev, phone: e.target.value }))}
                     />
                   </div>
-                  <div className="form-group">
+                  <div className={styles.formGroup}>
                     <label>{t('dateOfBirth')}</label>
                     <input
                       type="date"
@@ -255,7 +255,7 @@ const ProfilePage = () => {
                   </div>
                 </div>
 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label>{t('gender')}</label>
                   <select
                     value={profileData.gender}
@@ -268,7 +268,7 @@ const ProfilePage = () => {
                   </select>
                 </div>
 
-                <button type="submit" className="save-btn" disabled={loading}>
+                <button type="submit" className={styles.saveBtn} disabled={loading}>
                   <Save size={20} />
                   {loading ? t('saving') : t('saveChanges')}
                 </button>
@@ -276,11 +276,11 @@ const ProfilePage = () => {
             )}
 
             {activeTab === 'addresses' && (
-              <div className="addresses-section">
-                <div className="section-header">
+              <div className={styles.addressesSection}>
+                <div className={styles.sectionHeader}>
                   <h3>{t('shippingAddresses')}</h3>
                   <button 
-                    className="add-address-btn"
+                    className={styles.addAddressBtn}
                     onClick={() => setShowAddressForm(true)}
                   >
                     <Plus size={20} />
@@ -289,10 +289,10 @@ const ProfilePage = () => {
                 </div>
 
                 {showAddressForm && (
-                  <form className="address-form" onSubmit={handleAddressSubmit}>
+                  <form className={styles.addressForm} onSubmit={handleAddressSubmit}>
                     <h4>{editingAddress ? t('editAddress') : t('addNewAddress')}</h4>
                     
-                    <div className="form-group">
+                    <div className={styles.formGroup}>
                       <label>{t('addressType')}</label>
                       <select
                         value={addressData.type}
@@ -304,7 +304,7 @@ const ProfilePage = () => {
                       </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className={styles.formGroup}>
                       <label>{t('streetAddress')}</label>
                       <input
                         type="text"
@@ -314,8 +314,8 @@ const ProfilePage = () => {
                       />
                     </div>
 
-                    <div className="form-row">
-                      <div className="form-group">
+                    <div className={styles.formRow}>
+                      <div className={styles.formGroup}>
                         <label>{t('city')}</label>
                         <input
                           type="text"
@@ -324,7 +324,7 @@ const ProfilePage = () => {
                           required
                         />
                       </div>
-                      <div className="form-group">
+                      <div className={styles.formGroup}>
                         <label>{t('state')}</label>
                         <input
                           type="text"
@@ -335,8 +335,8 @@ const ProfilePage = () => {
                       </div>
                     </div>
 
-                    <div className="form-row">
-                      <div className="form-group">
+                    <div className={styles.formRow}>
+                      <div className={styles.formGroup}>
                         <label>{t('zipCode')}</label>
                         <input
                           type="text"
@@ -345,7 +345,7 @@ const ProfilePage = () => {
                           required
                         />
                       </div>
-                      <div className="form-group">
+                      <div className={styles.formGroup}>
                         <label>{t('country')}</label>
                         <input
                           type="text"
@@ -356,7 +356,7 @@ const ProfilePage = () => {
                       </div>
                     </div>
 
-                    <div className="checkbox-group">
+                    <div className={styles.checkboxGroup}>
                       <label>
                         <input
                           type="checkbox"
@@ -367,7 +367,7 @@ const ProfilePage = () => {
                       </label>
                     </div>
 
-                    <div className="form-actions">
+                    <div className={styles.formActions}>
                       <button type="submit" disabled={loading}>
                         {loading ? t('saving') : t('saveAddress')}
                       </button>
@@ -384,19 +384,19 @@ const ProfilePage = () => {
                   </form>
                 )}
 
-                <div className="addresses-list">
+                <div className={styles.addressesList}>
                   {user.addresses && user.addresses.map((address) => (
-                    <div key={address._id} className="address-card">
-                      <div className="address-header">
-                        <span className="address-type">{getAddressTypeTranslation(address.type)}</span>
-                        {address.isDefault && <span className="default-badge">{t('default')}</span>}
+                    <div key={address._id} className={styles.addressCard}>
+                      <div className={styles.addressHeader}>
+                        <span className={styles.addressType}>{getAddressTypeTranslation(address.type)}</span>
+                        {address.isDefault && <span className={styles.defaultBadge}>{t('default')}</span>}
                       </div>
-                      <div className="address-details">
+                      <div className={styles.addressDetails}>
                         <p>{address.street}</p>
                         <p>{address.city}, {address.state} {address.zipCode}</p>
                         <p>{address.country}</p>
                       </div>
-                      <div className="address-actions">
+                      <div className={styles.addressActions}>
                         <button onClick={() => handleEditAddress(address)}>
                           <Edit2 size={16} />
                           {t('edit')}
@@ -413,10 +413,10 @@ const ProfilePage = () => {
             )}
 
             {activeTab === 'preferences' && (
-              <form className="preferences-form" onSubmit={handleProfileUpdate}>
+              <form className={styles.preferencesForm} onSubmit={handleProfileUpdate}>
                 <h3>{t('accountPreferences')}</h3>
                 
-                <div className="form-group">
+                <div className={styles.formGroup}>
                   <label>{t('language')}</label>
                   <select
                     value={profileData.preferences.language}
@@ -430,7 +430,7 @@ const ProfilePage = () => {
                   </select>
                 </div>
 
-                <div className="checkbox-group">
+                <div className={styles.checkboxGroup}>
                   <label>
                     <input
                       type="checkbox"
@@ -444,7 +444,7 @@ const ProfilePage = () => {
                   </label>
                 </div>
 
-                <div className="checkbox-group">
+                <div className={styles.checkboxGroup}>
                   <label>
                     <input
                       type="checkbox"
@@ -464,7 +464,7 @@ const ProfilePage = () => {
                   </label>
                 </div>
 
-                <div className="checkbox-group">
+                <div className={styles.checkboxGroup}>
                   <label>
                     <input
                       type="checkbox"
@@ -484,7 +484,7 @@ const ProfilePage = () => {
                   </label>
                 </div>
 
-                <button type="submit" className="save-btn" disabled={loading}>
+                <button type="submit" className={styles.saveBtn} disabled={loading}>
                   <Save size={20} />
                   {loading ? t('saving') : t('saveChanges')}
                 </button>

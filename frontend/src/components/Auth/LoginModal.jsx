@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { useLanguage } from '../../hooks/useLanguage';
-import './AuthModal.css';
+import styles from './LoginModal.module.css';
 
 const LoginModal = ({ isOpen, onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -86,23 +86,23 @@ const LoginModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="auth-modal-overlay" onClick={onClose}>
-      <div className="auth-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="auth-modal-header">
+    <div className={styles.authModalOverlay} onClick={onClose}>
+      <div className={styles.authModal} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.authModalHeader}>
           <h2>{isLogin ? t('signIn') : t('signUp')}</h2>
-          <button className="close-btn" onClick={onClose}>
+          <button className={styles.closeBtn} onClick={onClose}>
             <X size={24} />
           </button>
         </div>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
-          {error && <div className="error-message">{error}</div>}
+        <form className={styles.authForm} onSubmit={handleSubmit}>
+          {error && <div className={styles.errorMessage}>{error}</div>}
 
           {!isLogin && (
-            <div className="form-row">
-              <div className="form-group">
+            <div className={styles.formRow}>
+              <div className={styles.formGroup}>
                 <label>{t('firstName')}</label>
-                <div className="input-with-icon">
+                <div className={styles.inputWithIcon}>
                   <User size={20} />
                   <input
                     type="text"
@@ -114,9 +114,9 @@ const LoginModal = ({ isOpen, onClose }) => {
                   />
                 </div>
               </div>
-              <div className="form-group">
+              <div className={styles.formGroup}>
                 <label>{t('lastName')}</label>
-                <div className="input-with-icon">
+                <div className={styles.inputWithIcon}>
                   <User size={20} />
                   <input
                     type="text"
@@ -131,9 +131,9 @@ const LoginModal = ({ isOpen, onClose }) => {
             </div>
           )}
 
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label>{t('email')}</label>
-            <div className="input-with-icon">
+            <div className={styles.inputWithIcon}>
               <Mail size={20} />
               <input
                 type="email"
@@ -146,9 +146,9 @@ const LoginModal = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label>{t('password')}</label>
-            <div className="input-with-icon">
+            <div className={styles.inputWithIcon}>
               <Lock size={20} />
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -160,7 +160,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               />
               <button
                 type="button"
-                className="password-toggle"
+                className={styles.passwordToggle}
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <EyeOff size={20} style={{ position: 'relative' }} /> : <Eye size={20} style={{ position: 'relative' }} />}
@@ -169,9 +169,9 @@ const LoginModal = ({ isOpen, onClose }) => {
           </div>
 
           {!isLogin && (
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <label>{t('confirmPassword')}</label>
-              <div className="input-with-icon">
+              <div className={styles.inputWithIcon}>
                 <Lock size={20} />
                 <input
                   type={showConfirmPassword ? 'text' : 'password'}
@@ -183,7 +183,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                 />
                 <button
                   type="button"
-                  className="password-toggle"
+                  className={styles.passwordToggle}
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
                   {showConfirmPassword ? <EyeOff size={20} style={{ position: 'relative' }} /> : <Eye size={20} style={{ position: 'relative' }} />}
@@ -194,23 +194,23 @@ const LoginModal = ({ isOpen, onClose }) => {
 
           <button 
             type="submit" 
-            className="auth-submit-btn"
+            className={styles.authSubmitBtn}
             disabled={loading}
           >
             {loading ? t('processingAction') : (isLogin ? t('signIn') : t('signUp'))}
           </button>
         </form>
 
-        <div className="auth-divider">
+        <div className={styles.authDivider}>
           <span>{t('or')}</span>
         </div>
 
-        <div className="auth-switch">
+        <div className={styles.authSwitch}>
           <p>
             {isLogin ? t('noAccount') : t('alreadyHaveAccount')}
             <button 
               type="button" 
-              className="switch-mode-btn" 
+              className={styles.switchModeBtn} 
               onClick={switchMode}
             >
               {isLogin ? t('signUp') : t('signIn')}

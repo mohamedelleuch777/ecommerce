@@ -6,7 +6,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import './CategoriesSection.css';
+import styles from './CategoriesSection.module.css';
 import { useLanguage } from '../../hooks/useLanguage';
 import { getTranslation } from '../../utils/translations';
 import { getStandardizedCategorySlug } from '../../utils/slugs';
@@ -46,9 +46,9 @@ const CategoriesSection = () => {
 
   if (loading) {
     return (
-      <section className="categories-section">
+      <section className={styles.categoriesSection}>
         <div className="container">
-          <div className="loading-placeholder">
+          <div className={styles.loadingPlaceholder}>
             <p>{getTranslation('loadingCategories', language)}</p>
           </div>
         </div>
@@ -57,9 +57,9 @@ const CategoriesSection = () => {
   }
 
   return (
-    <section className="categories-section">
+    <section className={styles.categoriesSection}>
       <div className="container">
-        <div className="section-header">
+        <div className={styles.sectionHeader}>
           <h2>{getTranslation('categories', language)}</h2>
           <p>{getTranslation('categoriesSubtitle', language)}</p>
         </div>
@@ -95,24 +95,24 @@ const CategoriesSection = () => {
               spaceBetween: 30
             }
           }}
-          className="categories-swiper"
+          className={styles.categoriesSwiper}
         >
           {categories.map((category) => {
             const categorySlug = getStandardizedCategorySlug(category.name);
             return (
               <SwiperSlide key={category.id}>
-                <Link to={`/category/${categorySlug}`} className="category-card-link">
-                  <div className="category-card">
-                    <div className="category-image">
+                <Link to={`/category/${categorySlug}`} className={styles.categoryCardLink}>
+                  <div className={styles.categoryCard}>
+                    <div className={styles.categoryImage}>
                       <img src={category.image} alt={category.name} />
                     </div>
                     
-                    <div className="category-content">
-                      <h3 className="category-name">{category.name}</h3>
-                      <p className="category-description">{category.description}</p>
-                      <p className="category-count">{category.productCount} {getTranslation('productsCount', language)}</p>
+                    <div className={styles.categoryContent}>
+                      <h3 className={styles.categoryName}>{category.name}</h3>
+                      <p className={styles.categoryDescription}>{category.description}</p>
+                      <p className={styles.categoryCount}>{category.productCount} {getTranslation('productsCount', language)}</p>
                       
-                      <div className="category-button">
+                      <div className={styles.categoryButton}>
                         <span>{getTranslation('viewAll', language)}</span>
                         <ChevronRight size={16} />
                       </div>
@@ -124,11 +124,11 @@ const CategoriesSection = () => {
           })}
         </Swiper>
 
-        <div className="categories-banner">
-          <div className="banner-content">
+        <div className={styles.categoriesBanner}>
+          <div className={styles.bannerContent}>
             <h3>{getTranslation('allCategories', language)}</h3>
             <p>{getTranslation('allCategoriesCount', language)}</p>
-            <button className="banner-button">{getTranslation('exploreCategories', language)}</button>
+            <button className={styles.bannerButton}>{getTranslation('exploreCategories', language)}</button>
           </div>
         </div>
       </div>

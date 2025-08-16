@@ -8,6 +8,7 @@ import 'swiper/css/pagination';
 import { useLanguage } from '../../hooks/useLanguage';
 import { getTranslation } from '../../utils/translations';
 import ApiService from '../../services/api';
+import styles from './TestimonialsSection.module.css';
 
 const TestimonialsSection = () => {
   const { language } = useLanguage();
@@ -43,9 +44,9 @@ const TestimonialsSection = () => {
 
   if (loading) {
     return (
-      <section className="testimonials-section">
+      <section className={styles.testimonialsSection}>
         <div className="container">
-          <div className="loading-placeholder">
+          <div className={styles.loadingPlaceholder}>
             <p>{getTranslation('loadingTestimonials', language)}</p>
           </div>
         </div>
@@ -54,9 +55,9 @@ const TestimonialsSection = () => {
   }
 
   return (
-    <section className="testimonials-section">
+    <section className={styles.testimonialsSection}>
       <div className="container">
-        <div className="section-header">
+        <div className={styles.sectionHeader}>
           <h2>{getTranslation('testimonials', language)}</h2>
           <p>{getTranslation('testimonialsSubtitle', language)}</p>
         </div>
@@ -79,16 +80,16 @@ const TestimonialsSection = () => {
               slidesPerView: 3,
             },
           }}
-          className="testimonials-swiper"
+          className={styles.testimonialsSwiper}
         >
           {testimonials.map((testimonial) => (
             <SwiperSlide key={testimonial.id}>
-              <div className="testimonial-card">
-                <div className="quote-icon">
+              <div className={styles.testimonialCard}>
+                <div className={styles.quoteIcon}>
                   <Quote size={32} />
                 </div>
                 
-                <div className="testimonial-rating">
+                <div className={styles.testimonialRating}>
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
@@ -99,16 +100,16 @@ const TestimonialsSection = () => {
                   ))}
                 </div>
 
-                <p className="testimonial-comment">"{testimonial.comment}"</p>
+                <p className={styles.testimonialComment}>"{testimonial.comment}"</p>
 
-                <div className="testimonial-author">
-                  <div className="author-avatar">
+                <div className={styles.testimonialAuthor}>
+                  <div className={styles.authorAvatar}>
                     <img src={testimonial.image} alt={testimonial.name} />
                   </div>
-                  <div className="author-info">
-                    <h4 className="author-name">{testimonial.name}</h4>
-                    <p className="author-title">{testimonial.title}</p>
-                    <p className="testimonial-date">{new Date(testimonial.date).toLocaleDateString()}</p>
+                  <div className={styles.authorInfo}>
+                    <h4 className={styles.authorName}>{testimonial.name}</h4>
+                    <p className={styles.authorTitle}>{testimonial.title}</p>
+                    <p className={styles.testimonialDate}>{new Date(testimonial.date).toLocaleDateString()}</p>
                   </div>
                 </div>
               </div>

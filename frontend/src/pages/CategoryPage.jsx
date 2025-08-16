@@ -6,7 +6,7 @@ import { getTranslation } from '../utils/translations';
 import FavoriteButton from '../components/Common/FavoriteButton';
 import ApiService from '../services/api';
 import usePageTitle from '../hooks/usePageTitle';
-import './CategoryPage.css';
+import styles from './CategoryPage.module.css';
 
 const CategoryPage = () => {
   const { category } = useParams();
@@ -53,9 +53,9 @@ const CategoryPage = () => {
 
   if (loading) {
     return (
-      <div className="category-page">
+      <div className={styles.categoryPage}>
         <div className="container">
-          <div className="loading-placeholder">
+          <div className={styles.loadingPlaceholder}>
             <p>Loading products...</p>
           </div>
         </div>
@@ -65,17 +65,17 @@ const CategoryPage = () => {
 
   if (error || products.length === 0) {
     return (
-      <div className="category-page">
+      <div className={styles.categoryPage}>
         <div className="container">
-          <nav className="breadcrumb">
+          <nav className={styles.breadcrumb}>
             <Link to="/">Home</Link>
             <span>/</span>
             <span>{categoryName || capitalizeCategory(category)}</span>
           </nav>
-          <div className="error-message">
+          <div className={styles.errorMessage}>
             <h2>No products found</h2>
             <p>Sorry, no products are available in this category.</p>
-            <Link to="/" className="back-home-btn">Back to Home</Link>
+            <Link to="/" className={styles.backHomeBtn}>Back to Home</Link>
           </div>
         </div>
       </div>
@@ -83,32 +83,32 @@ const CategoryPage = () => {
   }
 
   return (
-    <div className="category-page">
+    <div className={styles.categoryPage}>
       <div className="container">
         {/* Breadcrumb */}
-        <nav className="breadcrumb">
+        <nav className={styles.breadcrumb}>
           <Link to="/">Home</Link>
           <span>/</span>
           <span>{capitalizeCategory(category)}</span>
         </nav>
 
         {/* Category Header */}
-        <div className="category-header">
+        <div className={styles.categoryHeader}>
           <h1>{categoryName || capitalizeCategory(category)}</h1>
           <p>{products.length} {products.length === 1 ? 'product' : 'products'} found</p>
         </div>
 
         {/* Products Grid */}
-        <div className="products-grid">
+        <div className={styles.productsGrid}>
           {products.map((product) => (
-            <div key={product._id || product.id} className="product-card">
-              <div className="product-actions">
+            <div key={product._id || product.id} className={styles.productCard}>
+              <div className={styles.productActions}>
                 <FavoriteButton 
                   product={product} 
                   size={18}
-                  className="action-btn favorite"
+                  className={`${styles.actionBtn} ${styles.favorite}`}
                 />
-                <button className="action-btn view">
+                <button className={`${styles.actionBtn} ${styles.view}`}>
                   <Eye 
                     size={18} 
                     width={18} 
@@ -119,19 +119,19 @@ const CategoryPage = () => {
                 </button>
               </div>
 
-              <div className="product-image">
+              <div className={styles.productImage}>
                 <img src={product.image} alt={product.name} />
               </div>
 
-              <div className="product-info">
-                <div className="product-category">{product.category}</div>
-                <Link to={`/product/${product._id || product.id}`} className="product-name-link">
-                  <h4 className="product-name">{product.name}</h4>
+              <div className={styles.productInfo}>
+                <div className={styles.productCategory}>{product.category}</div>
+                <Link to={`/product/${product._id || product.id}`} className={styles.productNameLink}>
+                  <h4 className={styles.productName}>{product.name}</h4>
                 </Link>
-                <p className="product-description">{product.description}</p>
+                <p className={styles.productDescription}>{product.description}</p>
                 
-                <div className="product-rating">
-                  <div className="stars">
+                <div className={styles.productRating}>
+                  <div className={styles.stars}>
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
@@ -141,45 +141,45 @@ const CategoryPage = () => {
                       />
                     ))}
                   </div>
-                  <span className="rating-text">
+                  <span className={styles.ratingText}>
                     {product.rating} ({product.reviews} {getTranslation('reviews', language)})
                   </span>
                 </div>
 
-                <div className="product-pricing">
-                  <div className="price-row">
-                    <span className="current-price">{formatPrice(product.price)}</span>
+                <div className={styles.productPricing}>
+                  <div className={styles.priceRow}>
+                    <span className={styles.currentPrice}>{formatPrice(product.price)}</span>
                     {product.originalPrice && (
                       <>
-                        <span className="old-price">{formatPrice(product.originalPrice)}</span>
-                        <span className="discount">
+                        <span className={styles.oldPrice}>{formatPrice(product.originalPrice)}</span>
+                        <span className={styles.discount}>
                           {product.discount}% {getTranslation('off', language)}
                         </span>
                       </>
                     )}
                   </div>
                   {!product.inStock && (
-                    <div className="out-of-stock-row">
-                      <span className="out-of-stock-badge">
+                    <div className={styles.outOfStockRow}>
+                      <span className={styles.outOfStockBadge}>
                         {getTranslation('outOfStock', language)}
                       </span>
                     </div>
                   )}
                 </div>
 
-                <div className="product-benefits">
-                  <div className="benefit">
+                <div className={styles.productBenefits}>
+                  <div className={styles.benefit}>
                     <Truck size={14} />
                     <span>{getTranslation('freeShipping', language)}</span>
                   </div>
-                  <div className="benefit">
+                  <div className={styles.benefit}>
                     <Shield size={14} />
                     <span>{getTranslation('yearWarranty', language)}</span>
                   </div>
                 </div>
 
                 <button 
-                  className={`add-to-cart-btn ${!product.inStock ? 'disabled' : ''}`}
+                  className={`${styles.addToCartBtn} ${!product.inStock ? styles.disabled : ''}`}
                   disabled={!product.inStock}
                 >
                   <ShoppingCart size={18} />

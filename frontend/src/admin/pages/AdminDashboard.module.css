@@ -3,31 +3,31 @@
   margin: 0 auto;
 }
 
-.dashboard-header {
+.dashboardHeader {
   margin-bottom: 2rem;
 }
 
-.dashboard-header h1 {
+.dashboardHeader h1 {
   font-size: 2rem;
   font-weight: 700;
   color: #1f2937;
   margin: 0 0 0.5rem 0;
 }
 
-.dashboard-header p {
+.dashboardHeader p {
   color: #6b7280;
   margin: 0;
 }
 
 /* Stats Grid */
-.stats-grid {
+.statsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.stat-card {
+.statCard {
   background: white;
   border-radius: 0.5rem;
   padding: 1.5rem;
@@ -35,13 +35,13 @@
   border: 1px solid #e5e7eb;
 }
 
-.stat-card-content {
+.statCardContent {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.stat-info h3 {
+.statInfo h3 {
   font-size: 0.875rem;
   font-weight: 500;
   color: #6b7280;
@@ -50,14 +50,14 @@
   letter-spacing: 0.05em;
 }
 
-.stat-value {
+.statValue {
   font-size: 2rem;
   font-weight: 700;
   color: #1f2937;
   margin: 0 0 0.5rem 0;
 }
 
-.stat-change {
+.statChange {
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -65,15 +65,15 @@
   font-weight: 500;
 }
 
-.stat-change.increase {
+.statChange.increase {
   color: #10b981;
 }
 
-.stat-change.decrease {
+.statChange.decrease {
   color: #ef4444;
 }
 
-.stat-icon {
+.statIcon {
   width: 60px;
   height: 60px;
   border-radius: 0.5rem;
@@ -83,7 +83,7 @@
 }
 
 /* Dashboard Sections */
-.dashboard-section {
+.dashboardSection {
   background: white;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -92,7 +92,7 @@
   overflow: hidden;
 }
 
-.section-header {
+.sectionHeader {
   padding: 1.5rem;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
@@ -100,7 +100,7 @@
   align-items: center;
 }
 
-.section-header h2 {
+.sectionHeader h2 {
   font-size: 1.25rem;
   font-weight: 600;
   color: #1f2937;
@@ -108,12 +108,12 @@
 }
 
 /* Orders Table */
-.orders-table {
+.ordersTable {
   overflow-x: auto;
 }
 
-.table-header,
-.table-row {
+.tableHeader,
+.tableRow {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr 1fr 1fr 0.5fr;
   gap: 1rem;
@@ -121,7 +121,7 @@
   align-items: center;
 }
 
-.table-header {
+.tableHeader {
   background: #f9fafb;
   font-weight: 600;
   font-size: 0.875rem;
@@ -129,42 +129,42 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
-.table-row {
+.tableRow {
   border-bottom: 1px solid #f3f4f6;
 }
 
-.table-row:hover {
+.tableRow:hover {
   background: #f9fafb;
 }
 
-.order-id {
+.orderId {
   font-family: monospace;
   font-weight: 600;
   color: #1f2937;
 }
 
-.customer-info {
+.customerInfo {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
-.customer-name {
+.customerName {
   font-weight: 500;
   color: #1f2937;
 }
 
-.customer-email {
+.customerEmail {
   font-size: 0.875rem;
   color: #6b7280;
 }
 
-.order-date {
+.orderDate {
   color: #6b7280;
   font-size: 0.875rem;
 }
 
-.status-badge {
+.statusBadge {
   display: inline-block;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
@@ -174,17 +174,17 @@
   text-transform: capitalize;
 }
 
-.order-total {
+.orderTotal {
   font-weight: 600;
   color: #1f2937;
 }
 
-.order-actions {
+.orderActions {
   display: flex;
   gap: 0.5rem;
 }
 
-.btn-sm {
+.btnSm {
   padding: 0.5rem;
   background: #f3f4f6;
   border: none;
@@ -197,20 +197,20 @@
   transition: all 0.2s ease;
 }
 
-.btn-sm:hover {
+.btnSm:hover {
   background: #e5e7eb;
   color: #374151;
 }
 
 /* Quick Actions */
-.quick-actions {
+.quickActions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   padding: 1.5rem;
 }
 
-.action-card {
+.actionCard {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -223,21 +223,21 @@
   transition: all 0.2s ease;
 }
 
-.action-card:hover {
+.actionCard:hover {
   background: #f3f4f6;
   border-color: #d1d5db;
   transform: translateY(-2px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.action-card span {
+.actionCard span {
   font-weight: 500;
   color: #374151;
 }
 
 /* Loading and Error States */
-.loading-state,
-.error-state {
+.loadingState,
+.errorState {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -261,7 +261,7 @@
   100% { transform: rotate(360deg); }
 }
 
-.empty-state {
+.emptyState {
   padding: 3rem;
   text-align: center;
   color: #6b7280;
@@ -269,22 +269,22 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .stats-grid {
+  .statsGrid {
     grid-template-columns: 1fr;
   }
   
-  .table-header,
-  .table-row {
+  .tableHeader,
+  .tableRow {
     grid-template-columns: 1fr;
     gap: 0.5rem;
   }
   
-  .table-header > div,
-  .table-row > div {
+  .tableHeader > div,
+  .tableRow > div {
     padding: 0.5rem 0;
   }
   
-  .quick-actions {
+  .quickActions {
     grid-template-columns: repeat(2, 1fr);
   }
 }

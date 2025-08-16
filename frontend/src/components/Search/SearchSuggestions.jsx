@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Search, TrendingUp, Clock } from 'lucide-react';
-import './SearchSuggestions.css';
+import styles from './SearchSuggestions.module.css';
 
 const SearchSuggestions = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -89,9 +89,9 @@ const SearchSuggestions = () => {
   );
 
   return (
-    <div className="search-suggestions-container" ref={searchRef}>
-      <form onSubmit={handleSearchSubmit} className="search-form">
-        <div className="search-input-wrapper">
+    <div className={styles.searchSuggestionsContainer} ref={searchRef}>
+      <form onSubmit={handleSearchSubmit} className={styles.searchForm}>
+        <div className={styles.searchInputWrapper}>
           <input
             type="text"
             placeholder="Ürün, marka veya kategori arayın..."
@@ -99,19 +99,19 @@ const SearchSuggestions = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
-            className="search-input-main"
+            className={styles.searchInputMain}
           />
-          <button type="submit" className="search-button-main">
+          <button type="submit" className={styles.searchButtonMain}>
             <Search size={20} />
           </button>
         </div>
       </form>
 
       {isOpen && (
-        <div className="suggestions-dropdown">
+        <div className={styles.suggestionsDropdown}>
           {searchTerm && (
-            <div className="suggestions-section">
-              <div className="suggestion-item search-for">
+            <div className={styles.suggestionsSection}>
+              <div className={`${styles.suggestionItem} ${styles.searchFor}`}>
                 <Search size={16} />
                 <span>"{searchTerm}" için ara</span>
               </div>
@@ -119,14 +119,14 @@ const SearchSuggestions = () => {
           )}
 
           {searchTerm && filteredProducts.length > 0 && (
-            <div className="suggestions-section">
+            <div className={styles.suggestionsSection}>
               <h4>Ürünler</h4>
               {filteredProducts.map(product => (
-                <div key={product._id || product.id} className="product-suggestion">
+                <div key={product._id || product.id} className={styles.productSuggestion}>
                   <img src={product.image} alt={product.name} />
-                  <div className="product-info">
-                    <span className="product-name">{product.name}</span>
-                    <span className="product-price">{product.price}</span>
+                  <div className={styles.productInfo}>
+                    <span className={styles.productName}>{product.name}</span>
+                    <span className={styles.productPrice}>{product.price}</span>
                   </div>
                 </div>
               ))}
@@ -134,12 +134,12 @@ const SearchSuggestions = () => {
           )}
 
           {!searchTerm && recentSearches.length > 0 && (
-            <div className="suggestions-section">
+            <div className={styles.suggestionsSection}>
               <h4><Clock size={16} /> Son Aramalarınız</h4>
               {recentSearches.map((search, index) => (
                 <div
                   key={index}
-                  className="suggestion-item"
+                  className={styles.suggestionItem}
                   onClick={() => handleSuggestionClick(search)}
                 >
                   <Clock size={16} />
@@ -149,12 +149,12 @@ const SearchSuggestions = () => {
             </div>
           )}
 
-          <div className="suggestions-section">
+          <div className={styles.suggestionsSection}>
             <h4><TrendingUp size={16} /> Popüler Aramalar</h4>
             {(searchTerm ? filteredSuggestions : trendingSearches.slice(0, 6)).map((search, index) => (
               <div
                 key={index}
-                className="suggestion-item"
+                className={styles.suggestionItem}
                 onClick={() => handleSuggestionClick(search)}
               >
                 <TrendingUp size={16} />
@@ -164,12 +164,12 @@ const SearchSuggestions = () => {
           </div>
 
           {!searchTerm && (
-            <div className="suggestions-section">
+            <div className={styles.suggestionsSection}>
               <h4>Kategoriler</h4>
               {categories.map((category, index) => (
-                <div key={index} className="category-item">
-                  <span className="category-name">{category.name}</span>
-                  <span className="category-count">({category.count})</span>
+                <div key={index} className={styles.categoryItem}>
+                  <span className={styles.categoryName}>{category.name}</span>
+                  <span className={styles.categoryCount}>({category.count})</span>
                 </div>
               ))}
             </div>

@@ -1,16 +1,16 @@
-.hero-management {
+.heroManagement {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.page-header {
+.pageHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
 }
 
-.page-header h1 {
+.pageHeader h1 {
   font-size: 2rem;
   font-weight: 700;
   color: #1f2937;
@@ -18,7 +18,7 @@
 }
 
 /* Error Message */
-.error-message {
+.errorMessage {
   background: #fef2f2;
   border: 1px solid #fecaca;
   color: #dc2626;
@@ -30,7 +30,7 @@
   align-items: center;
 }
 
-.error-message button {
+.errorMessage button {
   background: none;
   border: none;
   color: #dc2626;
@@ -45,14 +45,14 @@
 }
 
 /* Slides Grid */
-.slides-grid {
+.slidesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.slide-card {
+.slideCard {
   background: white;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -61,28 +61,28 @@
   transition: all 0.2s ease;
 }
 
-.slide-card:hover {
+.slideCard:hover {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.slide-card.inactive {
+.slideCard.inactive {
   opacity: 0.6;
 }
 
-.slide-preview {
+.slidePreview {
   position: relative;
   height: 200px;
   background: #f3f4f6;
   overflow: hidden;
 }
 
-.slide-bg {
+.slideBg {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.slide-content {
+.slideContent {
   position: absolute;
   top: 0;
   left: 0;
@@ -96,19 +96,19 @@
   justify-content: center;
 }
 
-.slide-content h3 {
+.slideContent h3 {
   font-size: 1.25rem;
   font-weight: 600;
   margin: 0 0 0.5rem 0;
 }
 
-.slide-content p {
+.slideContent p {
   font-size: 0.875rem;
   margin: 0 0 1rem 0;
   opacity: 0.9;
 }
 
-.slide-pricing {
+.slidePricing {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -129,7 +129,7 @@
 }
 
 /* Slide Actions */
-.slide-actions {
+.slideActions {
   padding: 1rem;
   display: flex;
   justify-content: space-between;
@@ -137,13 +137,13 @@
   background: #f9fafb;
 }
 
-.slide-info {
+.slideInfo {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
-.slide-order {
+.slideOrder {
   background: #3b82f6;
   color: white;
   padding: 0.25rem 0.5rem;
@@ -152,29 +152,29 @@
   font-weight: 600;
 }
 
-.slide-status {
+.slideStatus {
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
   font-size: 0.75rem;
   font-weight: 500;
 }
 
-.slide-status.active {
+.slideStatus.active {
   background: #dcfce7;
   color: #16a34a;
 }
 
-.slide-status.inactive {
+.slideStatus.inactive {
   background: #fee2e2;
   color: #dc2626;
 }
 
-.action-buttons {
+.actionButtons {
   display: flex;
   gap: 0.5rem;
 }
 
-.btn-icon {
+.btnIcon {
   width: 32px;
   height: 32px;
   border: 1px solid #d1d5db;
@@ -189,28 +189,28 @@
   font-size: 0;
 }
 
-.btn-icon:hover {
+.btnIcon:hover {
   background: #f3f4f6;
   color: #374151;
 }
 
-.btn-icon:disabled {
+.btnIcon:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.btn-icon.edit:hover {
+.btnIcon.edit:hover {
   color: #3b82f6;
   border-color: #3b82f6;
 }
 
-.btn-icon.delete:hover {
+.btnIcon.delete:hover {
   color: #ef4444;
   border-color: #ef4444;
 }
 
 /* Empty State */
-.empty-state {
+.emptyState {
   text-align: center;
   padding: 4rem 2rem;
   background: white;
@@ -218,24 +218,24 @@
   border: 2px dashed #d1d5db;
 }
 
-.empty-state svg {
+.emptyState svg {
   color: #9ca3af;
   margin-bottom: 1rem;
 }
 
-.empty-state h3 {
+.emptyState h3 {
   font-size: 1.25rem;
   color: #374151;
   margin: 0 0 0.5rem 0;
 }
 
-.empty-state p {
+.emptyState p {
   color: #6b7280;
   margin: 0 0 1.5rem 0;
 }
 
 /* Modal */
-.modal-overlay {
+.modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -259,7 +259,7 @@
   overflow-y: auto;
 }
 
-.modal-header {
+.modalHeader {
   padding: 1.5rem;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
@@ -267,46 +267,46 @@
   align-items: center;
 }
 
-.modal-header h2 {
+.modalHeader h2 {
   font-size: 1.5rem;
   font-weight: 600;
   color: #1f2937;
   margin: 0;
 }
 
-.modal-form {
+.modalForm {
   padding: 1.5rem;
 }
 
-.form-grid {
+.formGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
-.form-group {
+.formGroup {
   display: flex;
   flex-direction: column;
 }
 
-.form-group.full-width {
+.formGroup.fullWidth {
   grid-column: 1 / -1;
 }
 
-.form-group.checkbox-group {
+.formGroup.checkboxGroup {
   grid-column: 1 / -1;
 }
 
-.form-group label {
+.formGroup label {
   font-weight: 500;
   color: #374151;
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
 }
 
-.form-group input,
-.form-group textarea {
+.formGroup input,
+.formGroup textarea {
   padding: 0.75rem;
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
@@ -314,26 +314,26 @@
   transition: border-color 0.2s ease;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.formGroup input:focus,
+.formGroup textarea:focus {
   outline: none;
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.checkbox-group label {
+.checkboxGroup label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
 }
 
-.checkbox-group input[type="checkbox"] {
+.checkboxGroup input[type="checkbox"] {
   width: auto;
   margin: 0;
 }
 
-.modal-actions {
+.modalActions {
   display: flex;
   gap: 1rem;
   justify-content: flex-end;
@@ -342,7 +342,7 @@
 }
 
 /* Loading and States */
-.loading-state {
+.loadingState {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -368,17 +368,17 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .slides-grid {
+  .slidesGrid {
     grid-template-columns: 1fr;
   }
   
-  .page-header {
+  .pageHeader {
     flex-direction: column;
     gap: 1rem;
     align-items: stretch;
   }
   
-  .form-grid {
+  .formGrid {
     grid-template-columns: 1fr;
   }
   
@@ -387,13 +387,13 @@
     max-height: calc(100vh - 2rem);
   }
   
-  .slide-actions {
+  .slideActions {
     flex-direction: column;
     gap: 1rem;
     align-items: stretch;
   }
   
-  .action-buttons {
+  .actionButtons {
     justify-content: center;
   }
 }

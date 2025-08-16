@@ -6,7 +6,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import { getTranslation } from '../utils/translations';
 import FavoriteButton from '../components/Common/FavoriteButton';
 import usePageTitle from '../hooks/usePageTitle';
-import './FavoritesPage.css';
+import styles from './FavoritesPage.module.css';
 
 const FavoritesPage = () => {
   const { favorites, clearFavorites, loading } = useFavorites();
@@ -30,9 +30,9 @@ const FavoritesPage = () => {
 
   if (loading) {
     return (
-      <div className="favorites-page">
+      <div className={styles.favoritesPage}>
         <div className="container">
-          <div className="loading-placeholder">
+          <div className={styles.loadingPlaceholder}>
             <p>{getTranslation('loading', language)}</p>
           </div>
         </div>
@@ -41,7 +41,7 @@ const FavoritesPage = () => {
   }
 
   return (
-    <div className="favorites-page">
+    <div className={styles.favoritesPage}>
       <div className="container">
         {/* Breadcrumb */}
         <nav className="breadcrumb">
@@ -54,19 +54,19 @@ const FavoritesPage = () => {
         </nav>
 
         {/* Page Header */}
-        <div className="favorites-header">
-          <div className="header-content">
-            <div className="header-left">
-              <Heart size={32} className="page-icon" />
+        <div className={styles.favoritesHeader}>
+          <div className={styles.headerContent}>
+            <div className={styles.headerLeft}>
+              <Heart size={32} className={styles.pageIcon} />
               <div>
                 <h1>{getTranslation('favorites', language) || 'My Favorites'}</h1>
-                <p className="favorites-count">
+                <p className={styles.favoritesCount}>
                   {favorites.length} {favorites.length === 1 ? 'item' : 'items'}
                 </p>
               </div>
             </div>
             {favorites.length > 0 && (
-              <button className="clear-all-btn" onClick={handleClearAll}>
+              <button className={styles.clearAllBtn} onClick={handleClearAll}>
                 <Trash2 size={16} />
                 {getTranslation('clearAll', language) || 'Clear All'}
               </button>
@@ -76,46 +76,46 @@ const FavoritesPage = () => {
 
         {/* Favorites Content */}
         {favorites.length === 0 ? (
-          <div className="empty-favorites">
-            <div className="empty-favorites-content">
-              <Heart size={64} className="empty-icon" />
+          <div className={styles.emptyFavorites}>
+            <div className={styles.emptyFavoritesContent}>
+              <Heart size={64} className={styles.emptyIcon} />
               <h2>{getTranslation('noFavorites', language) || 'No favorites yet'}</h2>
               <p>{getTranslation('noFavoritesDescription', language) || 'Start adding products you love to see them here.'}</p>
-              <Link to="/" className="continue-shopping-btn">
+              <Link to="/" className={styles.continueShoppingBtn}>
                 {getTranslation('continueShopping', language) || 'Continue Shopping'}
               </Link>
             </div>
           </div>
         ) : (
-          <div className="favorites-grid">
+          <div className={styles.favoritesGrid}>
             {favorites.map((product) => (
-              <div key={product._id || product.id} className="favorite-item">
-                <div className="product-image-container">
+              <div key={product._id || product.id} className={styles.favoriteItem}>
+                <div className={styles.productImageContainer}>
                   <Link to={`/product/${product._id || product.id}`}>
-                    <img src={product.image} alt={product.name} className="product-image" />
+                    <img src={product.image} alt={product.name} className={styles.productImage} />
                   </Link>
-                  <div className="favorite-overlay">
-                    <FavoriteButton product={product} className="overlay-favorite" />
+                  <div className={styles.favoriteOverlay}>
+                    <FavoriteButton product={product} className={styles.overlayFavorite} />
                   </div>
                   {product.discount && (
-                    <div className="product-badge">
+                    <div className={styles.productBadge}>
                       {product.discount}% OFF
                     </div>
                   )}
                 </div>
 
-                <div className="product-info">
-                  <div className="product-category">{product.category}</div>
+                <div className={styles.productInfo}>
+                  <div className={styles.productCategory}>{product.category}</div>
                   
-                  <Link to={`/product/${product._id || product.id}`} className="product-name-link">
-                    <h3 className="product-name">{product.name}</h3>
+                  <Link to={`/product/${product._id || product.id}`} className={styles.productNameLink}>
+                    <h3 className={styles.productName}>{product.name}</h3>
                   </Link>
                   
-                  <p className="product-description">{product.description}</p>
+                  <p className={styles.productDescription}>{product.description}</p>
                   
                   {product.rating && (
-                    <div className="product-rating">
-                      <div className="stars">
+                    <div className={styles.productRating}>
+                      <div className={styles.stars}>
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
@@ -125,19 +125,19 @@ const FavoritesPage = () => {
                           />
                         ))}
                       </div>
-                      <span className="rating-text">
+                      <span className={styles.ratingText}>
                         {product.rating} ({product.reviews || 0} {getTranslation('reviews', language)})
                       </span>
                     </div>
                   )}
 
-                  <div className="product-pricing">
-                    <div className="price-row">
-                      <span className="current-price">{formatPrice(product.price)}</span>
+                  <div className={styles.productPricing}>
+                    <div className={styles.priceRow}>
+                      <span className={styles.currentPrice}>{formatPrice(product.price)}</span>
                       {product.originalPrice && (
                         <>
-                          <span className="old-price">{formatPrice(product.originalPrice)}</span>
-                          <span className="discount-badge">
+                          <span className={styles.oldPrice}>{formatPrice(product.originalPrice)}</span>
+                          <span className={styles.discountBadge}>
                             {getTranslation('saveAmount', language)} {formatPrice(product.originalPrice - product.price)}
                           </span>
                         </>
@@ -145,9 +145,9 @@ const FavoritesPage = () => {
                     </div>
                   </div>
 
-                  <div className="product-actions">
+                  <div className={styles.productActions}>
                     <button 
-                      className={`add-to-cart-btn ${!product.inStock ? 'disabled' : ''}`}
+                      className={`${styles.addToCartBtn} ${!product.inStock ? styles.disabled : ''}`}
                       disabled={!product.inStock}
                     >
                       <ShoppingCart size={18} />
@@ -159,8 +159,8 @@ const FavoritesPage = () => {
                   </div>
                   
                   {!product.inStock && (
-                    <div className="stock-status">
-                      <span className="out-of-stock-badge">
+                    <div className={styles.stockStatus}>
+                      <span className={styles.outOfStockBadge}>
                         {getTranslation('outOfStock', language)}
                       </span>
                     </div>

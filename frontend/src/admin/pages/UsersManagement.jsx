@@ -20,7 +20,6 @@ import {
   Eye
 } from 'lucide-react';
 import { adminApi } from '../services/adminApi';
-import '../components/AdminLayout.css';
 
 const UsersManagement = () => {
   const [users, setUsers] = useState([]);

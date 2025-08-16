@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Heart } from 'lucide-react';
 import { useFavorites } from '../../hooks/useFavorites';
-import './FavoriteButton.css';
+import styles from './FavoriteButton.module.css';
 
 const FavoriteButton = ({ product, className = '', size = 18, showTooltip = true }) => {
   const { toggleFavorite, isFavorite } = useFavorites();
@@ -24,7 +24,7 @@ const FavoriteButton = ({ product, className = '', size = 18, showTooltip = true
 
   return (
     <button
-      className={`favorite-button ${favorite ? 'active' : ''} ${isAnimating ? 'animating' : ''} ${className}`}
+      className={`${styles.favoriteButton} ${favorite ? styles.active : ''} ${isAnimating ? styles.animating : ''} ${className}`}
       onClick={handleToggleFavorite}
       title={showTooltip ? (favorite ? 'Remove from favorites' : 'Add to favorites') : undefined}
       aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
@@ -35,7 +35,7 @@ const FavoriteButton = ({ product, className = '', size = 18, showTooltip = true
         height={size}
         strokeWidth={1.5}
         fill={favorite ? 'currentColor' : 'none'}
-        className="heart-icon"
+        className={styles.heartIcon}
         style={{ 
           width: `${size}px`, 
           height: `${size}px`, 

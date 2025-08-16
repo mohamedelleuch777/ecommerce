@@ -5,7 +5,7 @@ import { useLanguage } from '../../hooks/useLanguage';
 import { getTranslation } from '../../utils/translations';
 import { getStandardizedCategorySlug } from '../../utils/slugs';
 import ApiService from '../../services/api';
-import './Footer.css';
+import styles from './Footer.module.css';
 import logo from '../../assets/logo-text.png';
 
 const Footer = () => {
@@ -77,32 +77,32 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="footer">
-      <div className="footer-brands">
+    <footer className={styles.footer}>
+      <div className={styles.footerBrands}>
         <div className="container">
-          <div className="brands-header">
+          <div className={styles.brandsHeader}>
             <h3>{getTranslation('popularBrands', language)}</h3>
           </div>
-          <div className="brands-carousel" ref={brandsScrollRef}>
-            <div className="brands-scroll">
+          <div className={styles.brandsCarousel} ref={brandsScrollRef}>
+            <div className={styles.brandsScroll}>
               {brandsLoading ? (
                 // Loading placeholder
                 Array.from({ length: 8 }).map((_, index) => (
-                  <div key={`loading-${index}`} className="brand-logo loading">
-                    <div className="loading-shimmer"></div>
+                  <div key={`loading-${index}`} className={`${styles.brandLogo} ${styles.loading}`}>
+                    <div className={styles.loadingShimmer}></div>
                   </div>
                 ))
               ) : (
                 <>
                   {/* First set of brands */}
                   {brands.map((brand) => (
-                    <div key={brand._id} className="brand-logo">
+                    <div key={brand._id} className={styles.brandLogo}>
                       <img src={brand.logoUrl} alt={brand.name} title={brand.description} />
                     </div>
                   ))}
                   {/* Duplicate for seamless loop */}
                   {brands.map((brand) => (
-                    <div key={`${brand._id}-duplicate`} className="brand-logo">
+                    <div key={`${brand._id}-duplicate`} className={styles.brandLogo}>
                       <img src={brand.logoUrl} alt={brand.name} title={brand.description} />
                     </div>
                   ))}
@@ -113,31 +113,31 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="footer-features">
+      <div className={styles.footerFeatures}>
         <div className="container">
-          <div className="features-grid">
-            <div className="feature-item">
+          <div className={styles.featuresGrid}>
+            <div className={styles.featureItem}>
               <Truck size={40} />
               <div>
                 <h4>{getTranslation('freeShippingTitle', language)}</h4>
                 <p>{getTranslation('freeShippingDesc', language)}</p>
               </div>
             </div>
-            <div className="feature-item">
+            <div className={styles.featureItem}>
               <RotateCcw size={40} />
               <div>
                 <h4>{getTranslation('easyReturnTitle', language)}</h4>
                 <p>{getTranslation('easyReturnDesc', language)}</p>
               </div>
             </div>
-            <div className="feature-item">
+            <div className={styles.featureItem}>
               <Shield size={40} />
               <div>
                 <h4>{getTranslation('secureShoppingTitle', language)}</h4>
                 <p>{getTranslation('secureShoppingDesc', language)}</p>
               </div>
             </div>
-            <div className="feature-item">
+            <div className={styles.featureItem}>
               <CreditCard size={40} />
               <div>
                 <h4>{getTranslation('securePaymentTitle', language)}</h4>
@@ -148,11 +148,11 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="footer-main">
+      <div className={styles.footerMain}>
         <div className="container">
-          <div className="footer-content">
-            <div className="footer-section">
-              <div className="footer-logo">
+          <div className={styles.footerContent}>
+            <div className={styles.footerSection}>
+              <div className={styles.footerLogo}>
                 <Link to="/">
                   <img src={logo} alt="Logo" />
                 </Link>
@@ -160,23 +160,23 @@ const Footer = () => {
                 <p>{getTranslation('companyDescription', language)}</p>
               </div>
               
-              <div className="footer-contact">
-                <div className="contact-item">
+              <div className={styles.footerContact}>
+                <div className={styles.contactItem}>
                   <Phone size={20} />
                   <span>{getTranslation('phone', language)}</span>
                 </div>
-                <div className="contact-item">
+                <div className={styles.contactItem}>
                   <Mail size={20} />
                   <span>{getTranslation('email', language)}</span>
                 </div>
-                <div className="contact-item">
+                <div className={styles.contactItem}>
                   <MapPin size={20} />
                   <span>{getTranslation('address', language)}</span>
                 </div>
               </div>
             </div>
 
-            <div className="footer-section">
+            <div className={styles.footerSection}>
               <h3>{getTranslation('categories', language)}</h3>
               <ul>
                 {loading ? (
@@ -196,7 +196,7 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="footer-section">
+            <div className={styles.footerSection}>
               <h3>{getTranslation('corporate', language)}</h3>
               <ul>
                 <li><a href="#hakkimizda">{getTranslation('aboutUs', language)}</a></li>
@@ -208,7 +208,7 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="footer-section">
+            <div className={styles.footerSection}>
               <h3>{getTranslation('help', language)}</h3>
               <ul>
                 <li><a href="#siparis-takip">{getTranslation('orderTracking', language)}</a></li>
@@ -220,7 +220,7 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="footer-section">
+            <div className={styles.footerSection}>
               <h3>{getTranslation('membership', language)}</h3>
               <ul>
                 <li><a href="#hesabim">{getTranslation('myAccount', language)}</a></li>
@@ -232,27 +232,27 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="footer-section">
+            <div className={styles.footerSection}>
               <h3>{getTranslation('followUsTitle', language)}</h3>
-              <div className="social-links">
-                <a href="#facebook" className="social-link">
+              <div className={styles.socialLinks}>
+                <a href="#facebook" className={styles.socialLink}>
                   <Facebook size={24} />
                 </a>
-                <a href="#twitter" className="social-link">
+                <a href="#twitter" className={styles.socialLink}>
                   <Twitter size={24} />
                 </a>
-                <a href="#instagram" className="social-link">
+                <a href="#instagram" className={styles.socialLink}>
                   <Instagram size={24} />
                 </a>
-                <a href="#youtube" className="social-link">
+                <a href="#youtube" className={styles.socialLink}>
                   <Youtube size={24} />
                 </a>
               </div>
               
-              <div className="newsletter">
+              <div className={styles.newsletter}>
                 <h4>{getTranslation('newsletterTitle', language)}</h4>
                 <p>{getTranslation('newsletterDesc', language)}</p>
-                <div className="newsletter-form">
+                <div className={styles.newsletterForm}>
                   <input type="email" placeholder={getTranslation('emailPlaceholder', language)} />
                   <button type="submit">{getTranslation('subscribe', language)}</button>
                 </div>
@@ -262,25 +262,25 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="footer-bottom">
+      <div className={styles.footerBottom}>
         <div className="container">
-          <div className="footer-bottom-content">
-            <div className="copyright">
+          <div className={styles.footerBottomContent}>
+            <div className={styles.copyright}>
               <p>&copy; {new Date().getFullYear()}
               <a target='_blank' href="https://www.xilyor.com"> Xilyor</a>.&nbsp;
               {getTranslation('allRightsReserved', language)}</p>
             </div>
             
-            <div className="footer-links">
+            <div className={styles.footerLinks}>
               <a href="#gizlilik">{getTranslation('privacyPolicy', language)}</a>
               <a href="#kullanim">{getTranslation('termsOfService', language)}</a>
               <a href="#cerez">{getTranslation('cookiePolicy', language)}</a>
               <a href="#kvkk">{getTranslation('gdpr', language)}</a>
             </div>
             
-            <div className="payment-methods">
+            <div className={styles.paymentMethods}>
               <span>{getTranslation('paymentMethods', language)}</span>
-              <div className="payment-icons">
+              <div className={styles.paymentIcons}>
                 <span>💳</span>
                 <span>🏦</span>
                 <span>💸</span>

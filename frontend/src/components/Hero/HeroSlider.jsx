@@ -5,7 +5,7 @@ import { useLanguage } from '../../hooks/useLanguage';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import './HeroSlider.css';
+import styles from './HeroSlider.module.css';
 import ApiService from '../../services/api';
 
 const HeroSlider = () => {
@@ -42,8 +42,8 @@ const HeroSlider = () => {
 
   if (loading) {
     return (
-      <section className="hero-slider">
-        <div className="loading-placeholder">
+      <section className={styles.heroSlider}>
+        <div className={styles.loadingPlaceholder}>
           <p>Loading...</p>
         </div>
       </section>
@@ -53,7 +53,7 @@ const HeroSlider = () => {
   const slides = heroData?.slides || [];
 
   return (
-    <section className="hero-slider">
+    <section className={styles.heroSlider}>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={0}
@@ -65,12 +65,12 @@ const HeroSlider = () => {
           disableOnInteraction: false,
         }}
         loop={true}
-        className="hero-swiper"
+        className={styles.heroSwiper}
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div 
-              className="slide-content" 
+              className={styles.slideContent}
               style={{ 
                 background: slide.backgroundImage 
                   ? `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${slide.backgroundImage})` 
@@ -80,30 +80,30 @@ const HeroSlider = () => {
               }}
             >
               <div className="container">
-                <div className="slide-info">
-                  <div className="slide-text">
-                    <h2 className="slide-title">{slide.title}</h2>
-                    <p className="slide-subtitle">{slide.subtitle}</p>
+                <div className={styles.slideInfo}>
+                  <div className={styles.slideText}>
+                    <h2 className={styles.slideTitle}>{slide.title}</h2>
+                    <p className={styles.slideSubtitle}>{slide.subtitle}</p>
                     {slide.description && (
-                      <p className="slide-description">{slide.description}</p>
+                      <p className={styles.slideDescription}>{slide.description}</p>
                     )}
                     {slide.currentPrice && (
-                      <div className="slide-pricing">
-                        <span className="current-price">${slide.currentPrice}</span>
+                      <div className={styles.slidePricing}>
+                        <span className={styles.currentPrice}>${slide.currentPrice}</span>
                         {slide.oldPrice && (
                           <>
-                            <span className="old-price">${slide.oldPrice}</span>
+                            <span className={styles.oldPrice}>${slide.oldPrice}</span>
                             {slide.discount && (
-                              <span className="discount">{slide.discount}% OFF</span>
+                              <span className={styles.discount}>{slide.discount}% OFF</span>
                             )}
                           </>
                         )}
                       </div>
                     )}
-                    <button className="cta-button">{slide.buttonText}</button>
+                    <button className={styles.ctaButton}>{slide.buttonText}</button>
                   </div>
                   
-                  <div className="slide-image">
+                  <div className={styles.slideImage}>
                     <img src={slide.productImage || slide.image} alt={slide.title} />
                   </div>
                 </div>

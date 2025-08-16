@@ -17,7 +17,6 @@ import {
   Truck
 } from 'lucide-react';
 import { adminApi } from '../services/adminApi';
-import '../components/AdminLayout.css';
 
 const OrdersManagement = () => {
   const [orders, setOrders] = useState([]);

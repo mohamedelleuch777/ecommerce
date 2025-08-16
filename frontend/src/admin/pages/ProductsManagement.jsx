@@ -17,7 +17,6 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { adminApi } from '../services/adminApi';
-import '../components/AdminLayout.css';
 
 const ProductsManagement = () => {
   const [products, setProducts] = useState([]);

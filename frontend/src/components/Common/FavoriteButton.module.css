@@ -1,4 +1,4 @@
-.favorite-button {
+.favoriteButton {
   background: rgba(255, 255, 255, 0.9);
   border: none;
   border-radius: 50%;
@@ -17,36 +17,36 @@
   font-size: 0;
 }
 
-.favorite-button:hover {
+.favoriteButton:hover {
   background: rgba(255, 255, 255, 1);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   color: #e53e3e;
 }
 
-.favorite-button.active {
+.favoriteButton.active {
   color: #e53e3e;
   background: rgba(229, 62, 62, 0.1);
 }
 
-.favorite-button.active:hover {
+.favoriteButton.active:hover {
   background: rgba(229, 62, 62, 0.15);
   color: #c53030;
 }
 
-.favorite-button.animating {
+.favoriteButton.animating {
   animation: favoriteAnimation 0.3s ease-in-out;
 }
 
-.favorite-button .heart-icon {
+.favoriteButton .heartIcon {
   transition: all 0.2s ease;
 }
 
-.favorite-button:hover .heart-icon {
+.favoriteButton:hover .heartIcon {
   transform: scale(1.1);
 }
 
-.favorite-button.animating .heart-icon {
+.favoriteButton.animating .heartIcon {
   animation: heartBeat 0.3s ease-in-out;
 }
 
@@ -65,47 +65,47 @@
 }
 
 /* Variant for small sizes */
-.favorite-button.small {
+.favoriteButton.small {
   width: 32px;
   height: 32px;
 }
 
 /* Variant for large sizes */
-.favorite-button.large {
+.favoriteButton.large {
   width: 44px;
   height: 44px;
   font-size: 10px;
 }
 
 /* Variant for transparent background */
-.favorite-button.transparent {
+.favoriteButton.transparent {
   background: rgba(0, 0, 0, 0.3);
   color: white;
 }
 
-.favorite-button.transparent:hover {
+.favoriteButton.transparent:hover {
   background: rgba(0, 0, 0, 0.5);
   color: #ff6b6b;
 }
 
-.favorite-button.transparent.active {
+.favoriteButton.transparent.active {
   background: rgba(229, 62, 62, 0.3);
   color: #ff6b6b;
 }
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-  .favorite-button {
+  .favoriteButton {
     width: 34px;
     height: 34px;
   }
   
-  .favorite-button.small {
+  .favoriteButton.small {
     width: 30px;
     height: 30px;
   }
   
-  .favorite-button.large {
+  .favoriteButton.large {
     width: 40px;
     height: 40px;
   }
