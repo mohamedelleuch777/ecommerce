@@ -1,0 +1,273 @@
+/* OrderSummary.module.css */
+.orderSummary {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+}
+
+.orderSummary h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.75rem;
+}
+
+/* Cart Items */
+.cartItems {
+  margin-bottom: 1.5rem;
+}
+
+.cartItem {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cartItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.cartItem:first-child {
+  padding-top: 0;
+}
+
+.itemImage {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.itemImage img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.quantity {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #2563eb;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+}
+
+.itemDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemDetails h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.variants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.variant {
+  background-color: #f1f5f9;
+  color: #64748b;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.itemPrice {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.itemTotal {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.emptyCart {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #64748b;
+}
+
+/* Edit Cart */
+.editCart {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.editLink {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.15s ease-in-out;
+}
+
+.editLink:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+/* Price Breakdown */
+.priceBreakdown {
+  margin-bottom: 1.5rem;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.priceRow:first-child {
+  padding-top: 0;
+}
+
+.freeShipping {
+  color: #059669;
+  font-weight: 600;
+}
+
+.divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 0.75rem 0;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0 0 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.totalAmount {
+  font-size: 1.25rem;
+  color: #059669;
+}
+
+/* Shipping Info */
+.shippingInfo {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1.5rem;
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.infoItem:last-child {
+  margin-bottom: 0;
+}
+
+.infoIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.infoTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+}
+
+.infoSubtitle {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .orderSummary {
+    padding: 1rem;
+  }
+
+  .cartItem {
+    gap: 0.75rem;
+  }
+
+  .itemImage img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .quantity {
+    font-size: 0.625rem;
+    padding: 1px 4px;
+    min-width: 16px;
+  }
+
+  .itemDetails h4 {
+    font-size: 0.8rem;
+  }
+
+  .variant {
+    font-size: 0.625rem;
+  }
+
+  .itemPrice {
+    font-size: 0.6875rem;
+  }
+
+  .itemTotal {
+    font-size: 0.8rem;
+  }
+
+  .priceRow {
+    font-size: 0.8rem;
+  }
+
+  .totalRow {
+    font-size: 0.9rem;
+  }
+
+  .totalAmount {
+    font-size: 1.125rem;
+  }
+
+  .infoTitle {
+    font-size: 0.8rem;
+  }
+
+  .infoSubtitle {
+    font-size: 0.6875rem;
+  }
+}

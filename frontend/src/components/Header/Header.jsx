@@ -4,10 +4,13 @@ import { Search, ShoppingCart, User, MapPin, Phone, Heart, TrendingUp, Clock, Gl
 import { useLanguage } from '../../hooks/useLanguage';
 import { useAuth } from '../../hooks/useAuth';
 import { useFavorites } from '../../hooks/useFavorites';
+import { useCart } from '../../hooks/useCart';
 import { getTranslation } from '../../utils/translations';
 import { getStandardizedCategorySlug } from '../../utils/slugs';
 import ApiService from '../../services/api';
 import LoginModal from '../Auth/LoginModal';
+import CartIcon from '../Cart/CartIcon';
+import CartSidebar from '../Cart/CartSidebar';
 import styles from './Header.module.css';
 import logo from '../../assets/logo-text.png';
 
@@ -15,11 +18,13 @@ const Header = () => {
   const { language, changeLanguage, t } = useLanguage();
   const { user, logout, isAuthenticated } = useAuth();
   const { favoritesCount } = useFavorites();
+  const { cartCount } = useCart();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [isCartSidebarOpen, setIsCartSidebarOpen] = useState(false);
   const [recentSearches, setRecentSearches] = useState([]);
   const [trendingSearches, setTrendingSearches] = useState([]);
   const [searchResults, setSearchResults] = useState({ products: [], categories: [] });
@@ -47,6 +52,10 @@ const Header = () => {
     navigate('/');
   };
 
+  const handleCartClick = () => {
+    setIsCartSidebarOpen(true);
+  };
+
   const handleInputBlur = () => {
     setTimeout(() => setIsSearchOpen(false), 200);
   };
@@ -68,29 +77,48 @@ const Header = () => {
   };
 
   const handleSuggestionClick = (suggestion) => {
-    setSearchTerm(suggestion);
+    setSearchTerm(suggestion.suggestion || suggestion);
     setIsSearchOpen(false);
-    // Trigger search with the selected suggestion
-    handleSearchSubmit({ preventDefault: () => {} });
+    // Navigate to search results immediately
+    const searchQuery = suggestion.suggestion || suggestion;
+    navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
   };
 
-  // Debounced search function
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearchSubmit(e);
+    } else if (e.key === 'Escape') {
+      setIsSearchOpen(false);
+      setSearchTerm('');
+    }
+  };
+
+  // Enhanced debounced search function with suggestions
   const performSearch = async (query) => {
     if (!query.trim() || query.length < 2) {
       setSearchResults({ products: [], categories: [] });
+      setSearchSuggestions([]);
       return;
     }
 
     setIsSearching(true);
     try {
-      const results = await ApiService.search(query, 6);
+      // Fetch both search results and suggestions in parallel
+      const [results, suggestions] = await Promise.all([
+        ApiService.search(query, 6),
+        ApiService.getSearchSuggestions(query)
+      ]);
+      
       setSearchResults({
         products: results.products || [],
         categories: results.categories || []
       });
+      
+      setSearchSuggestions(suggestions.suggestions || []);
     } catch (error) {
       console.error('Search error:', error);
       setSearchResults({ products: [], categories: [] });
+      setSearchSuggestions([]);
     } finally {
       setIsSearching(false);
     }
@@ -227,7 +255,9 @@ const Header = () => {
                   onChange={handleSearchChange}
                   onFocus={handleInputFocus}
                   onBlur={handleInputBlur}
+                  onKeyDown={handleKeyDown}
                   className={styles.searchInput}
+                  autoComplete="off"
                 />
                 <button type="submit" className={styles.searchButton}>
                   <Search size={20} />
@@ -261,6 +291,26 @@ const Header = () => {
                             <span className={styles.productPrice}>{product.price}</span>
                           </div>
                         </Link>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Search Suggestions */}
+                  {searchTerm && searchSuggestions.length > 0 && (
+                    <div className={styles.dropdownSection}>
+                      <h4><Search size={16} /> Suggestions</h4>
+                      {searchSuggestions.slice(0, 5).map((suggestion, index) => (
+                        <div
+                          key={index}
+                          className={styles.dropdownItem}
+                          onClick={() => handleSuggestionClick(suggestion)}
+                        >
+                          <Search size={16} />
+                          <span>{suggestion.suggestion}</span>
+                          <span className={styles.suggestionType}>
+                            {suggestion.type === 'product' ? 'Product' : 'Category'}
+                          </span>
+                        </div>
                       ))}
                     </div>
                   )}
@@ -375,11 +425,7 @@ const Header = () => {
                 )}
               </div>
               
-              <div className={`${styles.actionItem} ${styles.cart}`}>
-                <ShoppingCart size={24} />
-                <span>{t('cart') || 'Cart'}</span>
-                <span className={styles.cartCount}>0</span>
-              </div>
+              <CartIcon onClick={handleCartClick} className={styles.actionItem} />
             </div>
           </div>
         </div>
@@ -405,6 +451,11 @@ const Header = () => {
       <LoginModal 
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
+      />
+      
+      <CartSidebar 
+        isOpen={isCartSidebarOpen}
+        onClose={() => setIsCartSidebarOpen(false)}
       />
     </header>
   );

@@ -228,7 +228,67 @@ export const LanguageProvider = ({ children, user }) => {
     productPageTitle: { en: 'Product', fr: 'Produit' },
     profilePageTitle: { en: 'My Profile', fr: 'Mon Profil' },
     ordersPageTitle: { en: 'My Orders', fr: 'Mes Commandes' },
-    favoritesPageTitle: { en: 'My Favorites', fr: 'Mes Favoris' }
+    favoritesPageTitle: { en: 'My Favorites', fr: 'Mes Favoris' },
+    cartPageTitle: { en: 'Shopping Cart', fr: 'Panier d\'Achat' },
+
+    // Cart functionality
+    cart: { en: 'Cart', fr: 'Panier' },
+    shoppingCart: { en: 'Shopping Cart', fr: 'Panier d\'Achat' },
+    cartEmpty: { en: 'Your cart is empty', fr: 'Votre panier est vide' },
+    cartEmptyDescription: { en: 'Add some items to get started!', fr: 'Ajoutez des articles pour commencer !' },
+    addToCart: { en: 'Add to Cart', fr: 'Ajouter au panier' },
+    addedToCart: { en: 'Added to Cart!', fr: 'Ajouté au panier !' },
+    adding: { en: 'Adding...', fr: 'Ajout en cours...' },
+    removeFromCart: { en: 'Remove from cart', fr: 'Retirer du panier' },
+    updateCart: { en: 'Update cart', fr: 'Mettre à jour le panier' },
+    clearCart: { en: 'Clear Cart', fr: 'Vider le panier' },
+    confirmClearCart: { en: 'Are you sure you want to clear your cart?', fr: 'Êtes-vous sûr de vouloir vider votre panier ?' },
+    clearing: { en: 'Clearing...', fr: 'Suppression...' },
+    viewCart: { en: 'View Cart', fr: 'Voir le panier' },
+    closeCart: { en: 'Close cart', fr: 'Fermer le panier' },
+    continueShopping: { en: 'Continue Shopping', fr: 'Continuer les achats' },
+    
+    // Quantity controls
+    increaseQuantity: { en: 'Increase quantity', fr: 'Augmenter la quantité' },
+    decreaseQuantity: { en: 'Decrease quantity', fr: 'Diminuer la quantité' },
+    
+    // Order summary
+    orderSummary: { en: 'Order Summary', fr: 'Résumé de commande' },
+    subtotal: { en: 'Subtotal', fr: 'Sous-total' },
+    tax: { en: 'Tax', fr: 'Taxes' },
+    shipping: { en: 'Shipping', fr: 'Livraison' },
+    total: { en: 'Total', fr: 'Total' },
+    discount: { en: 'Discount', fr: 'Remise' },
+    free: { en: 'Free', fr: 'Gratuit' },
+    
+    // Checkout
+    checkout: { en: 'Checkout', fr: 'Commander' },
+    proceedToCheckout: { en: 'Proceed to Checkout', fr: 'Procéder au paiement' },
+    secureCheckout: { en: 'Secure Checkout', fr: 'Paiement sécurisé' },
+    
+    // Promo codes
+    promoCode: { en: 'Promo Code', fr: 'Code promo' },
+    promoCodePlaceholder: { en: 'Enter promo code', fr: 'Entrez le code promo' },
+    apply: { en: 'Apply', fr: 'Appliquer' },
+    promoApplied: { en: 'Promo code applied!', fr: 'Code promo appliqué !' },
+    
+    // Shipping notices
+    freeShippingOver50: { en: 'Free shipping over $50', fr: 'Livraison gratuite à partir de 50 $' },
+    freeShippingNotice: { en: 'Add ${{amount}} more for free shipping!', fr: 'Ajoutez {{amount}} $ de plus pour la livraison gratuite !' },
+    easyReturns: { en: 'Easy returns', fr: 'Retours faciles' },
+    
+    // Product recommendations
+    youMightAlsoLike: { en: 'You might also like', fr: 'Vous pourriez aussi aimer' },
+    recommendationsComingSoon: { en: 'Product recommendations coming soon...', fr: 'Recommandations de produits à venir...' },
+    
+    // Cart items
+    item: { en: 'item', fr: 'article' },
+    items: { en: 'items', fr: 'articles' },
+    inCart: { en: 'In Cart', fr: 'Dans le panier' },
+    
+    // Additional product actions
+    favorites: { en: 'Favorites', fr: 'Favoris' },
+    wishlist: { en: 'Wishlist', fr: 'Liste de souhaits' }
   };
 
   const t = (key) => {

@@ -382,6 +382,7 @@
   font-size: 11px;
   color: #28a745;
   font-weight: 500;
+  min-height: 53px;
 }
 
 .addToCartBtn {

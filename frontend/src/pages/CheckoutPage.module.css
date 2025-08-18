@@ -1,0 +1,285 @@
+/* CheckoutPage.module.css */
+.checkoutPage {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  padding: 2rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.checkoutPage h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.error {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.checkoutContent {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 968px) {
+  .checkoutContent {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Step Indicator */
+.stepIndicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  position: relative;
+}
+
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  right: -50%;
+  width: 100%;
+  height: 2px;
+  background-color: #e2e8f0;
+  z-index: 0;
+}
+
+.step.completed:not(:last-child)::after {
+  background-color: #10b981;
+}
+
+.step span:first-child {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #e2e8f0;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.step.active span:first-child {
+  background-color: #2563eb;
+  color: white;
+}
+
+.step.completed span:first-child {
+  background-color: #10b981;
+  color: white;
+}
+
+.step span:last-child {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.step.active span:last-child {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* Forms */
+.checkoutForms {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.stepContent {
+  margin-top: 1.5rem;
+}
+
+.addressForm h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.formRow:has(.formGroup:only-child) {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.formGroup input {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.formGroup input:required:invalid {
+  border-color: #dc2626;
+}
+
+.checkboxGroup {
+  margin: 1.5rem 0;
+}
+
+.checkboxGroup label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #374151;
+  cursor: pointer;
+}
+
+.checkboxGroup input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+/* Step Actions */
+.stepActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.backButton {
+  background-color: #f8fafc;
+  color: #64748b;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.backButton:hover {
+  background-color: #e2e8f0;
+  color: #475569;
+}
+
+.nextButton {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+  min-width: 140px;
+}
+
+.nextButton:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.nextButton:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Order Summary in Checkout */
+.orderSummary {
+  position: sticky;
+  top: 2rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .checkoutPage {
+    padding: 1rem 0;
+  }
+
+  .container {
+    padding: 0 0.5rem;
+  }
+
+  .checkoutPage h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .checkoutForms {
+    padding: 1.5rem;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .stepIndicator {
+    padding: 0;
+  }
+
+  .step span:last-child {
+    font-size: 0.75rem;
+  }
+
+  .stepActions {
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+
+  .backButton,
+  .nextButton {
+    width: 100%;
+    justify-content: center;
+  }
+}

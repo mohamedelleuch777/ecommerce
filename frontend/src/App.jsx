@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { LanguageProvider } from './contexts/LanguageProvider';
 import { AuthProvider } from './contexts/AuthProvider';
 import { FavoritesProvider } from './contexts/FavoritesProvider';
+import { CartProvider } from './contexts/CartProvider';
 import { useAuth } from './hooks/useAuth';
 import Header from './components/Header/Header'
 import Footer from './components/Layout/Footer'
@@ -12,7 +13,11 @@ import CategoryPage from './pages/CategoryPage'
 import ProfilePage from './pages/ProfilePage'
 import OrdersPage from './pages/OrdersPage'
 import FavoritesPage from './pages/FavoritesPage'
+import CartPage from './pages/CartPage'
+import CheckoutPage from './pages/CheckoutPage'
+import OrderConfirmationPage from './pages/OrderConfirmationPage'
 import SearchResultsPage from './pages/SearchResultsPage'
+import AdvancedSearchPage from './pages/AdvancedSearchPage'
 import AdminLayout from './admin/components/AdminLayout'
 import AdminDashboard from './admin/pages/AdminDashboard'
 import HeroManagement from './admin/pages/HeroManagement'
@@ -27,7 +32,17 @@ import './App.css'
 
 function AppContent() {
   const { user, loading } = useAuth();
-  
+
+
+  useEffect(() => {
+    if (import.meta.env.DEV) { // باش يخدم كان في development
+      import("eruda").then(eruda => {
+        eruda.init();
+      });
+    }
+  }, []);
+
+
   // Show global loader while auth state is being determined
   if (loading) {
     return <GlobalLoader />;
@@ -36,9 +51,10 @@ function AppContent() {
   return (
     <LanguageProvider user={user}>
       <FavoritesProvider>
-        <Router>
-          <ScrollToTop />
-          <Routes>
+        <CartProvider>
+          <Router>
+            <ScrollToTop />
+            <Routes>
             {/* Admin Routes */}
             <Route path="/admin/*" element={
               user?.role === 'admin' || user?.role === 'superadmin' ? (
@@ -67,18 +83,23 @@ function AppContent() {
                   <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/search" element={<SearchResultsPage />} />
+                    <Route path="/advanced-search" element={<AdvancedSearchPage />} />
                     <Route path="/category/:category" element={<CategoryPage />} />
                     <Route path="/product/:id" element={<ProductDetailPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/orders" element={<OrdersPage />} />
                     <Route path="/favorites" element={<FavoritesPage />} />
+                    <Route path="/cart" element={<CartPage />} />
+                    <Route path="/checkout" element={<CheckoutPage />} />
+                    <Route path="/order-confirmation/:orderId" element={<OrderConfirmationPage />} />
                   </Routes>
                 </main>
                 <Footer />
               </div>
             } />
           </Routes>
-        </Router>
+          </Router>
+        </CartProvider>
       </FavoritesProvider>
     </LanguageProvider>
   );

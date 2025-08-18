@@ -4,6 +4,7 @@ import { Star, Heart, ShoppingCart, Truck, Shield, RotateCcw, ChevronLeft, Chevr
 import { useLanguage } from '../hooks/useLanguage';
 import { getTranslation } from '../utils/translations';
 import FavoriteButton from '../components/Common/FavoriteButton';
+import AddToCartButton from '../components/Cart/AddToCartButton';
 import ApiService from '../services/api';
 import usePageTitle from '../hooks/usePageTitle';
 import styles from './ProductDetailPage.module.css';
@@ -28,6 +29,13 @@ const ProductDetailPage = () => {
       try {
         const data = await ApiService.getProductById(id, language);
         setProduct(data);
+        
+        // Track product view for recommendations
+        try {
+          await ApiService.trackProductView(id, data.category);
+        } catch (trackError) {
+          console.error('Failed to track product view:', trackError);
+        }
       } catch (err) {
         console.error('Failed to fetch product:', err);
         setError(err);
@@ -285,13 +293,21 @@ const ProductDetailPage = () => {
                 </div>
               </div>
 
-              <button 
-                className={`${styles.addToCartBtn} ${styles.primary} ${!product.inStock ? styles.disabled : ''}`}
-                disabled={!product.inStock}
-              >
-                <ShoppingCart size={20} />
-                {product.inStock ? getTranslation('addToCart', language) : getTranslation('outOfStock', language)}
-              </button>
+              <AddToCartButton 
+                product={product}
+                size="large"
+                variant="primary"
+                showQuantityControls={false}
+                className={styles.addToCartBtn}
+                onSuccess={(product, quantity) => {
+                  console.log(`Added ${quantity} of ${product.name} to cart`);
+                  // You could show a toast notification here
+                }}
+                onError={(error) => {
+                  console.error('Failed to add to cart:', error);
+                  // You could show an error notification here
+                }}
+              />
             </div>
 
             <div className={styles.stockStatus}>

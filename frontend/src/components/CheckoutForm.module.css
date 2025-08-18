@@ -1,0 +1,218 @@
+/* CheckoutForm.module.css */
+.checkoutForm {
+  margin-top: 1.5rem;
+}
+
+.checkoutForm h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+/* Security Badges */
+.securityBadges {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #f0f9ff;
+  border-radius: 8px;
+  border: 1px solid #bae6fd;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #0369a1;
+  font-weight: 500;
+}
+
+.badgeIcon {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .securityBadges {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+/* Payment Form */
+.paymentForm {
+  margin-bottom: 1.5rem;
+}
+
+#payment-element {
+  margin-bottom: 1.5rem;
+}
+
+.paymentMessage {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+}
+
+/* Payment Actions */
+.paymentActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.backButton {
+  background-color: #f8fafc;
+  color: #64748b;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.backButton:hover:not(:disabled) {
+  background-color: #e2e8f0;
+  color: #475569;
+}
+
+.submitButton {
+  background-color: #059669;
+  color: white;
+  border: none;
+  padding: 0.875rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  position: relative;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #047857;
+}
+
+.submitButton:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.spinner {
+  border: 2px solid transparent;
+  border-top: 2px solid #ffffff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Payment Info */
+.paymentInfo {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.infoText {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.acceptedCards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.acceptedCards > span {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.cardLogos {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cardLogo {
+  font-size: 0.75rem;
+  color: #6b7280;
+  padding: 0.5rem;
+  background-color: #f9fafb;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .paymentActions {
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+
+  .backButton,
+  .submitButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cardLogos {
+    gap: 0.5rem;
+  }
+
+  .cardLogo {
+    font-size: 0.625rem;
+    padding: 0.375rem;
+  }
+}
+
+/* Stripe Elements Customization */
+.StripeElement {
+  box-sizing: border-box;
+  height: 40px;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.StripeElement--invalid {
+  border-color: #dc2626;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefefe !important;
+}
