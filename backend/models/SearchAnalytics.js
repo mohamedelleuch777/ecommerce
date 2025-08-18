@@ -31,6 +31,16 @@ const searchAnalyticsSchema = new mongoose.Schema({
     },
     id: mongoose.Schema.Types.ObjectId,
     name: String
+  },
+  filters: {
+    category: String,
+    priceRange: String,
+    minRating: Number,
+    inStock: Boolean
+  },
+  metadata: {
+    type: Map,
+    of: mongoose.Schema.Types.Mixed
   }
 }, {
   timestamps: true

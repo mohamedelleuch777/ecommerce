@@ -1,0 +1,356 @@
+.cartItem {
+  position: relative;
+  background: white;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-color, #e5e5e5);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.cartItem:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-color, #007bff);
+}
+
+.horizontal {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.removingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productImage {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.horizontal .productImage {
+  width: 120px;
+  height: 120px;
+}
+
+.vertical .productImage {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 1rem;
+}
+
+.productImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.productImage:hover img {
+  transform: scale(1.02);
+}
+
+.discountBadge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: var(--danger-color, #dc3545);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.productInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.productDetails {
+  flex: 1;
+}
+
+.productName {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-primary, #1a1a1a);
+  text-decoration: none;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+  display: block;
+  transition: color 0.2s ease;
+}
+
+.productName:hover {
+  color: var(--primary-color, #007bff);
+}
+
+.productMeta {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.category {
+  color: var(--text-secondary, #666);
+  background: var(--bg-secondary, #f8f9fa);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.stockStatus {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  font-size: 0.8125rem;
+}
+
+.inStock {
+  background: var(--success-bg, #d4edda);
+  color: var(--success-color, #155724);
+}
+
+.outOfStock {
+  background: var(--danger-bg, #f8d7da);
+  color: var(--danger-color, #721c24);
+}
+
+.priceSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+
+.vertical .priceSection {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.currentPrice {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--primary-color, #007bff);
+}
+
+.originalPrice {
+  font-size: 0.875rem;
+  color: var(--text-secondary, #666);
+  text-decoration: line-through;
+}
+
+.itemTotal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.vertical .itemTotal {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.itemTotalLabel {
+  font-size: 0.8125rem;
+  color: var(--text-secondary, #666);
+  margin-bottom: 0.125rem;
+}
+
+.itemTotalPrice {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.vertical .actions {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+
+.quantityControls {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-color, #e5e5e5);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: white;
+  width: fit-content;
+}
+
+.quantityButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--bg-secondary, #f8f9fa);
+  color: var(--text-primary, #1a1a1a);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  font-size: 0;
+  border-radius: 0;
+}
+
+.quantityButton:hover:not(:disabled) {
+  background: var(--primary-color, #007bff);
+  color: white;
+}
+
+.quantityButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quantityDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  height: 40px;
+  padding: 0 0.75rem;
+  font-weight: 600;
+  background: white;
+  border-left: 1px solid var(--border-color, #e5e5e5);
+  border-right: 1px solid var(--border-color, #e5e5e5);
+  font-size: 1rem;
+}
+
+.removeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--danger-color, #dc3545);
+  background: white;
+  color: var(--danger-color, #dc3545);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  font-size: 0;
+}
+
+.removeButton:hover:not(:disabled) {
+  background: var(--danger-color, #dc3545);
+  color: white;
+}
+
+.removeButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .horizontal {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+  
+  .horizontal .productImage {
+    width: 100%;
+    height: 150px;
+    align-self: center;
+    max-width: 200px;
+  }
+  
+  .priceSection {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .quantityControls {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .cartItem {
+    padding: 0.5rem;
+  }
+  
+  .productName {
+    font-size: 0.9375rem;
+  }
+  
+  .currentPrice {
+    font-size: 1rem;
+  }
+  
+  .quantityButton {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .quantityDisplay {
+    min-width: 50px;
+    height: 36px;
+    padding: 0 0.5rem;
+    font-size: 0.9375rem;
+  }
+  
+  .removeButton {
+    width: 32px;
+    height: 32px;
+  }
+}

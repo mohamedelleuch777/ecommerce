@@ -10,6 +10,7 @@ import styles from './FeaturedProducts.module.css';
 import { useLanguage } from '../../hooks/useLanguage';
 import { getTranslation } from '../../utils/translations';
 import FavoriteButton from '../Common/FavoriteButton';
+import AddToCartButton from '../Cart/AddToCartButton';
 import ApiService from '../../services/api';
 
 const FeaturedProducts = () => {
@@ -204,13 +205,12 @@ const FeaturedProducts = () => {
                       </div>
                     </div>
 
-                    <button 
-                      className={`${styles.addToCartBtn} ${!product.inStock ? styles.disabled : ''}`}
-                      disabled={!product.inStock}
-                    >
-                      <ShoppingCart size={18} />
-                      {product.inStock ? getTranslation('addToCart', language) : getTranslation('outOfStock', language)}
-                    </button>
+                    <AddToCartButton 
+                      product={product}
+                      size="small"
+                      variant="primary"
+                      className={styles.addToCartBtn}
+                    />
                   </div>
                 </div>
               </SwiperSlide>

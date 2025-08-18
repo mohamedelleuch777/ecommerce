@@ -20,60 +20,63 @@ const SearchResultsPage = () => {
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState('relevance');
   const [filterCategory, setFilterCategory] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [showPagination, setShowPagination] = useState(false);
 
   useEffect(() => {
     if (query) {
       performSearch(query);
     }
-  }, [query, sortBy, filterCategory]);
+  }, [query, sortBy, filterCategory, currentPage]);
 
   const performSearch = async (searchQuery) => {
     setLoading(true);
     try {
-      const results = await ApiService.search(searchQuery, 50); // Get more results for full page
-      let filteredProducts = results.products || [];
+      // Use advanced search API for better results
+      const searchParams = {
+        q: searchQuery,
+        page: currentPage,
+        limit: 20,
+        category: filterCategory !== 'all' ? filterCategory : undefined,
+        sortBy: sortBy
+      };
 
-      // Apply category filter
-      if (filterCategory !== 'all') {
-        filteredProducts = filteredProducts.filter(product => 
-          product.category.toLowerCase() === filterCategory.toLowerCase()
-        );
-      }
-
-      // Apply sorting
-      filteredProducts = sortProducts(filteredProducts, sortBy);
-
+      const results = await ApiService.advancedSearch(searchParams);
+      
       setSearchResults({
-        products: filteredProducts,
+        products: results.products || [],
         categories: results.categories || [],
-        total: filteredProducts.length + (results.categories?.length || 0)
+        total: results.productCount || 0,
+        totalPages: results.totalPages || 0
       });
+
+      setShowPagination(results.totalPages > 1);
     } catch (error) {
       console.error('Search failed:', error);
-      setSearchResults({ products: [], categories: [], total: 0 });
+      setSearchResults({ products: [], categories: [], total: 0, totalPages: 0 });
+      setShowPagination(false);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const sortProducts = (products, sortType) => {
-    switch (sortType) {
-      case 'price-low':
-        return [...products].sort((a, b) => parseFloat(a.price.replace('$', '').replace(',', '')) - parseFloat(b.price.replace('$', '').replace(',', '')));
-      case 'price-high':
-        return [...products].sort((a, b) => parseFloat(b.price.replace('$', '').replace(',', '')) - parseFloat(a.price.replace('$', '').replace(',', '')));
-      case 'rating':
-        return [...products].sort((a, b) => b.rating - a.rating);
-      case 'newest':
-        return [...products].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-      default: // relevance
-        return products;
     }
   };
 
   const getUniqueCategories = () => {
     const categories = [...new Set(searchResults.products.map(product => product.category))];
     return categories;
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleFilterChange = (filterType, value) => {
+    if (filterType === 'category') {
+      setFilterCategory(value);
+    } else if (filterType === 'sort') {
+      setSortBy(value);
+    }
+    setCurrentPage(1); // Reset to first page when filters change
   };
 
   if (loading) {
@@ -111,6 +114,15 @@ const SearchResultsPage = () => {
             <p className={styles.resultsCount}>
               {searchResults.total} {searchResults.total === 1 ? 'result' : 'results'} found
             </p>
+          </div>
+          <div className={styles.searchActions}>
+            <Link 
+              to={`/advanced-search?q=${encodeURIComponent(query)}`}
+              className={styles.advancedSearchLink}
+            >
+              <Filter size={16} />
+              {getTranslation('advancedSearch', language)}
+            </Link>
           </div>
         </div>
 
@@ -162,7 +174,7 @@ const SearchResultsPage = () => {
                       <Filter size={16} />
                       <select 
                         value={filterCategory} 
-                        onChange={(e) => setFilterCategory(e.target.value)}
+                        onChange={(e) => handleFilterChange('category', e.target.value)}
                         className={styles.filterSelect}
                       >
                         <option value="all">All Categories</option>
@@ -177,14 +189,16 @@ const SearchResultsPage = () => {
                       <label>Sort by:</label>
                       <select 
                         value={sortBy} 
-                        onChange={(e) => setSortBy(e.target.value)}
+                        onChange={(e) => handleFilterChange('sort', e.target.value)}
                         className={styles.sortSelect}
                       >
-                        <option value="relevance">Relevance</option>
-                        <option value="price-low">Price: Low to High</option>
-                        <option value="price-high">Price: High to Low</option>
-                        <option value="rating">Highest Rated</option>
-                        <option value="newest">Newest First</option>
+                        <option value="relevance">{getTranslation('relevance', language)}</option>
+                        <option value="price-low">{getTranslation('priceLowToHigh', language)}</option>
+                        <option value="price-high">{getTranslation('priceHighToLow', language)}</option>
+                        <option value="rating">{getTranslation('highestRated', language)}</option>
+                        <option value="reviews">{getTranslation('mostReviewed', language)}</option>
+                        <option value="newest">{getTranslation('newest', language)}</option>
+                        <option value="popularity">{getTranslation('popularity', language)}</option>
                       </select>
                     </div>
                   </div>
@@ -257,6 +271,40 @@ const SearchResultsPage = () => {
                     </div>
                   ))}
                 </div>
+
+                {/* Pagination */}
+                {showPagination && (
+                  <div className={styles.pagination}>
+                    <button
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className={styles.pageButton}
+                    >
+                      Previous
+                    </button>
+                    
+                    {[...Array(Math.min(5, searchResults.totalPages))].map((_, i) => {
+                      const page = i + 1;
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => handlePageChange(page)}
+                          className={`${styles.pageButton} ${page === currentPage ? styles.active : ''}`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    })}
+                    
+                    <button
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === searchResults.totalPages}
+                      className={styles.pageButton}
+                    >
+                      Next
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </>

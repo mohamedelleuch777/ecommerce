@@ -99,6 +99,11 @@ class ApiService {
     return this.fetchData('/search', { q: query, limit });
   }
 
+  // Advanced search with filters
+  async advancedSearch(params) {
+    return this.fetchData('/search', params);
+  }
+
   // Search suggestions
   async getSearchSuggestions(query) {
     return this.fetchData('/suggestions', { q: query });
@@ -112,6 +117,17 @@ class ApiService {
   // Recent searches
   async getRecentSearches() {
     return this.fetchData('/recent');
+  }
+
+  // Product recommendations
+  async getRecommendations(productId = null, limit = 6) {
+    const endpoint = productId ? `/recommendations/${productId}` : '/recommendations';
+    return this.fetchData(endpoint, { limit });
+  }
+
+  // Track product view
+  async trackProductView(productId, category) {
+    return this.postData('/track-view', { productId, category });
   }
 }
 

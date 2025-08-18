@@ -78,11 +78,31 @@ const orderSchema = new mongoose.Schema({
     },
     status: {
       type: String,
-      enum: ['pending', 'completed', 'failed', 'refunded'],
+      enum: ['pending', 'completed', 'failed', 'refunded', 'partially_refunded'],
       default: 'pending'
     },
     transactionId: String,
-    paidAt: Date
+    paidAt: Date,
+    refunds: [{
+      refundId: String,
+      amount: Number,
+      reason: String,
+      processedAt: {
+        type: Date,
+        default: Date.now
+      }
+    }],
+    paymentIntentId: String,
+    lastFour: String,
+    cardBrand: String,
+    currency: {
+      type: String,
+      default: 'usd'
+    },
+    fees: {
+      stripe: Number,
+      processing: Number
+    }
   },
   pricing: {
     subtotal: {
@@ -177,6 +197,57 @@ orderSchema.methods.calculateTotals = function() {
 // Get current status with timestamp
 orderSchema.virtual('currentStatus').get(function() {
   return this.timeline[this.timeline.length - 1] || { status: this.status, timestamp: this.createdAt };
+});
+
+// Calculate total refunded amount
+orderSchema.virtual('totalRefunded').get(function() {
+  return this.payment.refunds.reduce((total, refund) => total + refund.amount, 0);
+});
+
+// Check if order can be refunded
+orderSchema.methods.canBeRefunded = function() {
+  return this.payment.status === 'completed' && 
+         this.status !== 'cancelled' &&
+         this.totalRefunded < this.pricing.total;
+};
+
+// Add refund to order
+orderSchema.methods.addRefund = function(refundId, amount, reason) {
+  this.payment.refunds.push({
+    refundId,
+    amount,
+    reason,
+    processedAt: new Date()
+  });
+  
+  const totalRefunded = this.totalRefunded;
+  if (totalRefunded >= this.pricing.total) {
+    this.payment.status = 'refunded';
+    this.addStatusUpdate('refunded', 'Full refund processed');
+  } else {
+    this.payment.status = 'partially_refunded';
+    this.addStatusUpdate('partially_refunded', `Partial refund of $${amount} processed`);
+  }
+};
+
+// Get refund history
+orderSchema.methods.getRefundHistory = function() {
+  return this.payment.refunds.map(refund => ({
+    id: refund.refundId,
+    amount: refund.amount,
+    reason: refund.reason,
+    date: refund.processedAt
+  }));
+};
+
+// Check if order is paid
+orderSchema.virtual('isPaid').get(function() {
+  return this.payment.status === 'completed' || this.payment.status === 'refunded' || this.payment.status === 'partially_refunded';
+});
+
+// Get remaining refundable amount
+orderSchema.virtual('refundableAmount').get(function() {
+  return Math.max(0, this.pricing.total - this.totalRefunded);
 });
 
 const Order = mongoose.model('Order', orderSchema);

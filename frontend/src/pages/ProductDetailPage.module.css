@@ -479,33 +479,51 @@
 .quantityControls {
   display: flex;
   align-items: center;
-  border: 2px solid #e9ecef;
+  border: 1px solid var(--border-color, #e5e5e5);
   border-radius: 0.5rem;
   overflow: hidden;
+  background: white;
+  width: fit-content;
 }
 
 .quantityControls button {
-  background: #f8f9fa;
-  border: none;
-  width: 2.5rem;
-  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--bg-secondary, #f8f9fa);
+  color: var(--text-primary, #1a1a1a);
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  font-size: 0;
+  border-radius: 0;
 }
 
-.quantityControls button:hover {
-  background: #e9ecef;
+.quantityControls button:hover:not(:disabled) {
+  background: var(--primary-color, #007bff);
+  color: white;
+}
+
+.quantityControls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .quantityControls span {
-  min-width: 3rem;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  height: 40px;
+  padding: 0 0.75rem;
   font-weight: 600;
-  padding: 0 0.5rem;
-  line-height: 2.5rem;
+  background: white;
+  border-left: 1px solid var(--border-color, #e5e5e5);
+  border-right: 1px solid var(--border-color, #e5e5e5);
+  font-size: 1rem;
 }
 
 .addToCartBtn {
