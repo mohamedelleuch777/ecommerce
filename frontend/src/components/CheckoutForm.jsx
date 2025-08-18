@@ -5,7 +5,7 @@ import {
   useElements
 } from '@stripe/react-stripe-js';
 import { useAuth } from '../hooks/useAuth';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../hooks/useLanguage';
 import styles from './CheckoutForm.module.css';
 
 const CheckoutForm = ({ 

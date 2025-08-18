@@ -8,9 +8,14 @@ import Product from '../models/Product.js';
 const router = express.Router();
 
 // Use test Stripe key for development
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder_key';
 
-console.log('Stripe initialized with key:', stripeSecretKey.substring(0, 12) + '...');
+if (!process.env.STRIPE_SECRET_KEY) {
+  console.warn('⚠️  STRIPE_SECRET_KEY not found in environment variables. Using placeholder.');
+} else {
+  console.log('Stripe initialized with key:', stripeSecretKey.substring(0, 12) + '...');
+}
+
 const stripe = new Stripe(stripeSecretKey);
 
 // POST /api/payment/create-payment-intent - Create payment intent

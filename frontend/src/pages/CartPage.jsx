@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, ShoppingBag, ArrowRight, Trash2, Gift, Truck, Shield, RotateCcw } from 'lucide-react';
 import { useCart } from '../hooks/useCart';
 import { useLanguage } from '../hooks/useLanguage';
-import { usePageTitle } from '../hooks/usePageTitle';
+import usePageTitle from '../hooks/usePageTitle';
 import CartItem from '../components/Cart/CartItem';
 import styles from './CartPage.module.css';
 
