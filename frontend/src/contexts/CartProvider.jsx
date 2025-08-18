@@ -6,7 +6,20 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
   const [previousUser, setPreviousUser] = useState(null);
+  const [sessionId, setSessionId] = useState(null);
   const { user, api, loading: authLoading } = useAuth();
+
+  // Generate or retrieve session ID for guest users
+  useEffect(() => {
+    if (!user && !sessionId) {
+      let guestSessionId = localStorage.getItem('cart-session-id');
+      if (!guestSessionId) {
+        guestSessionId = 'guest-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('cart-session-id', guestSessionId);
+      }
+      setSessionId(guestSessionId);
+    }
+  }, [user, sessionId]);
 
   // Detect user logout and preserve cart
   useEffect(() => {
@@ -20,13 +33,13 @@ export const CartProvider = ({ children }) => {
     setPreviousUser(user);
   }, [user, previousUser, cart]);
 
-  // Load cart from localStorage or API when component mounts or user changes
+  // Load cart from localStorage or API when component mounts or user/session changes
   useEffect(() => {
-    // Don't load cart until auth is initialized
-    if (!authLoading) {
+    // Don't load cart until auth is initialized and we have session ID for guests
+    if (!authLoading && (user || sessionId)) {
       loadCart();
     }
-  }, [user, api, authLoading]);
+  }, [user, api, authLoading, sessionId]);
 
   // Save cart to localStorage whenever cart changes (for guest users and as backup)
   useEffect(() => {
@@ -37,14 +50,21 @@ export const CartProvider = ({ children }) => {
   }, [cart, user]);
 
   const loadCart = async () => {
-    if (user && api) {
-      // Load from API for authenticated users
+    if ((user || sessionId) && api) {
+      // Load from API for authenticated users or guest users with session ID
       try {
         setLoading(true);
-        console.log('Loading cart for user:', user.email, 'API instance available:', !!api);
-        const response = await api.get('/cart');
+        const identifier = user ? `user: ${user.email}` : `guest session: ${sessionId}`;
+        console.log('Loading cart for', identifier, 'API instance available:', !!api);
+        
+        const headers = {};
+        if (!user && sessionId) {
+          headers['x-session-id'] = sessionId;
+        }
+        
+        const response = await api.get('/cart', { headers });
         console.log('Cart loaded successfully:', response.data);
-        const serverCart = response.data.cart || [];
+        const serverCart = response.data.cart?.items || [];
         
         // Also check localStorage for any cart items that might not be synced
         const localCart = loadCartFromLocalStorage(false);
@@ -139,7 +159,7 @@ export const CartProvider = ({ children }) => {
     for (const cartItem of localOnlyItems) {
       try {
         console.log('Syncing local cart item to server:', cartItem.product?.name || 'Unknown product');
-        await api.post('/cart', {
+        await api.post('/cart/add', {
           productId: cartItem.product?._id || cartItem.product?.id || cartItem.productId,
           quantity: cartItem.quantity
         });
@@ -181,13 +201,18 @@ export const CartProvider = ({ children }) => {
     
     setCart(newCart);
 
-    if (user && api) {
-      // Sync with API for authenticated users
+    if ((user || sessionId) && api) {
+      // Sync with API for authenticated users or guest users with session ID
       try {
-        await api.post('/cart', { 
+        const headers = {};
+        if (!user && sessionId) {
+          headers['x-session-id'] = sessionId;
+        }
+        
+        await api.post('/cart/add', { 
           productId: productId,
           quantity: quantity
-        });
+        }, { headers });
       } catch (error) {
         console.error('Failed to add item to cart on server:', error);
         // Revert local change on API failure
@@ -204,10 +229,15 @@ export const CartProvider = ({ children }) => {
     });
     setCart(newCart);
 
-    if (user && api) {
-      // Sync with API for authenticated users
+    if ((user || sessionId) && api) {
+      // Sync with API for authenticated users or guest users with session ID
       try {
-        await api.delete(`/cart/${productId}`);
+        const headers = {};
+        if (!user && sessionId) {
+          headers['x-session-id'] = sessionId;
+        }
+        
+        await api.delete(`/cart/remove/${productId}`, { headers });
       } catch (error) {
         console.error('Failed to remove item from cart on server:', error);
         // Revert local change on API failure
@@ -231,10 +261,15 @@ export const CartProvider = ({ children }) => {
     });
     setCart(newCart);
 
-    if (user && api) {
-      // Sync with API for authenticated users
+    if ((user || sessionId) && api) {
+      // Sync with API for authenticated users or guest users with session ID
       try {
-        await api.patch(`/cart/${productId}`, { quantity: newQuantity });
+        const headers = {};
+        if (!user && sessionId) {
+          headers['x-session-id'] = sessionId;
+        }
+        
+        await api.put(`/cart/update/${productId}`, { quantity: newQuantity }, { headers });
       } catch (error) {
         console.error('Failed to update cart item quantity on server:', error);
         // Revert local change on API failure
@@ -247,9 +282,14 @@ export const CartProvider = ({ children }) => {
   const clearCart = async () => {
     setCart([]);
     
-    if (user && api) {
+    if ((user || sessionId) && api) {
       try {
-        await api.delete('/cart');
+        const headers = {};
+        if (!user && sessionId) {
+          headers['x-session-id'] = sessionId;
+        }
+        
+        await api.delete('/cart/clear', { headers });
       } catch (error) {
         console.error('Failed to clear cart on server:', error);
       }

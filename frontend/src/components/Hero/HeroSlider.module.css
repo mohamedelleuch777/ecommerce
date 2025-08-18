@@ -30,6 +30,7 @@
     justify-content: space-between;
     width: 100%;
     gap: 60px;
+    padding: 0 10vw;
   }
   
   .slideText {
