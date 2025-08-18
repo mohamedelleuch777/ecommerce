@@ -40,7 +40,7 @@ const CartItem = ({ item, showRemoveButton = true, layout = 'horizontal' }) => {
   };
 
   const calculateItemTotal = () => {
-    const price = parseFloat(product.price?.replace('$', '') || '0');
+    const price = Number(product.price) || 0;
     return (price * item.quantity).toFixed(2);
   };
 

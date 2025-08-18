@@ -277,7 +277,7 @@ export const CartProvider = ({ children }) => {
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
   
   const cartTotal = cart.reduce((total, item) => {
-    const price = parseFloat(item.product?.price?.replace('$', '') || '0');
+    const price = Number(item.product?.price) || 0;
     return total + (price * item.quantity);
   }, 0);
 

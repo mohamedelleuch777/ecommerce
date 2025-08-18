@@ -34,13 +34,6 @@ function AppContent() {
   const { user, loading } = useAuth();
 
 
-  useEffect(() => {
-    if (import.meta.env.DEV) { // باش يخدم كان في development
-      import("eruda").then(eruda => {
-        eruda.init();
-      });
-    }
-  }, []);
 
 
   // Show global loader while auth state is being determined
